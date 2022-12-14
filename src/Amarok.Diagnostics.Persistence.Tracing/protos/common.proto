@@ -1,0 +1,57 @@
+﻿// Copyright (c) 2022, Olaf Kober <olaf.kober@outlook.com>
+
+syntax = "proto3";
+
+package amarok.diagnostics.persistence;
+
+option csharp_namespace = "Amarok.Diagnostics.Persistence.Protos";
+
+
+// Represents an arbitrary value.
+message AnyValue {
+	oneof values {
+		bool null = 1;
+		string string = 2;
+		bool bool = 3;
+		sint32 int32 = 4;
+		sint64 int64 = 5;
+		double double = 6;
+		bytes guid = 7;
+		bytes bytes = 8;
+		DateOnlyValue dateOnly = 9;
+		DateTimeValue dateTime = 10;
+		DateTimeOffsetValue dateTimeOffset = 11;
+		int64 timeOnly =12;
+		int64 timeSpan =13;
+		uint32 uint32 = 14;
+		uint64 uint64 = 15;
+		DecimalValue Decimal = 16;
+	}
+}
+
+// Represents a DateOnly.
+message DateOnlyValue {
+	int32 year = 1;
+	int32 month = 2;
+	int32 day = 3;
+}
+
+// Represents a DateTime.
+message DateTimeValue {
+	int64 ticks = 1;
+	int32 kind = 2;
+}
+
+// Represents a DateTimeOffset.
+message DateTimeOffsetValue {
+	int64 ticks = 1;
+	int32 offsetMinutes = 2;
+}
+
+// Represents a Decimal.
+message DecimalValue {
+	sint32 element1 = 1;
+	sint32 element2 = 2;
+	sint32 element3 = 3;
+	sint32 element4 = 4;
+}

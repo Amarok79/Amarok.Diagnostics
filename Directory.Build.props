@@ -1,0 +1,33 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <Version>0.70.0</Version>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Amarok</RootNamespace>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Authors>Olaf Kober</Authors>
+        <Copyright>Copyright (c) 2023, Olaf Kober</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/Amarok79/Amarok.Diagnostics</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Amarok79/Amarok.Diagnostics</RepositoryUrl>
+        <PackageIcon>amarok.png</PackageIcon>
+        <PublishRepositoryUrl>True</PublishRepositoryUrl>
+        <EmbedUntrackedSources>True</EmbedUntrackedSources>
+        <IncludeSymbols>True</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageOutputPath>..\..\out\</PackageOutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\amarok.png" Pack="True" PackagePath="\" />
+    </ItemGroup>
+
+</Project>

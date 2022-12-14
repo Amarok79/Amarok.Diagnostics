@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <IsPackable>True</IsPackable>
+        <Description>Binary, rolling-file persistence for System.Diagnostics.Activity.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Grpc.Tools" Version="2.53.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Google.Protobuf" Version="3.22.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="7.0.4" />
+        <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="protos\*.proto" GrpcServices="Client" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(TargetName).Tests" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "dotnet adtx": {
+      "commandName": "Project",
+      "commandLineArgs": "convert D:\\test"
+    }
+  }
+}
