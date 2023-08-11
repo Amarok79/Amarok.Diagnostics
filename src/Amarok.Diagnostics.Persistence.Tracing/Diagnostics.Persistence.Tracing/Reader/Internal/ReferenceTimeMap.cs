@@ -14,13 +14,17 @@ internal sealed class ReferenceTimeMap
     }
 
 
-    public void Define(DateTimeOffset absoluteTime)
+    public void Define(
+        DateTimeOffset absoluteTime
+    )
     {
         mPointInTime = absoluteTime;
     }
 
 
-    public DateTimeOffset GetAbsolutePointInTime(TimeSpan timeDelta)
+    public DateTimeOffset GetAbsolutePointInTime(
+        TimeSpan timeDelta
+    )
     {
         if (mPointInTime != null)
         {

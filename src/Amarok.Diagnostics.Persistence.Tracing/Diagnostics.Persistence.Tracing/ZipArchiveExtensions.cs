@@ -25,29 +25,37 @@ public static class ZipArchiveExtensions
     ///     archive entry object. The returned list is ordered ascending by file ordinals. If the given
     ///     archive doesn't contain any trace log file, then an empty list is returned.
     /// </returns>
-    public static IList<(Int32 Ordinal, ZipArchiveEntry Entry)> GetTraceFiles(this ZipArchive zipArchive)
+    public static IList<(Int32 Ordinal, ZipArchiveEntry Entry)> GetTraceFiles(
+        this ZipArchive zipArchive
+    )
     {
         return zipArchive.Entries.Where(x => inRoot(x) && isAdtx(x))
-           .Select(x => map(x))
-           .Where(x => x.Entry != null)
-           .OrderBy(x => x.Ordinal)
-           .Select(x => ( x.Ordinal, x.Entry! ))
-           .ToList();
+            .Select(x => map(x))
+            .Where(x => x.Entry != null)
+            .OrderBy(x => x.Ordinal)
+            .Select(x => ( x.Ordinal, x.Entry! ))
+            .ToList();
 
 
-        static Boolean inRoot(ZipArchiveEntry entry)
+        static Boolean inRoot(
+            ZipArchiveEntry entry
+        )
         {
             var dir = Path.GetDirectoryName(entry.FullName);
 
             return String.IsNullOrEmpty(dir);
         }
 
-        static Boolean isAdtx(ZipArchiveEntry entry)
+        static Boolean isAdtx(
+            ZipArchiveEntry entry
+        )
         {
             return entry.Name.EndsWith(".adtx", StringComparison.OrdinalIgnoreCase);
         }
 
-        static (Int32 Ordinal, ZipArchiveEntry? Entry) map(ZipArchiveEntry entry)
+        static (Int32 Ordinal, ZipArchiveEntry? Entry) map(
+            ZipArchiveEntry entry
+        )
         {
             var fileName = Path.GetFileNameWithoutExtension(entry.Name);
             var ordinal = parseOrdinal(fileName);
@@ -60,7 +68,9 @@ public static class ZipArchiveExtensions
             return ( ordinal.Value, entry );
         }
 
-        static Int32? parseOrdinal(String fileName)
+        static Int32? parseOrdinal(
+            String fileName
+        )
         {
             if (Int32.TryParse(fileName, NumberStyles.Integer, CultureInfo.InvariantCulture, out var ordinal))
             {

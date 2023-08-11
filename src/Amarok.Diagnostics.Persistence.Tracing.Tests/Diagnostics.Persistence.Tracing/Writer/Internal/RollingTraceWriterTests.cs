@@ -64,12 +64,16 @@ public class RollingTraceWriterTests
     }
 
 
-    private String _MakePath(Int32 ordinal)
+    private String _MakePath(
+        Int32 ordinal
+    )
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
 
-    private Byte[] _ReadTraceFile(Int32 ordinal)
+    private Byte[] _ReadTraceFile(
+        Int32 ordinal
+    )
     {
         using var stream = new FileStream(_MakePath(ordinal), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
@@ -79,7 +83,9 @@ public class RollingTraceWriterTests
         return bytes;
     }
 
-    private Byte[] _ReadEntry(ZipArchiveEntry entry)
+    private Byte[] _ReadEntry(
+        ZipArchiveEntry entry
+    )
     {
         var bytes = new Byte[entry.Length];
 

@@ -11,7 +11,9 @@ internal abstract class InterningMapBase<T>
     private T?[] mArray;
 
 
-    protected InterningMapBase(Int32 capacity)
+    protected InterningMapBase(
+        Int32 capacity
+    )
     {
         mCapacity = capacity;
         mArray = new T[capacity];
@@ -24,7 +26,10 @@ internal abstract class InterningMapBase<T>
     }
 
 
-    public void Define(Int32 id, T item)
+    public void Define(
+        Int32 id,
+        T item
+    )
     {
         if (id >= mArray.Length)
         {
@@ -42,20 +47,26 @@ internal abstract class InterningMapBase<T>
         }
     }
 
-    private void _ResizeTo(Int32 id)
+    private void _ResizeTo(
+        Int32 id
+    )
     {
         var tmp = new T[id + 4096];
         Array.Copy(mArray, tmp, mArray.Length);
         mArray = tmp;
     }
 
-    private static void _ThrowAlreadyDefinedException(Int32 id)
+    private static void _ThrowAlreadyDefinedException(
+        Int32 id
+    )
     {
         throw new FormatException($"{typeof(T).Name} with id '{id}' is already defined.");
     }
 
 
-    public T Lookup(Int32 id)
+    public T Lookup(
+        Int32 id
+    )
     {
         if (id < mArray.Length)
         {
@@ -70,7 +81,9 @@ internal abstract class InterningMapBase<T>
         throw _MakeNotDefinedException(id);
     }
 
-    private static Exception _MakeNotDefinedException(Int32 id)
+    private static Exception _MakeNotDefinedException(
+        Int32 id
+    )
     {
         return new FormatException($"{typeof(T).Name} with id '{id}' is not defined.");
     }

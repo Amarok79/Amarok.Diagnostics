@@ -9,13 +9,20 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Writer.Internal;
 
 internal sealed class TraceIdSerializer : SerializerBase<ActivityTraceId>
 {
-    public TraceIdSerializer(Int32 maxNumberOfItems, ObjectsPool objectsPool)
+    public TraceIdSerializer(
+        Int32 maxNumberOfItems,
+        ObjectsPool objectsPool
+    )
         : base(maxNumberOfItems, objectsPool)
     {
     }
 
 
-    protected override void AppendDefineRecord(ActivityTraceId value, Int32 id, TraceRecord record)
+    protected override void AppendDefineRecord(
+        ActivityTraceId value,
+        Int32 id,
+        TraceRecord record
+    )
     {
         var define = ObjectsPool.GetDefineTraceId();
 
@@ -25,7 +32,9 @@ internal sealed class TraceIdSerializer : SerializerBase<ActivityTraceId>
         record.DefineTraceId = define;
     }
 
-    protected override void AppendResetRecord(TraceRecord record)
+    protected override void AppendResetRecord(
+        TraceRecord record
+    )
     {
         record.ResetTraceIds = new TraceResetTraceIds();
     }

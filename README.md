@@ -230,6 +230,14 @@ dotnet adtx convert d:\test\export.zip d:\
 
 Traces are exported into the given output directory, split by application session. An application session represents an application lifetime from start to end.
 
-The resulting JSON files can be loaded into Google Perfetto.
+The resulting `.bin` files can be loaded into Google Perfetto.
 
 Open the web site https://ui.perfetto.dev/ and choose "Open trace file".
+
+It is also possible to convert traces into a Perfetto-compatible JSON format.
+
+```
+dotnet adtx convert d:\test\export.zip d:\ --format PerfettoJson
+```
+
+The resulting `.json` files are much bigger than the `.bin` format and might cause out-of-memory issues when loading into Perfetto UI.

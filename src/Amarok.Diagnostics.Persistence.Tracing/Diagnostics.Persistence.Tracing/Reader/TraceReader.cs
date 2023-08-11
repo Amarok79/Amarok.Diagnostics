@@ -26,7 +26,10 @@ public static class TraceReader
     ///     An object capable of reading a stream of activities. Don't forget to dispose the returned
     ///     reader instance; otherwise the supplied stream will stay open.
     /// </returns>
-    public static ITraceReader OpenStream(Stream stream, ITraceReaderHooks? hooks = null)
+    public static ITraceReader OpenStream(
+        Stream stream,
+        ITraceReaderHooks? hooks = null
+    )
     {
         return new StreamTraceReader(stream, hooks);
     }
@@ -46,7 +49,10 @@ public static class TraceReader
     ///     An object capable of reading a stream of activities. Don't forget to dispose the returned
     ///     reader instance; otherwise the trace log file will stay open.
     /// </returns>
-    public static ITraceReader OpenFile(String filePath, ITraceReaderHooks? hooks = null)
+    public static ITraceReader OpenFile(
+        String filePath,
+        ITraceReaderHooks? hooks = null
+    )
     {
         var stream = new FileStream(
             filePath,
@@ -76,7 +82,10 @@ public static class TraceReader
     ///     specified source folder. Don't forget to dispose the returned reader instance; otherwise some
     ///     trace log files will stay open.
     /// </returns>
-    public static ITraceReader OpenFolder(String directoryPath, ITraceReaderHooks? hooks = null)
+    public static ITraceReader OpenFolder(
+        String directoryPath,
+        ITraceReaderHooks? hooks = null
+    )
     {
         return new DirectoryTraceReader(directoryPath, hooks);
     }
@@ -96,7 +105,10 @@ public static class TraceReader
     ///     An object capable of reading a stream of activities from the Zip archive. Don't forget to
     ///     dispose the returned reader instance; otherwise the Zip archive will stay open.
     /// </returns>
-    public static ITraceReader OpenZipArchive(String filePath, ITraceReaderHooks? hooks = null)
+    public static ITraceReader OpenZipArchive(
+        String filePath,
+        ITraceReaderHooks? hooks = null
+    )
     {
         return new ZipArchiveTraceReader(filePath, hooks);
     }

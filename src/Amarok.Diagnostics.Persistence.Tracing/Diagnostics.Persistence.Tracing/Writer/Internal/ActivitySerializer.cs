@@ -52,7 +52,10 @@ internal sealed class ActivitySerializer
         mTagsSerializer.Reset();
     }
 
-    public void Serialize(Activity activity, TraceRecords records)
+    public void Serialize(
+        Activity activity,
+        TraceRecords records
+    )
     {
         // define reference point in time
         if (!mReferenceTimeSerializer.IsDefined)

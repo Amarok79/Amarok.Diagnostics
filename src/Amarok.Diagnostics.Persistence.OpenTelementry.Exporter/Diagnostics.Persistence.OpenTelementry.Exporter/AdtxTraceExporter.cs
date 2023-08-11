@@ -23,7 +23,9 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
     private ITraceWriter? mWriter;
 
 
-    public AdtxTraceExporter(AdtxTraceExporterOptions options)
+    public AdtxTraceExporter(
+        AdtxTraceExporterOptions options
+    )
     {
         mOptions = options;
     }
@@ -35,12 +37,16 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
     }
 
 
-    protected override Boolean OnForceFlush(Int32 timeoutMilliseconds)
+    protected override Boolean OnForceFlush(
+        Int32 timeoutMilliseconds
+    )
     {
         return true;
     }
 
-    protected override Boolean OnShutdown(Int32 timeoutMilliseconds)
+    protected override Boolean OnShutdown(
+        Int32 timeoutMilliseconds
+    )
     {
         if (mWriter == null)
         {
@@ -64,7 +70,9 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
         return true;
     }
 
-    public override ExportResult Export(in Batch<Activity> batch)
+    public override ExportResult Export(
+        in Batch<Activity> batch
+    )
     {
         if (mWriter == null)
         {
@@ -101,7 +109,9 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
         }
     }
 
-    public async Task HotExportAsync(String archivePath)
+    public async Task HotExportAsync(
+        String archivePath
+    )
     {
         if (mIsSnapshotRunning)
         {
@@ -127,7 +137,10 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
         }
     }
 
-    private async Task _ExecExportToArchiveAsync(ITraceWriter writer, String archivePath)
+    private async Task _ExecExportToArchiveAsync(
+        ITraceWriter writer,
+        String archivePath
+    )
     {
         mSnapshotBarrier.Reset();
 

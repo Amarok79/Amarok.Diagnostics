@@ -56,7 +56,9 @@ public sealed class TraceWriterOptions
     /// <summary>
     ///     Initializes a new instance based on the given options.
     /// </summary>
-    public TraceWriterOptions(TraceWriterOptions other)
+    public TraceWriterOptions(
+        TraceWriterOptions other
+    )
     {
         SessionUuid = other.SessionUuid;
         SessionStartTime = other.SessionStartTime;
@@ -71,7 +73,7 @@ public sealed class TraceWriterOptions
     public override String ToString()
     {
         return $"SessionUuid: {SessionUuid}, SessionStartTime: {SessionStartTime}, " +
-            $"MaxDiskSpaceUsedInMegaBytes: {MaxDiskSpaceUsedInMegaBytes} MB, UseCompression: {UseCompression}, " +
-            $"AutoFlushInterval: {AutoFlushInterval.Seconds} s";
+               $"MaxDiskSpaceUsedInMegaBytes: {MaxDiskSpaceUsedInMegaBytes} MB, UseCompression: {UseCompression}, " +
+               $"AutoFlushInterval: {AutoFlushInterval.Seconds} s";
     }
 }

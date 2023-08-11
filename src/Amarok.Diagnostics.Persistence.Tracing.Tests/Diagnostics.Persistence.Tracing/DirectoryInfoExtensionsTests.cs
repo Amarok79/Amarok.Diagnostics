@@ -32,14 +32,18 @@ public class DirectoryInfoExtensionsTests
     }
 
 
-    private void _MakeTraceFile(Int32 ordinal)
+    private void _MakeTraceFile(
+        Int32 ordinal
+    )
     {
         mDirectory.Create();
 
         using var stream = File.OpenWrite(Path.Combine(mDirectory.FullName, $"{ordinal}.adtx"));
     }
 
-    private void _MakeForeignFile(String name)
+    private void _MakeForeignFile(
+        String name
+    )
     {
         mDirectory.Create();
 

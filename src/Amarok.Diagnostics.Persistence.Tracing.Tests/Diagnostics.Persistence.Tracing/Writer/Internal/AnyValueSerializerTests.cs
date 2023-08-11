@@ -561,7 +561,7 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Guid.ToByteArray())
-           .ContainsExactly(new Guid("69A51F8D-E87F-4527-B7D4-F6314DCF04AE").ToByteArray());
+            .ContainsExactly(new Guid("69A51F8D-E87F-4527-B7D4-F6314DCF04AE").ToByteArray());
     }
 
 

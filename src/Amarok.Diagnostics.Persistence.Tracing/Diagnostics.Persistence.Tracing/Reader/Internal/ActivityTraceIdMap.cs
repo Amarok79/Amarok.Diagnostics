@@ -5,7 +5,9 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
 internal sealed class ActivityTraceIdMap : InterningMapBase<String>
 {
-    public ActivityTraceIdMap(Int32 capacity = 4096)
+    public ActivityTraceIdMap(
+        Int32 capacity = 4096
+    )
         : base(capacity)
     {
     }

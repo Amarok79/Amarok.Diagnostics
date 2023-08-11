@@ -31,7 +31,9 @@ public sealed class AdtxTraceExporterOptions
     ///     The path to the directory used for storing rolling trace log files (.adtx). The directory gets
     ///     created if it doesn't exist.
     /// </param>
-    public AdtxTraceExporterOptions(String directoryPath)
+    public AdtxTraceExporterOptions(
+        String directoryPath
+    )
     {
         Directory = new DirectoryInfo(directoryPath);
     }
@@ -44,7 +46,9 @@ public sealed class AdtxTraceExporterOptions
     ///     The directory used for storing rolling trace log files (.adtx). The directory gets created if
     ///     it doesn't exist.
     /// </param>
-    public AdtxTraceExporterOptions(DirectoryInfo directory)
+    public AdtxTraceExporterOptions(
+        DirectoryInfo directory
+    )
     {
         Directory = directory;
     }

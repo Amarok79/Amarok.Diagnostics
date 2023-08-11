@@ -21,7 +21,9 @@ public class StreamTraceReaderTests
     }
 
 
-    private void _CreateReader(params Byte[] bytes)
+    private void _CreateReader(
+        params Byte[] bytes
+    )
     {
         var stream = new MemoryStream(bytes);
         mReader = new StreamTraceReader(stream);

@@ -37,12 +37,17 @@ public class RollingFileWriterTests
     }
 
 
-    private String _MakePath(Int32 ordinal)
+    private String _MakePath(
+        Int32 ordinal
+    )
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
 
-    private void _MakeTraceFile(Int32 ordinal, Int32 size = 0)
+    private void _MakeTraceFile(
+        Int32 ordinal,
+        Int32 size = 0
+    )
     {
         mDirectory.Create();
 
@@ -55,7 +60,9 @@ public class RollingFileWriterTests
         stream.Write(bytes);
     }
 
-    private Byte[] _ReadTraceFile(Int32 ordinal)
+    private Byte[] _ReadTraceFile(
+        Int32 ordinal
+    )
     {
         mWriter.Flush();
 

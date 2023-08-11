@@ -83,7 +83,9 @@ internal sealed class RollingTraceWriter : ITraceWriter
     }
 
 
-    public void Write(Activity activity)
+    public void Write(
+        Activity activity
+    )
     {
         mRecords ??= mObjectsPool.GetRecords();
 
@@ -114,7 +116,9 @@ internal sealed class RollingTraceWriter : ITraceWriter
         }
     }
 
-    public async Task<Task> ExportAsync(String archivePath)
+    public async Task<Task> ExportAsync(
+        String archivePath
+    )
     {
         var sw = Stopwatch.StartNew();
 
@@ -155,7 +159,10 @@ internal sealed class RollingTraceWriter : ITraceWriter
     }
 
 
-    private static void _WriteToPipe(IBufferWriter<Byte> buffer, TraceRecords records)
+    private static void _WriteToPipe(
+        IBufferWriter<Byte> buffer,
+        TraceRecords records
+    )
     {
         // content-frame        =  frame-preamble, frame-length , records ;
         // frame-preamble       =  %xAA ;
@@ -169,7 +176,10 @@ internal sealed class RollingTraceWriter : ITraceWriter
         records.WriteTo(buffer);
     }
 
-    private static void _WriteContentFramePreambleAndLength(IBufferWriter<Byte> buffer, Int32 value)
+    private static void _WriteContentFramePreambleAndLength(
+        IBufferWriter<Byte> buffer,
+        Int32 value
+    )
     {
         var span = buffer.GetSpan(6);
 

@@ -13,7 +13,10 @@ internal sealed class AnyValueSerializer
     private readonly Int32 mMaxBytesLength;
 
 
-    public AnyValueSerializer(Int32 maxStringLength, Int32 maxBytesLength)
+    public AnyValueSerializer(
+        Int32 maxStringLength,
+        Int32 maxBytesLength
+    )
     {
         mMaxStringLength = maxStringLength;
         mMaxBytesLength = maxBytesLength;
@@ -32,7 +35,10 @@ internal sealed class AnyValueSerializer
     // - Guid
     // - Object, Enum (converted to String)
 
-    public void Serialize(AnyValue any, Object? value)
+    public void Serialize(
+        AnyValue any,
+        Object? value
+    )
     {
         if (value is null)
         {
@@ -73,7 +79,10 @@ internal sealed class AnyValueSerializer
     }
 
 
-    private void _SerializeSlow(AnyValue any, Object value)
+    private void _SerializeSlow(
+        AnyValue any,
+        Object value
+    )
     {
         if (value is Byte byteValue)
         {
@@ -157,12 +166,18 @@ internal sealed class AnyValueSerializer
     }
 
 
-    private void _SerializeString(AnyValue any, String value)
+    private void _SerializeString(
+        AnyValue any,
+        String value
+    )
     {
         any.String = value.Length <= mMaxStringLength ? value : value[..mMaxStringLength];
     }
 
-    private void _SerializeObject(AnyValue any, Object value)
+    private void _SerializeObject(
+        AnyValue any,
+        Object value
+    )
     {
         var stringValue = value.ToString();
 
@@ -176,7 +191,10 @@ internal sealed class AnyValueSerializer
         }
     }
 
-    private static void _SerializeDateOnly(AnyValue any, DateOnly value)
+    private static void _SerializeDateOnly(
+        AnyValue any,
+        DateOnly value
+    )
     {
         any.DateOnly = new DateOnlyValue {
             Year = value.Year,
@@ -185,7 +203,10 @@ internal sealed class AnyValueSerializer
         };
     }
 
-    private static void _SerializeDateTime(AnyValue any, DateTime value)
+    private static void _SerializeDateTime(
+        AnyValue any,
+        DateTime value
+    )
     {
         any.DateTime = new DateTimeValue {
             Ticks = value.Ticks,
@@ -193,7 +214,10 @@ internal sealed class AnyValueSerializer
         };
     }
 
-    private static void _SerializeDateTimeOffset(AnyValue any, DateTimeOffset value)
+    private static void _SerializeDateTimeOffset(
+        AnyValue any,
+        DateTimeOffset value
+    )
     {
         any.DateTimeOffset = new DateTimeOffsetValue {
             Ticks = value.Ticks,
@@ -201,12 +225,18 @@ internal sealed class AnyValueSerializer
         };
     }
 
-    private static void _SerializeTimeOnly(AnyValue any, TimeOnly value)
+    private static void _SerializeTimeOnly(
+        AnyValue any,
+        TimeOnly value
+    )
     {
         any.TimeOnly = value.Ticks;
     }
 
-    private static void _SerializeDecimal(AnyValue any, Decimal value)
+    private static void _SerializeDecimal(
+        AnyValue any,
+        Decimal value
+    )
     {
         Span<Int32> bits = stackalloc Int32[4];
 
@@ -220,7 +250,10 @@ internal sealed class AnyValueSerializer
         };
     }
 
-    private static void _SerializeGuid(AnyValue any, Guid value)
+    private static void _SerializeGuid(
+        AnyValue any,
+        Guid value
+    )
     {
         Span<Byte> bytes = stackalloc Byte[16];
 

@@ -21,5 +21,7 @@ public interface IAdtxTraceExporter
     /// <exception cref="InvalidOperationException">
     ///     Not initialized or already disposed.
     /// </exception>
-    Task HotExportAsync(String archivePath);
+    Task HotExportAsync(
+        String archivePath
+    );
 }

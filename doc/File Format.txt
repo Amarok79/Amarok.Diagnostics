@@ -1,6 +1,6 @@
 
-Amarok Diagnostics Tracing Log (.adtx)
---------------------------------------
+Amarok Diagnostics Traces Log (.adtx)
+-------------------------------------
 
 (EBNF)
 

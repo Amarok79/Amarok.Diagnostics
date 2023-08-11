@@ -46,7 +46,9 @@ public class IntegrationTests
         mReader = TraceReader.OpenFolder(mDirectory.FullName);
     }
 
-    private String _MakePath(Int32 ordinal)
+    private String _MakePath(
+        Int32 ordinal
+    )
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
@@ -64,9 +66,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
             Check.That(ctx.Exporter).IsNotNull();
@@ -120,9 +122,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
             Check.That(ctx.Exporter).IsNotNull();
@@ -179,9 +181,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
             Check.That(ctx.Exporter).IsNotNull();
@@ -244,9 +246,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
             Check.That(ctx.Exporter).IsNotNull();

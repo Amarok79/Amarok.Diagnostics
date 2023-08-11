@@ -17,7 +17,9 @@ internal sealed class ReferenceTimeSerializer
     public Boolean IsDefined { get; private set; }
 
 
-    public ReferenceTimeSerializer(ObjectsPool objectsPool)
+    public ReferenceTimeSerializer(
+        ObjectsPool objectsPool
+    )
     {
         mObjectsPool = objectsPool;
     }
@@ -28,17 +30,24 @@ internal sealed class ReferenceTimeSerializer
         IsDefined = false;
     }
 
-    public TimeSpan GetRelativeTimeDelta(DateTimeOffset now)
+    public TimeSpan GetRelativeTimeDelta(
+        DateTimeOffset now
+    )
     {
         return now - mPointInTime;
     }
 
-    public TimeSpan GetRelativeTimeDelta(DateTime utcNow)
+    public TimeSpan GetRelativeTimeDelta(
+        DateTime utcNow
+    )
     {
         return utcNow - mPointInTimeUtc;
     }
 
-    public void SetReferencePointInTime(DateTimeOffset timestamp, TraceRecords records)
+    public void SetReferencePointInTime(
+        DateTimeOffset timestamp,
+        TraceRecords records
+    )
     {
         mPointInTime = timestamp;
         mPointInTimeUtc = timestamp.UtcDateTime;

@@ -19,7 +19,10 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 /// <param name="StartTime">
 ///     The point in time the application started.
 /// </param>
-public sealed record SessionInfo(Guid Uuid, DateTimeOffset StartTime)
+public sealed record SessionInfo(
+    Guid Uuid,
+    DateTimeOffset StartTime
+)
 {
     /// <inheritdoc/>
     public override String ToString()

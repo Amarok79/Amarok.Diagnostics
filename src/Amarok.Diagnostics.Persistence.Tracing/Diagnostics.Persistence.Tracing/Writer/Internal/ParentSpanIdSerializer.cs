@@ -9,13 +9,20 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Writer.Internal;
 
 internal sealed class ParentSpanIdSerializer : SerializerBase<ActivitySpanId>
 {
-    public ParentSpanIdSerializer(Int32 maxNumberOfItems, ObjectsPool objectsPool)
+    public ParentSpanIdSerializer(
+        Int32 maxNumberOfItems,
+        ObjectsPool objectsPool
+    )
         : base(maxNumberOfItems, objectsPool)
     {
     }
 
 
-    protected override void AppendDefineRecord(ActivitySpanId value, Int32 id, TraceRecord record)
+    protected override void AppendDefineRecord(
+        ActivitySpanId value,
+        Int32 id,
+        TraceRecord record
+    )
     {
         var define = ObjectsPool.GetDefineParentSpanId();
 
@@ -25,7 +32,9 @@ internal sealed class ParentSpanIdSerializer : SerializerBase<ActivitySpanId>
         record.DefineParentSpanId = define;
     }
 
-    protected override void AppendResetRecord(TraceRecord record)
+    protected override void AppendResetRecord(
+        TraceRecord record
+    )
     {
         record.ResetParentSpanIds = new TraceResetParentSpanIds();
     }

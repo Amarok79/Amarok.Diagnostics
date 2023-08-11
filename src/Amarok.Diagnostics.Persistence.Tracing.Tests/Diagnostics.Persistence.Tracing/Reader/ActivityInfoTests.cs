@@ -6,7 +6,8 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 [TestFixture]
 public class ActivityInfoTests
 {
-    [Test, SetCulture("en")]
+    [Test]
+    [SetCulture("en")]
     public void Usage_with_Source_Operation_StartTime_Duration()
     {
         var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
@@ -35,14 +36,15 @@ public class ActivityInfoTests
         Check.That(info.EndTimeDelta).IsEqualTo(info.EndTime - session.StartTime);
 
         Check.That(info.ToString())
-           .IsEqualTo(
+            .IsEqualTo(
                 "{ Source: src, Operation: foo, StartTime: 10/26/2022 12:00:00 PM +00:00, " +
                 "Duration: 1234 ms, TraceId: 11111111111111111111111111111111, " +
                 "ParentSpanId: 3333333333333333, SpanId: 2222222222222222 }"
             );
     }
 
-    [Test, SetCulture("en")]
+    [Test]
+    [SetCulture("en")]
     public void Usage_with_Source_Operation_StartTime_Duration_Tags()
     {
         var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
@@ -78,7 +80,7 @@ public class ActivityInfoTests
         Check.That(info.EndTimeDelta).IsEqualTo(info.EndTime - session.StartTime);
 
         Check.That(info.ToString())
-           .IsEqualTo(
+            .IsEqualTo(
                 "{ Source: src, Operation: foo, StartTime: 10/26/2022 12:00:00 PM +00:00, " +
                 "Duration: 1234 ms, TraceId: 11111111111111111111111111111111, " +
                 "ParentSpanId: 3333333333333333, SpanId: 2222222222222222 }"

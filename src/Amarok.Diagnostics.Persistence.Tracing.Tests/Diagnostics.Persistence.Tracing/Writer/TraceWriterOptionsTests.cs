@@ -18,7 +18,8 @@ public class TraceWriterOptionsTests
         Check.That(options.AutoFlushInterval).IsEqualTo(15, TimeUnit.Seconds);
     }
 
-    [Test, SetCulture("en")]
+    [Test]
+    [SetCulture("en")]
     public void Usage()
     {
         var guid = new Guid("94c8c239-d282-4002-a569-cfe2f811b336");
@@ -39,7 +40,7 @@ public class TraceWriterOptionsTests
         Check.That(options.AutoFlushInterval).IsEqualTo(33, TimeUnit.Seconds);
 
         Check.That(options.ToString())
-           .IsEqualTo(
+            .IsEqualTo(
                 "SessionUuid: 94c8c239-d282-4002-a569-cfe2f811b336, " +
                 "SessionStartTime: 10/31/2022 11:22:33 AM +00:00, " +
                 "MaxDiskSpaceUsedInMegaBytes: 55 MB, " +

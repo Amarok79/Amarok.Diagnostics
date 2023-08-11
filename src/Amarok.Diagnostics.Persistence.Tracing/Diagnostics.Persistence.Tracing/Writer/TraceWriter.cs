@@ -27,7 +27,10 @@ public static class TraceWriter
     ///     An object capable of serializing and persisting activities. Don't forget to dispose the
     ///     returned writer after use.
     /// </returns>
-    public static ITraceWriter Create(String directoryPath, TraceWriterOptions? options = null)
+    public static ITraceWriter Create(
+        String directoryPath,
+        TraceWriterOptions? options = null
+    )
     {
         var directory = new DirectoryInfo(directoryPath);
 
@@ -50,7 +53,10 @@ public static class TraceWriter
     ///     An object capable of serializing and persisting activities. Don't forget to dispose the
     ///     returned writer after use.
     /// </returns>
-    public static ITraceWriter Create(DirectoryInfo directory, TraceWriterOptions? options = null)
+    public static ITraceWriter Create(
+        DirectoryInfo directory,
+        TraceWriterOptions? options = null
+    )
     {
         options ??= new TraceWriterOptions();
 

@@ -2,7 +2,7 @@
   "profiles": {
     "dotnet adtx": {
       "commandName": "Project",
-      "commandLineArgs": "convert D:\\test"
+      "commandLineArgs": "convert ..\\..\\..\\..\\..\\bin\\test\\traces --format PerfettoProtobuf\r\n"
     }
   }
 }

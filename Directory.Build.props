@@ -1,12 +1,12 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <Version>0.70.0</Version>
+        <Version>0.71.0</Version>
     </PropertyGroup>
 
     <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <ImplicitUsings>Enable</ImplicitUsings>
+        <Nullable>Enable</Nullable>
         <RootNamespace>Amarok</RootNamespace>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
@@ -15,7 +15,7 @@
         <Authors>Olaf Kober</Authors>
         <Copyright>Copyright (c) 2023, Olaf Kober</Copyright>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Amarok79/Amarok.Diagnostics</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Amarok79/Amarok.Diagnostics</RepositoryUrl>
         <PackageIcon>amarok.png</PackageIcon>

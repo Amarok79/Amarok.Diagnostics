@@ -5,7 +5,9 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
 internal sealed class OperationNameMap : InterningMapBase<String>
 {
-    public OperationNameMap(Int32 capacity = 4096)
+    public OperationNameMap(
+        Int32 capacity = 4096
+    )
         : base(capacity)
     {
     }

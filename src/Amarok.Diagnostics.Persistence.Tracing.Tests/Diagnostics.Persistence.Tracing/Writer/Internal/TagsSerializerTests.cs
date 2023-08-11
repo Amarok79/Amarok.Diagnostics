@@ -93,9 +93,9 @@ public class TagsSerializerTests
     public void Serialize_Tags_with_Different_Keys()
     {
         var activity = new Activity("foo").SetTag("aaa", "123")
-           .SetTag("AAA", "456")
-           .SetTag("bbb", "789")
-           .SetTag("ccc", "000");
+            .SetTag("AAA", "456")
+            .SetTag("bbb", "789")
+            .SetTag("ccc", "000");
 
         mSerializer.Serialize(activity, mTags, mRecords);
 
@@ -136,11 +136,11 @@ public class TagsSerializerTests
     public void Serialize_Tags_with_Different_Keys_Overrun()
     {
         var activity = new Activity("foo").SetTag("aaa", "123")
-           .SetTag("AAA", "456")
-           .SetTag("bbb", "789")
-           .SetTag("ccc", "000")
-           .SetTag("ddd", "111")
-           .SetTag("eee", "222");
+            .SetTag("AAA", "456")
+            .SetTag("bbb", "789")
+            .SetTag("ccc", "000")
+            .SetTag("ddd", "111")
+            .SetTag("eee", "222");
 
         mSerializer.Serialize(activity, mTags, mRecords);
 

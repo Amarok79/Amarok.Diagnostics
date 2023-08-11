@@ -84,7 +84,7 @@ public sealed record ActivityInfo(
     public override String ToString()
     {
         return $"{{ Source: {Source}, Operation: {OperationName}, StartTime: {StartTime}, " +
-            $"Duration: {Duration.TotalMilliseconds} ms, TraceId: {TraceId}, " +
-            $"ParentSpanId: {ParentSpanId}, SpanId: {SpanId} }}";
+               $"Duration: {Duration.TotalMilliseconds} ms, TraceId: {TraceId}, " +
+               $"ParentSpanId: {ParentSpanId}, SpanId: {SpanId} }}";
     }
 }
