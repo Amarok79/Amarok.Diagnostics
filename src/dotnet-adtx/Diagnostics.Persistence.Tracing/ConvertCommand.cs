@@ -36,15 +36,23 @@ internal sealed class ConvertCommand : Command
             Arity = ArgumentArity.ZeroOrOne,
         };
 
+        var includeIdsOptions = new Option<Boolean>("--include-ids",
+            () => false,
+            "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format.") {
+            Arity = ArgumentArity.ZeroOrOne,
+        };
+
         AddArgument(inArgument);
         AddArgument(outArgument);
         AddOption(formatOption);
+        AddOption(includeIdsOptions);
 
         this.SetHandler(
             ctx => _Execute(
                 ctx.ParseResult.GetValueForArgument(inArgument),
                 ctx.ParseResult.GetValueForArgument(outArgument),
-                ctx.ParseResult.GetValueForOption(formatOption)
+                ctx.ParseResult.GetValueForOption(formatOption),
+                ctx.ParseResult.GetValueForOption(includeIdsOptions)
             )
         );
     }
@@ -53,7 +61,8 @@ internal sealed class ConvertCommand : Command
     private static void _Execute(
         FileSystemInfo inPath,
         DirectoryInfo? outDir,
-        OutputFormat format
+        OutputFormat format,
+        Boolean includeIds
     )
     {
         if (File.Exists(inPath.FullName))
@@ -65,7 +74,8 @@ internal sealed class ConvertCommand : Command
                 _ExecuteCore(
                     TraceReader.OpenZipArchive(inPath.FullName),
                     outDir?.FullName ?? Path.GetDirectoryName(inPath.FullName)!,
-                    format
+                    format,
+                    includeIds
                 );
             }
             else
@@ -75,7 +85,8 @@ internal sealed class ConvertCommand : Command
                 _ExecuteCore(
                     TraceReader.OpenFile(inPath.FullName),
                     outDir?.FullName ?? Path.GetDirectoryName(inPath.FullName)!,
-                    format
+                    format,
+                    includeIds
                 );
             }
         }
@@ -83,7 +94,8 @@ internal sealed class ConvertCommand : Command
         {
             AnsiConsole.MarkupLine($"Converting directory [aqua]{inPath}[/]...");
 
-            _ExecuteCore(TraceReader.OpenFolder(inPath.FullName), outDir?.FullName ?? inPath.FullName, format);
+            _ExecuteCore(TraceReader.OpenFolder(inPath.FullName), outDir?.FullName ?? inPath.FullName, format,
+                includeIds);
         }
         else
         {
@@ -111,7 +123,8 @@ internal sealed class ConvertCommand : Command
     private static void _ExecuteCore(
         ITraceReader reader,
         String outDir,
-        OutputFormat format
+        OutputFormat format,
+        Boolean includeIds
     )
     {
         if (format == OutputFormat.PerfettoJson)
@@ -120,7 +133,7 @@ internal sealed class ConvertCommand : Command
         }
         else if (format == OutputFormat.PerfettoProtobuf)
         {
-            new PerfettoProtobufConverter().Run(reader, outDir);
+            new PerfettoProtobufConverter().Run(reader, outDir, includeIds);
         }
     }
 }
