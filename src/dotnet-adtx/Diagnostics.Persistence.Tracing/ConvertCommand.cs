@@ -31,14 +31,16 @@ internal sealed class ConvertCommand : Command
             "Path to the output directory receiving the converted traces files. Defaults to the input directory."
         ) { Arity = ArgumentArity.ZeroOrOne };
 
-        var formatOption = new Option<OutputFormat>("--format", () => OutputFormat.PerfettoProtobuf,
-            "The output format.") {
-            Arity = ArgumentArity.ZeroOrOne,
-        };
+        var formatOption =
+            new Option<OutputFormat>("--format", () => OutputFormat.PerfettoProtobuf, "The output format.") {
+                Arity = ArgumentArity.ZeroOrOne,
+            };
 
-        var includeIdsOptions = new Option<Boolean>("--include-ids",
+        var includeIdsOptions = new Option<Boolean>(
+            "--include-ids",
             () => false,
-            "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format.") {
+            "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format."
+        ) {
             Arity = ArgumentArity.ZeroOrOne,
         };
 
@@ -94,8 +96,12 @@ internal sealed class ConvertCommand : Command
         {
             AnsiConsole.MarkupLine($"Converting directory [aqua]{inPath}[/]...");
 
-            _ExecuteCore(TraceReader.OpenFolder(inPath.FullName), outDir?.FullName ?? inPath.FullName, format,
-                includeIds);
+            _ExecuteCore(
+                TraceReader.OpenFolder(inPath.FullName),
+                outDir?.FullName ?? inPath.FullName,
+                format,
+                includeIds
+            );
         }
         else
         {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Buffers;
 using System.Diagnostics;
@@ -126,7 +126,10 @@ internal sealed class RollingTraceWriter : ITraceWriter
 
         await _RollOver();
 
-        mLogger.LogDebug("RollingTraceWriter: Exporting... Rolled over ({Elapsed} ms)", sw.ElapsedMilliseconds);
+        mLogger.LogDebug(
+            "RollingTraceWriter: Exporting... Rolled over ({Elapsed} ms)",
+            sw.ElapsedMilliseconds
+        );
 
         return Task.Run(
             () => {
@@ -143,7 +146,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
 
         mLogger.LogDebug("RollingTraceWriter: Disposing...");
 
-        mDisposeCts.Cancel();
+        await mDisposeCts.CancelAsync();
 
         mLogger.LogTrace("RollingTraceWriter: pipe reader cancelled ({Elapsed} ms)", sw.ElapsedMilliseconds);
 
@@ -192,7 +195,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
 
         while (uValue > 0x7Fu)
         {
-            span[i++] = (Byte)( uValue | ~0x7Fu );
+            span[i++] = (Byte)(uValue | ~0x7Fu);
 
             uValue >>= 7;
         }
@@ -224,7 +227,10 @@ internal sealed class RollingTraceWriter : ITraceWriter
 
         mPipe.Reset();
 
-        mLogger.LogTrace("RollingTraceWriter: serializer and pipe reset ({Elapsed} ms)", sw.ElapsedMilliseconds);
+        mLogger.LogTrace(
+            "RollingTraceWriter: serializer and pipe reset ({Elapsed} ms)",
+            sw.ElapsedMilliseconds
+        );
 
 
         _StartPipeReader();

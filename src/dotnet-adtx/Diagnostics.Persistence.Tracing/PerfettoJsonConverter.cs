@@ -105,7 +105,7 @@ internal sealed class PerfettoJsonConverter
                 {
                     if (!pids.TryGetValue(pName, out pid))
                     {
-                        pid = ( pids.Count + 1 ) * 1000;
+                        pid = (pids.Count + 1) * 1000;
 
                         pids.Add(pName, pid);
 
@@ -122,7 +122,7 @@ internal sealed class PerfettoJsonConverter
                     _Json_WriteThreadMetadata(jsonWriter!, pid, tid, tName);
                 }
 
-                ids = ( pid, tid );
+                ids = (pid, tid);
 
                 tracks.Add(activity.Source.Name, ids);
             }

@@ -32,7 +32,8 @@ public class ReferenceTimeMapTests
 
         Check.That(mMap.GetAbsolutePointInTime(TimeSpan.Zero)).IsEqualTo(refTime);
 
-        Check.That(mMap.GetAbsolutePointInTime(TimeSpan.FromSeconds(12))).IsEqualTo(refTime + TimeSpan.FromSeconds(12));
+        Check.That(mMap.GetAbsolutePointInTime(TimeSpan.FromSeconds(12)))
+            .IsEqualTo(refTime + TimeSpan.FromSeconds(12));
     }
 
     [Test]

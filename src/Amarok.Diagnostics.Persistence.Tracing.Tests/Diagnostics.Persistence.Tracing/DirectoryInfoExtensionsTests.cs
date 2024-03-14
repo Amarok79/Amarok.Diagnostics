@@ -85,7 +85,7 @@ public class DirectoryInfoExtensionsTests
 
         var files = mDirectory.GetTraceFiles();
 
-        ( (ICheck<IEnumerable>)Check.That(files) ).HasSize(1);
+        ((ICheck<IEnumerable>)Check.That(files)).HasSize(1);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
         Check.That(files[0].FileInfo.Name).IsEqualTo("1.adtx");
@@ -102,7 +102,7 @@ public class DirectoryInfoExtensionsTests
 
         var files = mDirectory.GetTraceFiles();
 
-        ( (ICheck<IEnumerable>)Check.That(files) ).HasSize(5);
+        ((ICheck<IEnumerable>)Check.That(files)).HasSize(5);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
         Check.That(files[0].FileInfo.Name).IsEqualTo("1.adtx");
@@ -136,7 +136,7 @@ public class DirectoryInfoExtensionsTests
 
         var files = mDirectory.GetTraceFiles();
 
-        ( (ICheck<IEnumerable>)Check.That(files) ).HasSize(5);
+        ((ICheck<IEnumerable>)Check.That(files)).HasSize(5);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
         Check.That(files[0].FileInfo.Name).IsEqualTo("1.adtx");

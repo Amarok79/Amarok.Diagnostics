@@ -7,6 +7,7 @@ root = true
 #### Analyzers
 
 dotnet_diagnostic.ide0200.severity = none
+dotnet_diagnostic.ide0290.severity = none
 dotnet_diagnostic.ide1006.severity = none
 
 

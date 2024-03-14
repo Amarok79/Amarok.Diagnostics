@@ -30,10 +30,10 @@ public static class ZipArchiveExtensions
     )
     {
         return zipArchive.Entries.Where(x => inRoot(x) && isAdtx(x))
-            .Select(x => map(x))
+            .Select(map)
             .Where(x => x.Entry != null)
             .OrderBy(x => x.Ordinal)
-            .Select(x => ( x.Ordinal, x.Entry! ))
+            .Select(x => (x.Ordinal, x.Entry!))
             .ToList();
 
 
@@ -62,10 +62,10 @@ public static class ZipArchiveExtensions
 
             if (ordinal == null)
             {
-                return ( -1, null );
+                return (-1, null);
             }
 
-            return ( ordinal.Value, entry );
+            return (ordinal.Value, entry);
         }
 
         static Int32? parseOrdinal(

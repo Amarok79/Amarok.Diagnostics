@@ -10,7 +10,10 @@ public class ActivityInfoTests
     [SetCulture("en")]
     public void Usage_with_Source_Operation_StartTime_Duration()
     {
-        var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
+        var session = new SessionInfo(
+            Guid.Empty,
+            new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero)
+        );
         var source = new ActivitySourceInfo("src");
         var traceId = "11111111111111111111111111111111";
         var parentSpanId = "3333333333333333";
@@ -47,7 +50,10 @@ public class ActivityInfoTests
     [SetCulture("en")]
     public void Usage_with_Source_Operation_StartTime_Duration_Tags()
     {
-        var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
+        var session = new SessionInfo(
+            Guid.Empty,
+            new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero)
+        );
         var source = new ActivitySourceInfo("src");
         var traceId = "11111111111111111111111111111111";
         var parentSpanId = "3333333333333333";

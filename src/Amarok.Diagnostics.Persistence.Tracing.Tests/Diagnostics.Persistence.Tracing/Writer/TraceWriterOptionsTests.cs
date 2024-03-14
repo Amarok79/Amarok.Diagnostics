@@ -42,10 +42,8 @@ public class TraceWriterOptionsTests
         Check.That(options.ToString())
             .IsEqualTo(
                 "SessionUuid: 94c8c239-d282-4002-a569-cfe2f811b336, " +
-                "SessionStartTime: 10/31/2022 11:22:33 AM +00:00, " +
-                "MaxDiskSpaceUsedInMegaBytes: 55 MB, " +
-                "UseCompression: False, " +
-                "AutoFlushInterval: 33 s"
+                "SessionStartTime: 10/31/2022 11:22:33 AM +00:00, " + "MaxDiskSpaceUsedInMegaBytes: 55 MB, " +
+                "UseCompression: False, " + "AutoFlushInterval: 33 s"
             );
     }
 

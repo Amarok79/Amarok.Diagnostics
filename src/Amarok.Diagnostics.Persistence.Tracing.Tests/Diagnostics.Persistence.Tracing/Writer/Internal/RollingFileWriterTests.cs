@@ -66,7 +66,12 @@ public class RollingFileWriterTests
     {
         mWriter.Flush();
 
-        using var stream = new FileStream(_MakePath(ordinal), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var stream = new FileStream(
+            _MakePath(ordinal),
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.ReadWrite
+        );
 
         var bytes = new Byte[stream.Length];
         _ = stream.Read(bytes, 0, bytes.Length);

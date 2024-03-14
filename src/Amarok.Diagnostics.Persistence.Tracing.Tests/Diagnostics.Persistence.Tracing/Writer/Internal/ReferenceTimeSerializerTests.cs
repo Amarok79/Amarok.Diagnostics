@@ -41,7 +41,8 @@ public class ReferenceTimeSerializerTests
 
         Check.That(mRecords.Items[0].DefinePointInTime).IsNotNull();
         Check.That(mRecords.Items[0].DefinePointInTime.Ticks).IsEqualTo(now.LocalDateTime.Ticks);
-        Check.That(mRecords.Items[0].DefinePointInTime.OffsetMinutes).IsEqualTo((Int32)now.Offset.TotalMinutes);
+        Check.That(mRecords.Items[0].DefinePointInTime.OffsetMinutes)
+            .IsEqualTo((Int32)now.Offset.TotalMinutes);
     }
 
     [Test]

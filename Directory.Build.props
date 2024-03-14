@@ -1,7 +1,7 @@
 ﻿<Project>
 
     <PropertyGroup>
-        <Version>0.72.0</Version>
+        <Version>0.73.0</Version>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -13,7 +13,7 @@
 
     <PropertyGroup>
         <Authors>Olaf Kober</Authors>
-        <Copyright>Copyright (c) 2023, Olaf Kober</Copyright>
+        <Copyright>Copyright (c) 2024, Olaf Kober</Copyright>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Amarok79/Amarok.Diagnostics</PackageProjectUrl>

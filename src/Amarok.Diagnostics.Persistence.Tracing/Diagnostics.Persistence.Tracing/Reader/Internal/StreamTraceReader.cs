@@ -152,7 +152,7 @@ internal sealed class StreamTraceReader : ITraceReader
             Int32 length
         )
         {
-            return new Byte[( length / 4096 + 1 ) * 4096];
+            return new Byte[(length / 4096 + 1) * 4096];
         }
 
         static void throwUnableToRead(
@@ -295,8 +295,8 @@ internal sealed class StreamTraceReader : ITraceReader
 
         var flags = bytes[1];
 
-        isCompressed = ( flags & 0xC0 ) == 0xC0;
-        isFinished = ( flags & 0x0F ) == 0x0F;
+        isCompressed = (flags & 0xC0) == 0xC0;
+        isFinished = (flags & 0x0F) == 0x0F;
 
 
         static void throwUnableToRead()
@@ -388,13 +388,16 @@ internal sealed class StreamTraceReader : ITraceReader
     )
     {
         var activity = record.DataCase switch {
-            TraceRecord.DataOneofCase.Activity           => _ProcessActivity(record.Activity, session),
-            TraceRecord.DataOneofCase.DefinePointInTime  => _ProcessDefinePointInTime(record.DefinePointInTime),
-            TraceRecord.DataOneofCase.DefineSource       => _ProcessDefineSource(record.DefineSource),
-            TraceRecord.DataOneofCase.DefineOperation    => _ProcessDefineOperation(record.DefineOperation),
-            TraceRecord.DataOneofCase.DefineTag          => _ProcessDefineTag(record.DefineTag),
-            TraceRecord.DataOneofCase.DefineTraceId      => _ProcessDefineTraceId(record.DefineTraceId),
-            TraceRecord.DataOneofCase.DefineParentSpanId => _ProcessDefineParentSpanId(record.DefineParentSpanId),
+            TraceRecord.DataOneofCase.Activity => _ProcessActivity(record.Activity, session),
+            TraceRecord.DataOneofCase.DefinePointInTime =>
+                _ProcessDefinePointInTime(record.DefinePointInTime),
+            TraceRecord.DataOneofCase.DefineSource    => _ProcessDefineSource(record.DefineSource),
+            TraceRecord.DataOneofCase.DefineOperation => _ProcessDefineOperation(record.DefineOperation),
+            TraceRecord.DataOneofCase.DefineTag       => _ProcessDefineTag(record.DefineTag),
+            TraceRecord.DataOneofCase.DefineTraceId   => _ProcessDefineTraceId(record.DefineTraceId),
+            TraceRecord.DataOneofCase.DefineParentSpanId => _ProcessDefineParentSpanId(
+                record.DefineParentSpanId
+            ),
             TraceRecord.DataOneofCase.ResetSources       => _ProcessResetSources(),
             TraceRecord.DataOneofCase.ResetOperations    => _ProcessResetOperations(),
             TraceRecord.DataOneofCase.ResetTags          => _ProcessResetTags(),
@@ -525,7 +528,16 @@ internal sealed class StreamTraceReader : ITraceReader
         var duration = TimeSpan.FromTicks(activity.DurationTicks);
         var tags = _ProcessActivityTags(activity);
 
-        return new ActivityInfo(session, source, operation, traceId, parentSpanId, spanId, startTime, duration) {
+        return new ActivityInfo(
+            session,
+            source,
+            operation,
+            traceId,
+            parentSpanId,
+            spanId,
+            startTime,
+            duration
+        ) {
             Tags = tags,
         };
     }

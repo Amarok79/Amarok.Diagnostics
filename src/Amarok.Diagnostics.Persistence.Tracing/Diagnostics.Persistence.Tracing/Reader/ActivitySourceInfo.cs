@@ -18,10 +18,7 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 /// <param name="Version">
 ///     The optional version of the activity source. Can be null.
 /// </param>
-public sealed record ActivitySourceInfo(
-    String Name,
-    String? Version = null
-)
+public sealed record ActivitySourceInfo(String Name, String? Version = null)
 {
     /// <inheritdoc/>
     public override String ToString()

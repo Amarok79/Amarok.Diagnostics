@@ -109,7 +109,7 @@ public class ZipArchiveExtensionsTests
 
         var files = archive.GetTraceFiles();
 
-        ( (ICheck<IEnumerable>)Check.That(files) ).HasSize(1);
+        ((ICheck<IEnumerable>)Check.That(files)).HasSize(1);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
         Check.That(files[0].Entry.Name).IsEqualTo("1.adtx");
@@ -128,7 +128,7 @@ public class ZipArchiveExtensionsTests
 
         var files = archive.GetTraceFiles();
 
-        ( (ICheck<IEnumerable>)Check.That(files) ).HasSize(5);
+        ((ICheck<IEnumerable>)Check.That(files)).HasSize(5);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
         Check.That(files[0].Entry.Name).IsEqualTo("1.adtx");
@@ -164,7 +164,7 @@ public class ZipArchiveExtensionsTests
 
         var files = archive.GetTraceFiles();
 
-        ( (ICheck<IEnumerable>)Check.That(files) ).HasSize(5);
+        ((ICheck<IEnumerable>)Check.That(files)).HasSize(5);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
         Check.That(files[0].Entry.Name).IsEqualTo("1.adtx");

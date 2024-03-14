@@ -18,7 +18,15 @@ public class ActivitySerializersTests
     public void Setup()
     {
         mRecords = new TraceRecords();
-        mSerializer = new ActivitySerializer(4, 4, 128, 128, TimeSpan.FromMilliseconds(100), ObjectsPool.Create(false));
+
+        mSerializer = new ActivitySerializer(
+            4,
+            4,
+            128,
+            128,
+            TimeSpan.FromMilliseconds(100),
+            ObjectsPool.Create(false)
+        );
     }
 
 

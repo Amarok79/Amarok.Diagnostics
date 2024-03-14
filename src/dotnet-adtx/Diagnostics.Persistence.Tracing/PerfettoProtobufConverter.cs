@@ -103,8 +103,10 @@ internal sealed class PerfettoProtobufConverter
         //AnsiConsole.MarkupLine($"[grey]  Arg Values :  {mArgValues.Count}[/]");
 
         AnsiConsole.WriteLine();
-        AnsiConsole.MarkupLine($"[green]SUCCESS:[/] Converted [aqua]{mCount}[/] activities " +
-                               $"in [aqua]{sw.ElapsedMilliseconds:D}[/] ms");
+        AnsiConsole.MarkupLine(
+            $"[green]SUCCESS:[/] Converted [aqua]{mCount}[/] activities " +
+            $"in [aqua]{sw.ElapsedMilliseconds:D}[/] ms"
+        );
     }
 
 
@@ -149,7 +151,10 @@ internal sealed class PerfettoProtobufConverter
             TimeSpan.Zero,
             new KeyValuePair<String, Object?>[] {
                 new("SessionUuid", activity.Session.Uuid.ToString("D", CultureInfo.InvariantCulture)),
-                new("SessionStartTime", activity.Session.StartTime.ToString("O", CultureInfo.InvariantCulture)),
+                new(
+                    "SessionStartTime",
+                    activity.Session.StartTime.ToString("O", CultureInfo.InvariantCulture)
+                ),
             }
         );
     }
@@ -176,7 +181,7 @@ internal sealed class PerfettoProtobufConverter
         {
             if (!mProcessIds.TryGetValue(processName, out processId))
             {
-                processId = (UInt64)( ProcessInitialId + mProcessIds.Count + 1 );
+                processId = (UInt64)(ProcessInitialId + mProcessIds.Count + 1);
 
                 mProcessIds.Add(processName, processId);
 
@@ -184,7 +189,7 @@ internal sealed class PerfettoProtobufConverter
             }
         }
 
-        trackId = (UInt64)( TrackInitialId + mTrackIds.Count + 1 );
+        trackId = (UInt64)(TrackInitialId + mTrackIds.Count + 1);
 
         mTrackIds.Add(activity.Source.Name, trackId);
 
@@ -293,7 +298,7 @@ internal sealed class PerfettoProtobufConverter
         }
 
         var sliceEnd = new TracePacket {
-            Timestamp = Convert.ToUInt64(( relativeStartTime.Ticks + duration.Ticks ) / 10 * 1000),
+            Timestamp = Convert.ToUInt64((relativeStartTime.Ticks + duration.Ticks) / 10 * 1000),
             TrackEvent = new TrackEvent {
                 TrackUuid = trackId,
                 Type = TrackEvent.Types.Type.SliceEnd,
@@ -302,7 +307,10 @@ internal sealed class PerfettoProtobufConverter
         };
 
         var trace = new Trace {
-            Packet = { sliceBegin, sliceEnd },
+            Packet = {
+                sliceBegin,
+                sliceEnd,
+            },
         };
 
         trace.WriteTo(mWriter);
@@ -416,7 +424,7 @@ internal sealed class PerfettoProtobufConverter
             return eventNameId;
         }
 
-        eventNameId = (UInt64)( EventNameInitialId + mEventNames.Count );
+        eventNameId = (UInt64)(EventNameInitialId + mEventNames.Count);
 
         mEventNames.Add(eventName, eventNameId);
 
@@ -426,7 +434,8 @@ internal sealed class PerfettoProtobufConverter
             new EventName {
                 Iid = eventNameId,
                 Name = eventName,
-            });
+            }
+        );
 
         return eventNameId;
     }
@@ -441,7 +450,7 @@ internal sealed class PerfettoProtobufConverter
             return argNameId;
         }
 
-        argNameId = (UInt64)( ArgNameInitialId + mArgNames.Count );
+        argNameId = (UInt64)(ArgNameInitialId + mArgNames.Count);
 
         mArgNames.Add(argName, argNameId);
 
@@ -451,7 +460,8 @@ internal sealed class PerfettoProtobufConverter
             new DebugAnnotationName {
                 Name = argName,
                 Iid = argNameId,
-            });
+            }
+        );
 
         return argNameId;
     }
@@ -466,7 +476,7 @@ internal sealed class PerfettoProtobufConverter
             return argValueId;
         }
 
-        argValueId = (UInt64)( ArgValueInitialId + mArgValues.Count );
+        argValueId = (UInt64)(ArgValueInitialId + mArgValues.Count);
 
         mArgValues.Add(argValue, argValueId);
 
@@ -476,7 +486,8 @@ internal sealed class PerfettoProtobufConverter
             new InternedString {
                 Str = ByteString.CopyFromUtf8(argValue),
                 Iid = argValueId,
-            });
+            }
+        );
 
         return argValueId;
     }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Buffers.Binary;
 using System.Diagnostics;
@@ -111,7 +111,10 @@ internal sealed class RollingFileWriter : IDisposable
                 mActiveStream.Flush();
                 mActiveStream.Close();
 
-                mLogger.LogTrace("RollingFileWriter: Closed active log file ({Elapsed} ms)", sw.ElapsedMilliseconds);
+                mLogger.LogTrace(
+                    "RollingFileWriter: Closed active log file ({Elapsed} ms)",
+                    sw.ElapsedMilliseconds
+                );
 
                 if (mUseCompression)
                 {
@@ -162,11 +165,17 @@ internal sealed class RollingFileWriter : IDisposable
     {
         var sw = Stopwatch.StartNew();
 
-        mLogger.LogDebug("RollingFileWriter: Flushing active log file '{FileName}' to disk...", mActiveStream?.Name);
+        mLogger.LogDebug(
+            "RollingFileWriter: Flushing active log file '{FileName}' to disk...",
+            mActiveStream?.Name
+        );
 
         mActiveStream?.Flush(true);
 
-        mLogger.LogDebug("RollingFileWriter: Flushed active log file to disk ({Elapsed} ms)", sw.ElapsedMilliseconds);
+        mLogger.LogDebug(
+            "RollingFileWriter: Flushed active log file to disk ({Elapsed} ms)",
+            sw.ElapsedMilliseconds
+        );
     }
 
     public void Export(
@@ -183,7 +192,12 @@ internal sealed class RollingFileWriter : IDisposable
             archivePath
         );
 
-        using var targetStream = new FileStream(archivePath, FileMode.Create, FileAccess.Write, FileShare.None);
+        using var targetStream = new FileStream(
+            archivePath,
+            FileMode.Create,
+            FileAccess.Write,
+            FileShare.None
+        );
 
         using var archive = new ZipArchive(targetStream, ZipArchiveMode.Create);
 
@@ -254,33 +268,37 @@ internal sealed class RollingFileWriter : IDisposable
 
         try
         {
-            using var target = new FileStream(tmpFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-
-            using var source = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-            _WriteFileHeader(target, FileVersion, true, true, mSessionUuid, mSessionStartTime);
-
-            source.Seek(HeaderLength, SeekOrigin.Begin);
-
-            using var compressed = new DeflateStream(target, CompressionLevel.Fastest);
-
-            var bytes = new Byte[8192];
-
-            while (true)
+            using (var target = new FileStream(
+                    tmpFilePath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None
+                ))
             {
-                var read = source.Read(bytes, 0, bytes.Length);
-
-                if (read == 0)
+                using (var source = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    break;
+                    _WriteFileHeader(target, FileVersion, true, true, mSessionUuid, mSessionStartTime);
+
+                    source.Seek(HeaderLength, SeekOrigin.Begin);
+
+                    using (var compressed = new DeflateStream(target, CompressionLevel.Fastest))
+                    {
+                        var bytes = new Byte[8192];
+
+                        while (true)
+                        {
+                            var read = source.Read(bytes, 0, bytes.Length);
+
+                            if (read == 0)
+                            {
+                                break;
+                            }
+
+                            compressed.Write(bytes, 0, read);
+                        }
+                    }
                 }
-
-                compressed.Write(bytes, 0, read);
             }
-
-            compressed.Dispose();
-            source.Dispose();
-            target.Dispose();
 
             File.Move(tmpFilePath, filePath, true);
         }
@@ -416,7 +434,7 @@ internal sealed class RollingFileWriter : IDisposable
         const Byte finishedFlag = 0x0F;
         const Byte compressedFlag = 0xC0;
 
-        var flag = ( finished ? finishedFlag : activeFlag ) | ( compressed ? compressedFlag : 0x00 );
+        var flag = (finished ? finishedFlag : activeFlag) | (compressed ? compressedFlag : 0x00);
 
         ReadOnlySpan<Byte> bytes = stackalloc Byte[] { 0x00, (Byte)flag };
 

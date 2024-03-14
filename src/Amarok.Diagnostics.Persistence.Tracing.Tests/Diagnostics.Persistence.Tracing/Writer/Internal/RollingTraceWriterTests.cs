@@ -28,6 +28,7 @@ public class RollingTraceWriterTests
         mExportFile = new FileInfo(Path.Combine(path, "export.zip"));
 
         mSessionUuid = new Guid("0C6122357E6344E7915E97D478022F07");
+
         mSessionStartTime = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.FromHours(2));
 
         mWriter = new RollingTraceWriter(
@@ -75,7 +76,12 @@ public class RollingTraceWriterTests
         Int32 ordinal
     )
     {
-        using var stream = new FileStream(_MakePath(ordinal), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var stream = new FileStream(
+            _MakePath(ordinal),
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.ReadWrite
+        );
 
         var bytes = new Byte[stream.Length];
         _ = stream.Read(bytes, 0, bytes.Length);

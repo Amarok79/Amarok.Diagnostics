@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <IsPackable>True</IsPackable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <Description>.NET CLI tools for Amarok.Diagnostics.Persistence.Tracing</Description>
@@ -12,14 +12,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Spectre.Console" Version="0.47.0" />
-        <PackageReference Include="Spectre.Console.Analyzer" Version="0.47.0">
+        <PackageReference Include="Spectre.Console" Version="0.48.0" />
+        <PackageReference Include="Spectre.Console.Analyzer" Version="0.48.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-        <PackageReference Include="Google.Protobuf" Version="3.24.0" />
-        <PackageReference Include="Grpc.Tools" Version="2.57.0">
+        <PackageReference Include="Google.Protobuf" Version="3.26.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.62.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

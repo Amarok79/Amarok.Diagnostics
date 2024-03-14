@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 // ReSharper disable InconsistentNaming
 
@@ -298,7 +298,8 @@ internal abstract class ObjectsPool
             }
         }
 
-        private sealed class DefineParentSpanIdPooledObjectPolicy : PooledObjectPolicy<TraceDefineParentSpanId>
+        private sealed class DefineParentSpanIdPooledObjectPolicy :
+            PooledObjectPolicy<TraceDefineParentSpanId>
         {
             public override TraceDefineParentSpanId Create()
             {

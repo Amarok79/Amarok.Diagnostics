@@ -38,10 +38,10 @@ public static class DirectoryInfoExtensions
 
 
         return directoryInfo.GetFiles("*.adtx", SearchOption.TopDirectoryOnly)
-            .Select(x => map(x))
+            .Select(map)
             .Where(x => x.FileInfo != null)
             .OrderBy(x => x.Ordinal)
-            .Select(x => ( x.Ordinal, x.FileInfo! ))
+            .Select(x => (x.Ordinal, x.FileInfo!))
             .ToList();
 
 
@@ -54,10 +54,10 @@ public static class DirectoryInfoExtensions
 
             if (ordinal == null)
             {
-                return ( -1, null );
+                return (-1, null);
             }
 
-            return ( ordinal.Value, fileInfo );
+            return (ordinal.Value, fileInfo);
         }
 
         static Int32? parseOrdinal(

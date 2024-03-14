@@ -55,9 +55,9 @@ This project makes three packages available.
 
 [dotnet-adtx](https://www.nuget.org/packages/dotnet-adtx/) provides a .NET CLI tool for converting binary traces files (.adtx) into a Google Perfetto-compatible format so that trace logs can be visualized and analyzed via https://ui.perfetto.dev/.
 
-In general, packages provide binaries for *.NET 7.0* only.
+In general, packages provide binaries for *.NET 8.0* only.
 
-**NOTE:** A down-port to *.NET 6* or *.NET Standard 2.0* should be easy, but is currently not scope of this project.
+**NOTE:** A down-port to *.NET 6*, *.NET 7*, or *.NET Standard 2.0* should be easy, but is currently not scope of this project.
 
 
 # Usage

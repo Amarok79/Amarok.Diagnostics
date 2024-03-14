@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO.Compression;
 using Amarok.Diagnostics.Persistence.Tracing.Reader;
+using Amarok.Diagnostics.Persistence.Tracing.Writer;
 using Amarok.Diagnostics.Persistence.Tracing.Writer.Internal;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -16,7 +17,7 @@ public class IntegrationTests
 {
     private DirectoryInfo mDirectory = null!;
     private FileInfo mArchive = null!;
-    private RollingTraceWriter? mWriter;
+    private ITraceWriter? mWriter;
     private ITraceReader? mReader;
 
 
@@ -61,7 +62,7 @@ public class IntegrationTests
         Boolean useCompression = false
     )
     {
-        mWriter = new RollingTraceWriter(
+        var writer = new RollingTraceWriter(
             mDirectory,
             sessionUuid ?? Guid.NewGuid(),
             sessionStartTime ?? DateTimeOffset.Now,
@@ -78,7 +79,9 @@ public class IntegrationTests
             NullLogger.Instance
         );
 
-        mWriter.Initialize();
+        writer.Initialize();
+
+        mWriter = writer;
     }
 
     private void _CreateReaderFromDirectory()
@@ -552,8 +555,8 @@ public class IntegrationTests
         for (var i = 0; i < 100000; i++)
         {
             var activity = new Activity("Foo()").SetParentId(
-                    ActivityTraceId.CreateFromString(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture)),
-                    ActivitySpanId.CreateFromString(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture))
+                    ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
+                    ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
                 .SetStartTime(activityStartTime)
                 .SetEndTime(activityEndTime)
@@ -586,8 +589,10 @@ public class IntegrationTests
             Check.That(activities[i].Tags).HasSize(1);
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId).IsEqualTo(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId).IsEqualTo(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture));
+            Check.That(activities[i].TraceId)
+                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+            Check.That(activities[i].ParentSpanId)
+                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
 
@@ -620,8 +625,12 @@ public class IntegrationTests
             for (var i = 0; i < 1000; i++)
             {
                 var activity = new Activity("Foo()").SetParentId(
-                        ActivityTraceId.CreateFromString(( index + 1 ).ToString("x32", CultureInfo.InvariantCulture)),
-                        ActivitySpanId.CreateFromString(( index + 1 ).ToString("x16", CultureInfo.InvariantCulture))
+                        ActivityTraceId.CreateFromString(
+                            (index + 1).ToString("x32", CultureInfo.InvariantCulture)
+                        ),
+                        ActivitySpanId.CreateFromString(
+                            (index + 1).ToString("x16", CultureInfo.InvariantCulture)
+                        )
                     )
                     .SetStartTime(activityStartTime)
                     .SetEndTime(activityEndTime)
@@ -655,8 +664,10 @@ public class IntegrationTests
             Check.That(activities[i].Tags).HasSize(1);
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId).IsEqualTo(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId).IsEqualTo(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture));
+            Check.That(activities[i].TraceId)
+                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+            Check.That(activities[i].ParentSpanId)
+                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
 
@@ -685,8 +696,8 @@ public class IntegrationTests
         for (var i = 0; i < 100000; i++)
         {
             var activity = new Activity("Foo()").SetParentId(
-                    ActivityTraceId.CreateFromString(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture)),
-                    ActivitySpanId.CreateFromString(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture))
+                    ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
+                    ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
                 .SetStartTime(activityStartTime)
                 .SetEndTime(activityEndTime)
@@ -719,8 +730,10 @@ public class IntegrationTests
             Check.That(activities[i].Tags).HasSize(1);
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId).IsEqualTo(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId).IsEqualTo(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture));
+            Check.That(activities[i].TraceId)
+                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+            Check.That(activities[i].ParentSpanId)
+                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
 
@@ -754,8 +767,8 @@ public class IntegrationTests
         for (var i = 0; i < 100000; i++)
         {
             var activity = new Activity("Foo()").SetParentId(
-                    ActivityTraceId.CreateFromString(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture)),
-                    ActivitySpanId.CreateFromString(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture))
+                    ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
+                    ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
                 .SetStartTime(activityStartTime)
                 .SetEndTime(activityEndTime)
@@ -790,8 +803,10 @@ public class IntegrationTests
             Check.That(activities[i].Tags).HasSize(1);
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId).IsEqualTo(( i + 1 ).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId).IsEqualTo(( i + 1 ).ToString("x16", CultureInfo.InvariantCulture));
+            Check.That(activities[i].TraceId)
+                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+            Check.That(activities[i].ParentSpanId)
+                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
     }

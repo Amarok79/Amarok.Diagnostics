@@ -50,7 +50,8 @@ internal sealed class AnyValueDeserializer
         DecimalValue value
     )
     {
-        Span<Int32> bits = stackalloc Int32[4] { value.Element1, value.Element2, value.Element3, value.Element4 };
+        Span<Int32> bits =
+            stackalloc Int32[4] { value.Element1, value.Element2, value.Element3, value.Element4 };
 
         return new Decimal(bits);
     }
