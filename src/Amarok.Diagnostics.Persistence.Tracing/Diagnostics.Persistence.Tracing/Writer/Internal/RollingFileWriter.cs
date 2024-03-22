@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
+using System.Buffers;
 using System.Buffers.Binary;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -283,7 +284,7 @@ internal sealed class RollingFileWriter : IDisposable
 
                     using (var compressed = new DeflateStream(target, CompressionLevel.Fastest))
                     {
-                        var bytes = new Byte[8192];
+                        var bytes = ArrayPool<Byte>.Shared.Rent(8192);
 
                         while (true)
                         {
@@ -296,6 +297,8 @@ internal sealed class RollingFileWriter : IDisposable
 
                             compressed.Write(bytes, 0, read);
                         }
+
+                        ArrayPool<Byte>.Shared.Return(bytes);
                     }
                 }
             }

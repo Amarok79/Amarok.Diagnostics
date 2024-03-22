@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
@@ -6,8 +6,6 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 internal abstract class InterningMapBase<T>
     where T : class
 {
-    private readonly Int32 mCapacity;
-
     private T?[] mArray;
 
 
@@ -15,14 +13,13 @@ internal abstract class InterningMapBase<T>
         Int32 capacity
     )
     {
-        mCapacity = capacity;
         mArray = new T[capacity];
     }
 
 
     public void Reset()
     {
-        mArray = new T[mCapacity];
+        Array.Clear(mArray, 0, mArray.Length);
     }
 
 
@@ -34,10 +31,9 @@ internal abstract class InterningMapBase<T>
         if (id >= mArray.Length)
         {
             _ResizeTo(id);
-
-            mArray[id] = item;
         }
-        else if (mArray[id] == null)
+
+        if (mArray[id] == null)
         {
             mArray[id] = item;
         }

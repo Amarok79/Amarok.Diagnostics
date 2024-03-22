@@ -14,7 +14,7 @@ internal abstract class SerializerBase<T>
     private readonly Int32 mMaxNumberOfItems;
     private readonly ObjectsPool mObjectsPool;
 
-    private readonly Dictionary<T, Int32> mItems = new();
+    private readonly Dictionary<T, Int32> mItems;
     private Int32 mNextId = InitialId;
 
 
@@ -26,6 +26,7 @@ internal abstract class SerializerBase<T>
         ObjectsPool objectsPool
     )
     {
+        mItems = new Dictionary<T, Int32>(maxNumberOfItems);
         mMaxNumberOfItems = maxNumberOfItems;
         mObjectsPool = objectsPool;
     }
@@ -79,11 +80,7 @@ internal abstract class SerializerBase<T>
             _ResetDueToOverrun(records);
         }
 
-        var id = mNextId;
-
-        mNextId++;
-
-        return id;
+        return mNextId++;
     }
 
     private void _ResetDueToOverrun(

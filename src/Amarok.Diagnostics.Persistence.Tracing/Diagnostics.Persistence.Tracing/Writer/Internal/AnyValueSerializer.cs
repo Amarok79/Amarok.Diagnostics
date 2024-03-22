@@ -40,41 +40,43 @@ internal sealed class AnyValueSerializer
         Object? value
     )
     {
-        if (value is null)
+        switch (value)
         {
-            any.Null = false;
-        }
-        else if (value is String stringValue)
-        {
-            _SerializeString(any, stringValue);
-        }
-        else if (value is Boolean booleanValue)
-        {
-            any.Bool = booleanValue;
-        }
-        else if (value is Int32 int32Value)
-        {
-            any.Int32 = int32Value;
-        }
-        else if (value is Int64 int64Value)
-        {
-            any.Int64 = int64Value;
-        }
-        else if (value is Double doubleValue)
-        {
-            any.Double = doubleValue;
-        }
-        else if (value is DateTime dateTimeValue)
-        {
-            _SerializeDateTime(any, dateTimeValue);
-        }
-        else if (value is DateTimeOffset dateTimeOffset)
-        {
-            _SerializeDateTimeOffset(any, dateTimeOffset);
-        }
-        else
-        {
-            _SerializeSlow(any, value);
+            case null:
+                any.Null = false;
+                break;
+
+            case String stringValue:
+                _SerializeString(any, stringValue);
+                break;
+
+            case Boolean booleanValue:
+                any.Bool = booleanValue;
+                break;
+
+            case Int32 int32Value:
+                any.Int32 = int32Value;
+                break;
+
+            case Int64 int64Value:
+                any.Int64 = int64Value;
+                break;
+
+            case Double doubleValue:
+                any.Double = doubleValue;
+                break;
+
+            case DateTime dateTimeValue:
+                _SerializeDateTime(any, dateTimeValue);
+                break;
+
+            case DateTimeOffset dateTimeOffset:
+                _SerializeDateTimeOffset(any, dateTimeOffset);
+                break;
+
+            default:
+                _SerializeSlow(any, value);
+                break;
         }
     }
 
@@ -84,84 +86,92 @@ internal sealed class AnyValueSerializer
         Object value
     )
     {
-        if (value is Byte byteValue)
+        switch (value)
         {
-            any.Int32 = byteValue;
-        }
-        else if (value is Guid guidValue)
-        {
-            _SerializeGuid(any, guidValue);
-        }
-        else if (value is UInt16 uint16Value)
-        {
-            any.Uint32 = uint16Value;
-        }
-        else if (value is UInt32 uint32Value)
-        {
-            any.Uint32 = uint32Value;
-        }
-        else if (value is UInt64 uint64Value)
-        {
-            any.Uint64 = uint64Value;
-        }
-        else if (value is SByte sbyteValue)
-        {
-            any.Int32 = sbyteValue;
-        }
-        else if (value is Int16 int16Value)
-        {
-            any.Int32 = int16Value;
-        }
-        else if (value is Byte[] byteArray)
-        {
-            var count = Math.Min(byteArray.Length, mMaxBytesLength);
-            any.Bytes = ByteString.CopyFrom(byteArray, 0, count);
-        }
-        else if (value is Memory<Byte> byteMemory)
-        {
-            var span = byteMemory.Span;
-            var count = Math.Min(span.Length, mMaxBytesLength);
+            case Byte byteValue:
+                any.Int32 = byteValue;
+                break;
 
-            any.Bytes = ByteString.CopyFrom(span[..count]);
-        }
-        else if (value is ReadOnlyMemory<Byte> readOnlyByteMemory)
-        {
-            var span = readOnlyByteMemory.Span;
-            var count = Math.Min(span.Length, mMaxBytesLength);
+            case Guid guidValue:
+                _SerializeGuid(any, guidValue);
+                break;
 
-            any.Bytes = ByteString.CopyFrom(span[..count]);
-        }
-        else if (value is DateOnly dateOnlyValue)
-        {
-            _SerializeDateOnly(any, dateOnlyValue);
-        }
-        else if (value is TimeOnly timeOnlyValue)
-        {
-            _SerializeTimeOnly(any, timeOnlyValue);
-        }
-        else if (value is Half halfValue)
-        {
-            any.Double = (Double)halfValue;
-        }
-        else if (value is Single singleValue)
-        {
-            any.Double = singleValue;
-        }
-        else if (value is Char charValue)
-        {
-            any.String = charValue.ToString();
-        }
-        else if (value is Decimal decimalValue)
-        {
-            _SerializeDecimal(any, decimalValue);
-        }
-        else if (value is DBNull)
-        {
-            any.Null = false;
-        }
-        else
-        {
-            _SerializeObject(any, value);
+            case UInt16 uint16Value:
+                any.Uint32 = uint16Value;
+                break;
+
+            case UInt32 uint32Value:
+                any.Uint32 = uint32Value;
+                break;
+
+            case UInt64 uint64Value:
+                any.Uint64 = uint64Value;
+                break;
+
+            case SByte sbyteValue:
+                any.Int32 = sbyteValue;
+                break;
+
+            case Int16 int16Value:
+                any.Int32 = int16Value;
+                break;
+
+            case Byte[] byteArray:
+            {
+                var count = Math.Min(byteArray.Length, mMaxBytesLength);
+                any.Bytes = ByteString.CopyFrom(byteArray, 0, count);
+                break;
+            }
+
+            case Memory<Byte> byteMemory:
+            {
+                var span = byteMemory.Span;
+                var count = Math.Min(span.Length, mMaxBytesLength);
+
+                any.Bytes = ByteString.CopyFrom(span[..count]);
+                break;
+            }
+
+            case ReadOnlyMemory<Byte> readOnlyByteMemory:
+            {
+                var span = readOnlyByteMemory.Span;
+                var count = Math.Min(span.Length, mMaxBytesLength);
+
+                any.Bytes = ByteString.CopyFrom(span[..count]);
+                break;
+            }
+
+            case DateOnly dateOnlyValue:
+                _SerializeDateOnly(any, dateOnlyValue);
+                break;
+
+            case TimeOnly timeOnlyValue:
+                _SerializeTimeOnly(any, timeOnlyValue);
+                break;
+
+            case Half halfValue:
+                any.Double = (Double)halfValue;
+                break;
+
+            case Single singleValue:
+                any.Double = singleValue;
+                break;
+
+            case Char charValue:
+                any.String = charValue.ToString();
+                break;
+
+            case Decimal decimalValue:
+                _SerializeDecimal(any, decimalValue);
+                break;
+
+            case DBNull:
+                any.Null = false;
+                break;
+
+            default:
+                _SerializeObject(any, value);
+                break;
         }
     }
 

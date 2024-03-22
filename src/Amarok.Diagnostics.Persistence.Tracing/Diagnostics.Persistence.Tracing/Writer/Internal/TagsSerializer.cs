@@ -67,12 +67,12 @@ internal sealed class TagsSerializer
         TraceRecords records
     )
     {
-        if (mKeys.TryGetValue(key, out var id))
+        if (!mKeys.TryGetValue(key, out var id))
         {
-            return id;
+            id = _InternKeySlow(key, records);
         }
 
-        return _InternKeySlow(key, records);
+        return id;
     }
 
     private Int32 _InternKeySlow(
@@ -98,11 +98,7 @@ internal sealed class TagsSerializer
             _ResetDueToOverrun(records);
         }
 
-        var id = mNextId;
-
-        mNextId++;
-
-        return id;
+        return mNextId++;
     }
 
     private void _ResetDueToOverrun(

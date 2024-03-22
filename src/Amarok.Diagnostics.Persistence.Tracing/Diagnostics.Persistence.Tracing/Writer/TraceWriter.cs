@@ -32,9 +32,7 @@ public static class TraceWriter
         TraceWriterOptions? options = null
     )
     {
-        var directory = new DirectoryInfo(directoryPath);
-
-        return Create(directory, options);
+        return Create(new DirectoryInfo(directoryPath), options);
     }
 
     /// <summary>

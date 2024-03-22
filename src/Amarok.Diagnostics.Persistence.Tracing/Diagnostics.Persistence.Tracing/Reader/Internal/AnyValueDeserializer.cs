@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 #pragma warning disable CA1822 // Mark members as static
 
@@ -32,7 +32,6 @@ internal sealed class AnyValueDeserializer
             AnyValue.ValuesOneofCase.Uint32         => value.Uint32,
             AnyValue.ValuesOneofCase.Uint64         => value.Uint64,
             AnyValue.ValuesOneofCase.Decimal        => _DeserializeDecimal(value.Decimal),
-            AnyValue.ValuesOneofCase.None           => throw _MakeUnexpectedCaseException(value.ValuesCase),
             _                                       => throw _MakeUnexpectedCaseException(value.ValuesCase),
         };
     }
