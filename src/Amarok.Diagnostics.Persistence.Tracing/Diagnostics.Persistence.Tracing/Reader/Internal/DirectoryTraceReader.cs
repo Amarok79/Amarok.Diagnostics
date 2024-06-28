@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
@@ -11,10 +11,7 @@ internal sealed class DirectoryTraceReader : ITraceReader
     private ITraceReader? mFileReader;
 
 
-    public DirectoryTraceReader(
-        String directory,
-        ITraceReaderHooks? hooks = null
-    )
+    public DirectoryTraceReader(String directory, ITraceReaderHooks? hooks = null)
     {
         mDirectory = new DirectoryInfo(directory);
         mHooks = hooks;

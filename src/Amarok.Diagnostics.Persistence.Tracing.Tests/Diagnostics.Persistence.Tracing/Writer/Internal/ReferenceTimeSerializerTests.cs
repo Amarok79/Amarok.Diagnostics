@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using Amarok.Diagnostics.Persistence.Tracing.Protos;
 
@@ -35,20 +35,23 @@ public class ReferenceTimeSerializerTests
         mSerializer.SetReferencePointInTime(now, mRecords);
 
         Check.That(mSerializer.IsDefined).IsTrue();
+
         Check.That(mSerializer.GetRelativeTimeDelta(now)).IsEqualTo(TimeSpan.Zero);
 
         Check.That(mRecords.Items).HasSize(1);
 
         Check.That(mRecords.Items[0].DefinePointInTime).IsNotNull();
+
         Check.That(mRecords.Items[0].DefinePointInTime.Ticks).IsEqualTo(now.LocalDateTime.Ticks);
-        Check.That(mRecords.Items[0].DefinePointInTime.OffsetMinutes)
-            .IsEqualTo((Int32)now.Offset.TotalMinutes);
+
+        Check.That(mRecords.Items[0].DefinePointInTime.OffsetMinutes).IsEqualTo((Int32)now.Offset.TotalMinutes);
     }
 
     [Test]
     public void GetRelativeTimeDelta_With_DateTimeOffset()
     {
         var now = new DateTimeOffset(2022, 10, 01, 20, 06, 53, 123, TimeSpan.FromHours(4));
+
         mSerializer.SetReferencePointInTime(now, mRecords);
 
         var timeDelta = mSerializer.GetRelativeTimeDelta(now + TimeSpan.FromSeconds(23));
@@ -60,6 +63,7 @@ public class ReferenceTimeSerializerTests
     public void GetRelativeTimeDelta_With_UtcDateTime()
     {
         var now = new DateTimeOffset(2022, 10, 01, 20, 06, 53, 123, TimeSpan.FromHours(4));
+
         mSerializer.SetReferencePointInTime(now, mRecords);
 
         var utc = now.UtcDateTime + TimeSpan.FromSeconds(23);

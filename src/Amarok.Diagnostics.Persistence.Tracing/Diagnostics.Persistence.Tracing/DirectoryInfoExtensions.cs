@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Globalization;
 
@@ -25,9 +25,7 @@ public static class DirectoryInfoExtensions
     ///     file info object. The returned list is ordered ascending by file ordinals. If the given
     ///     directory doesn't exist or doesn't contain any trace log file, then an empty list is returned.
     /// </returns>
-    public static IList<(Int32 Ordinal, FileInfo FileInfo)> GetTraceFiles(
-        this DirectoryInfo directoryInfo
-    )
+    public static IList<(Int32 Ordinal, FileInfo FileInfo)> GetTraceFiles(this DirectoryInfo directoryInfo)
     {
         directoryInfo.Refresh();
 
@@ -38,16 +36,14 @@ public static class DirectoryInfoExtensions
 
 
         return directoryInfo.GetFiles("*.adtx", SearchOption.TopDirectoryOnly)
-            .Select(map)
-            .Where(x => x.FileInfo != null)
-            .OrderBy(x => x.Ordinal)
-            .Select(x => (x.Ordinal, x.FileInfo!))
-            .ToList();
+           .Select(map)
+           .Where(x => x.FileInfo != null)
+           .OrderBy(x => x.Ordinal)
+           .Select(x => (x.Ordinal, x.FileInfo!))
+           .ToList();
 
 
-        static (Int32 Ordinal, FileInfo? FileInfo) map(
-            FileInfo fileInfo
-        )
+        static (Int32 Ordinal, FileInfo? FileInfo) map(FileInfo fileInfo)
         {
             var fileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
             var ordinal = parseOrdinal(fileName);
@@ -60,9 +56,7 @@ public static class DirectoryInfoExtensions
             return (ordinal.Value, fileInfo);
         }
 
-        static Int32? parseOrdinal(
-            String fileName
-        )
+        static Int32? parseOrdinal(String fileName)
         {
             if (Int32.TryParse(fileName, NumberStyles.Integer, CultureInfo.InvariantCulture, out var ordinal))
             {

@@ -25,12 +25,7 @@ internal sealed class RollingFileWriter : IDisposable
     private FileStream? mActiveStream;
 
 
-    public RollingFileWriter(
-        DirectoryInfo directory,
-        Int64 maxDiskSpaceUsed,
-        Boolean useCompression,
-        ILogger logger
-    )
+    public RollingFileWriter(DirectoryInfo directory, Int64 maxDiskSpaceUsed, Boolean useCompression, ILogger logger)
     {
         mDirectory = directory;
         mMaxDiskSpaceUsed = maxDiskSpaceUsed;
@@ -42,10 +37,7 @@ internal sealed class RollingFileWriter : IDisposable
     }
 
 
-    public void SetSession(
-        Guid sessionUuid,
-        DateTimeOffset sessionStartTime
-    )
+    public void SetSession(Guid sessionUuid, DateTimeOffset sessionStartTime)
     {
         mSessionUuid = sessionUuid;
         mSessionStartTime = sessionStartTime;
@@ -112,10 +104,7 @@ internal sealed class RollingFileWriter : IDisposable
                 mActiveStream.Flush();
                 mActiveStream.Close();
 
-                mLogger.LogTrace(
-                    "RollingFileWriter: Closed active log file ({Elapsed} ms)",
-                    sw.ElapsedMilliseconds
-                );
+                mLogger.LogTrace("RollingFileWriter: Closed active log file ({Elapsed} ms)", sw.ElapsedMilliseconds);
 
                 if (mUseCompression)
                 {
@@ -155,9 +144,7 @@ internal sealed class RollingFileWriter : IDisposable
         }
     }
 
-    public void Write(
-        ReadOnlySpan<Byte> buffer
-    )
+    public void Write(ReadOnlySpan<Byte> buffer)
     {
         mActiveStream?.Write(buffer);
     }
@@ -166,22 +153,14 @@ internal sealed class RollingFileWriter : IDisposable
     {
         var sw = Stopwatch.StartNew();
 
-        mLogger.LogDebug(
-            "RollingFileWriter: Flushing active log file '{FileName}' to disk...",
-            mActiveStream?.Name
-        );
+        mLogger.LogDebug("RollingFileWriter: Flushing active log file '{FileName}' to disk...", mActiveStream?.Name);
 
         mActiveStream?.Flush(true);
 
-        mLogger.LogDebug(
-            "RollingFileWriter: Flushed active log file to disk ({Elapsed} ms)",
-            sw.ElapsedMilliseconds
-        );
+        mLogger.LogDebug("RollingFileWriter: Flushed active log file to disk ({Elapsed} ms)", sw.ElapsedMilliseconds);
     }
 
-    public void Export(
-        String archivePath
-    )
+    public void Export(String archivePath)
     {
         var sw = Stopwatch.StartNew();
 
@@ -193,12 +172,7 @@ internal sealed class RollingFileWriter : IDisposable
             archivePath
         );
 
-        using var targetStream = new FileStream(
-            archivePath,
-            FileMode.Create,
-            FileAccess.Write,
-            FileShare.None
-        );
+        using var targetStream = new FileStream(archivePath, FileMode.Create, FileAccess.Write, FileShare.None);
 
         using var archive = new ZipArchive(targetStream, ZipArchiveMode.Create);
 
@@ -261,20 +235,13 @@ internal sealed class RollingFileWriter : IDisposable
         }
     }
 
-    private void _CompressFile(
-        String filePath
-    )
+    private void _CompressFile(String filePath)
     {
         var tmpFilePath = filePath + "-tmp";
 
         try
         {
-            using (var target = new FileStream(
-                    tmpFilePath,
-                    FileMode.Create,
-                    FileAccess.Write,
-                    FileShare.None
-                ))
+            using (var target = new FileStream(tmpFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 using (var source = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
@@ -314,9 +281,7 @@ internal sealed class RollingFileWriter : IDisposable
         }
     }
 
-    private FileStream _OpenNextFile(
-        IList<(Int32 Ordinal, FileInfo FileInfo)> files
-    )
+    private FileStream _OpenNextFile(IList<(Int32 Ordinal, FileInfo FileInfo)> files)
     {
         var ordinal = 1;
 
@@ -338,9 +303,7 @@ internal sealed class RollingFileWriter : IDisposable
         }
     }
 
-    private FileStream? _TryOpenFile(
-        Int32 ordinal
-    )
+    private FileStream? _TryOpenFile(Int32 ordinal)
     {
         var filePath = Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
 
@@ -352,9 +315,7 @@ internal sealed class RollingFileWriter : IDisposable
         return new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read);
     }
 
-    private Int32 _PurgeFiles(
-        ICollection<(Int32 Ordinal, FileInfo FileInfo)> files
-    )
+    private Int32 _PurgeFiles(ICollection<(Int32 Ordinal, FileInfo FileInfo)> files)
     {
         var totalSize = files.Sum(x => x.FileInfo.Length);
 
@@ -399,9 +360,7 @@ internal sealed class RollingFileWriter : IDisposable
         _WriteFileSession(stream, sessionUuid, sessionStart);
     }
 
-    private static void _WriteFileSignature(
-        Stream stream
-    )
+    private static void _WriteFileSignature(Stream stream)
     {
         // file-signature       =  %x61 , %x64 , %x74 , %x78 ;      // "adtx"
 
@@ -410,10 +369,7 @@ internal sealed class RollingFileWriter : IDisposable
         stream.Write(bytes);
     }
 
-    private static void _WriteFileVersion(
-        Stream stream,
-        Byte version
-    )
+    private static void _WriteFileVersion(Stream stream, Byte version)
     {
         // file-version         =  %x00 , version ;
 
@@ -422,11 +378,7 @@ internal sealed class RollingFileWriter : IDisposable
         stream.Write(bytes);
     }
 
-    private static void _WriteFileFlags(
-        Stream stream,
-        Boolean compressed,
-        Boolean finished
-    )
+    private static void _WriteFileFlags(Stream stream, Boolean compressed, Boolean finished)
     {
         // file-flags           =  %x00 , active | finished | compressed-finished ;
         // active               =  %x0A ;
@@ -444,11 +396,7 @@ internal sealed class RollingFileWriter : IDisposable
         stream.Write(bytes);
     }
 
-    private static void _WriteFileSession(
-        Stream stream,
-        Guid sessionUuid,
-        DateTimeOffset sessionStart
-    )
+    private static void _WriteFileSession(Stream stream, Guid sessionUuid, DateTimeOffset sessionStart)
     {
         // file-session         =  session-uuid , session-start ;
         // session-uuid         =  <Guid> ;

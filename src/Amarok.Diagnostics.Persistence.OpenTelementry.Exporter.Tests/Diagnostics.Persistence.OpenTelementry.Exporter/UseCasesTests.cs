@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 using Amarok.Diagnostics.Persistence.Tracing.Reader;
@@ -46,9 +46,7 @@ public class IntegrationTests
         mReader = TraceReader.OpenFolder(mDirectory.FullName);
     }
 
-    private String _MakePath(
-        Int32 ordinal
-    )
+    private String _MakePath(Int32 ordinal)
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
@@ -59,18 +57,17 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions {
-                MaxDiskSpaceUsedInMegaBytes = 100,
-            },
+            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
         };
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-            .AddSource("*")
-            .AddAdtxTraceExporter(options, out var ctx)
-            .Build())
+           .AddSource("*")
+           .AddAdtxTraceExporter(options, out var ctx)
+           .Build())
         {
             Check.That(ctx).IsNotNull();
+
             Check.That(ctx.Exporter).IsNotNull();
 
             using (var activitySource = new ActivitySource("Source"))
@@ -97,16 +94,24 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(options.WriterOptions.SessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(options.WriterOptions.SessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEqualTo("Source");
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Operation");
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("#");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
         }
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
@@ -115,18 +120,17 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions {
-                MaxDiskSpaceUsedInMegaBytes = 100,
-            },
+            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
         };
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-            .AddSource("*")
-            .AddAdtxTraceExporter(options, out var ctx)
-            .Build())
+           .AddSource("*")
+           .AddAdtxTraceExporter(options, out var ctx)
+           .Build())
         {
             Check.That(ctx).IsNotNull();
+
             Check.That(ctx.Exporter).IsNotNull();
 
             for (var i = 0; i < 10000; i++)
@@ -156,16 +160,24 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(options.WriterOptions.SessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(options.WriterOptions.SessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEqualTo("Source");
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Operation");
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("#");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
         }
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
@@ -174,18 +186,17 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions {
-                MaxDiskSpaceUsedInMegaBytes = 100,
-            },
+            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
         };
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-            .AddSource("*")
-            .AddAdtxTraceExporter(options, out var ctx)
-            .Build())
+           .AddSource("*")
+           .AddAdtxTraceExporter(options, out var ctx)
+           .Build())
         {
             Check.That(ctx).IsNotNull();
+
             Check.That(ctx.Exporter).IsNotNull();
 
             for (var i = 0; i < 10000; i++)
@@ -220,17 +231,26 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(options.WriterOptions.SessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(options.WriterOptions.SessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEqualTo("Source");
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Operation");
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("#");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
         }
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsTrue();
+
         Check.That(File.Exists(_MakePath(3))).IsFalse();
     }
 
@@ -239,18 +259,17 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions {
-                MaxDiskSpaceUsedInMegaBytes = 100,
-            },
+            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
         };
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-            .AddSource("*")
-            .AddAdtxTraceExporter(options, out var ctx)
-            .Build())
+           .AddSource("*")
+           .AddAdtxTraceExporter(options, out var ctx)
+           .Build())
         {
             Check.That(ctx).IsNotNull();
+
             Check.That(ctx.Exporter).IsNotNull();
 
             for (var i = 0; i < 10000; i++)
@@ -285,12 +304,19 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(options.WriterOptions.SessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(options.WriterOptions.SessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEqualTo("Source");
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Operation");
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("#");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
         }
     }

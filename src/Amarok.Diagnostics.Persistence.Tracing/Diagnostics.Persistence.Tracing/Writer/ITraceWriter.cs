@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 
@@ -16,9 +16,7 @@ public interface ITraceWriter : IAsyncDisposable
     ///     be called afterward to flush enqueued activities to persistence storage. Multiple enqueued
     ///     activities can be flushed with a single call to <see cref="FlushAsync"/>.
     /// </summary>
-    void Write(
-        Activity activity
-    );
+    void Write(Activity activity);
 
     /// <summary>
     ///     Flushes all enqueued <see cref="Activity"/> instances to persistence storage. Activities
@@ -36,7 +34,5 @@ public interface ITraceWriter : IAsyncDisposable
     /// <param name="archivePath">
     ///     The path to the output Zip file.
     /// </param>
-    Task<Task> ExportAsync(
-        String archivePath
-    );
+    Task<Task> ExportAsync(String archivePath);
 }

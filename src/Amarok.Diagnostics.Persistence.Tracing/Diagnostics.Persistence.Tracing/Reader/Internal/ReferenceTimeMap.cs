@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
@@ -14,17 +14,13 @@ internal sealed class ReferenceTimeMap
     }
 
 
-    public void Define(
-        DateTimeOffset absoluteTime
-    )
+    public void Define(DateTimeOffset absoluteTime)
     {
         mPointInTime = absoluteTime;
     }
 
 
-    public DateTimeOffset GetAbsolutePointInTime(
-        TimeSpan timeDelta
-    )
+    public DateTimeOffset GetAbsolutePointInTime(TimeSpan timeDelta)
     {
         if (mPointInTime != null)
         {

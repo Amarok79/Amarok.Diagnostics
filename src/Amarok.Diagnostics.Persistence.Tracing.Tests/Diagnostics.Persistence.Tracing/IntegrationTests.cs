@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 using System.Globalization;
@@ -94,9 +94,7 @@ public class IntegrationTests
         mReader = TraceReader.OpenZipArchive(mArchive.FullName);
     }
 
-    private String _MakePath(
-        Int32 ordinal
-    )
+    private String _MakePath(Int32 ordinal)
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
@@ -119,9 +117,7 @@ public class IntegrationTests
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_Single_Activity(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_Single_Activity(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -131,12 +127,12 @@ public class IntegrationTests
         var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         var activity = new Activity("Foo()")
-            .SetParentId(
+           .SetParentId(
                 ActivityTraceId.CreateFromString("11223344556677881122334455667788"),
                 ActivitySpanId.CreateFromString("1122334411223344")
             )
-            .SetStartTime(activityStartTime)
-            .SetEndTime(activityEndTime);
+           .SetStartTime(activityStartTime)
+           .SetEndTime(activityEndTime);
 
         // act writing
         _CreateWriter(sessionUuid, sessionStartTime, useCompression: useCompression);
@@ -154,27 +150,36 @@ public class IntegrationTests
         Check.That(activities).HasSize(1);
 
         Check.That(activities[0].Session.Uuid).IsEqualTo(sessionUuid);
+
         Check.That(activities[0].Session.StartTime).IsEqualTo(sessionStartTime);
+
         Check.That(activities[0].Source.Name).IsEmpty();
+
         Check.That(activities[0].Source.Version).IsNull();
+
         Check.That(activities[0].OperationName).IsEqualTo("Foo()");
+
         Check.That(activities[0].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
         Check.That(activities[0].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
+
         Check.That(activities[0].Tags).IsEmpty();
+
         Check.That(activities[0].TraceId).IsEqualTo("11223344556677881122334455667788");
+
         Check.That(activities[0].ParentSpanId).IsEqualTo("1122334411223344");
+
         Check.That(activities[0].SpanId).IsEqualTo("0000000000000000");
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_Single_Activity_With_Tags(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_Single_Activity_With_Tags(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -231,11 +236,17 @@ public class IntegrationTests
         Check.That(activities).HasSize(1);
 
         Check.That(activities[0].Session.Uuid).IsEqualTo(sessionUuid);
+
         Check.That(activities[0].Session.StartTime).IsEqualTo(sessionStartTime);
+
         Check.That(activities[0].Source.Name).IsEmpty();
+
         Check.That(activities[0].Source.Version).IsNull();
+
         Check.That(activities[0].OperationName).IsEqualTo("Foo()");
+
         Check.That(activities[0].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
         Check.That(activities[0].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
 
         Check.That(activities[0].Tags).HasSize(25);
@@ -243,91 +254,115 @@ public class IntegrationTests
         var tags = activities[0].Tags;
 
         Check.That(tags[0].Key).IsEqualTo("aaa");
+
         Check.That(tags[0].Value).IsEqualTo(null);
 
         Check.That(tags[1].Key).IsEqualTo("bbb");
+
         Check.That(tags[1].Value).IsEqualTo(null);
 
         Check.That(tags[2].Key).IsEqualTo("ccc");
+
         Check.That(tags[2].Value).IsEqualTo(Byte.MaxValue);
 
         Check.That(tags[3].Key).IsEqualTo("ddd");
+
         Check.That(tags[3].Value).IsEqualTo(UInt16.MaxValue);
 
         Check.That(tags[4].Key).IsEqualTo("eee");
+
         Check.That(tags[4].Value).IsEqualTo(UInt32.MaxValue);
 
         Check.That(tags[5].Key).IsEqualTo("fff");
+
         Check.That(tags[5].Value).IsEqualTo(UInt64.MaxValue);
 
         Check.That(tags[6].Key).IsEqualTo("ggg");
+
         Check.That(tags[6].Value).IsEqualTo(SByte.MaxValue);
 
         Check.That(tags[7].Key).IsEqualTo("hhh");
+
         Check.That(tags[7].Value).IsEqualTo(Int16.MaxValue);
 
         Check.That(tags[8].Key).IsEqualTo("iii");
+
         Check.That(tags[8].Value).IsEqualTo(Int32.MaxValue);
 
         Check.That(tags[9].Key).IsEqualTo("jjj");
+
         Check.That(tags[9].Value).IsEqualTo(Int64.MaxValue);
 
         Check.That(tags[10].Key).IsEqualTo("kkk");
+
         Check.That(tags[10].Value).IsEqualTo(true);
 
         Check.That(tags[11].Key).IsEqualTo("lll");
+
         Check.That(tags[11].Value).IsEqualTo("X");
 
         Check.That(tags[12].Key).IsEqualTo("mmm");
+
         Check.That(tags[12].Value).IsEqualTo("The quick brown fox");
 
         Check.That(tags[13].Key).IsEqualTo("nnn");
+
         Check.That(tags[13].Value).IsEqualTo((Double)Half.MaxValue);
 
         Check.That(tags[14].Key).IsEqualTo("ooo");
+
         Check.That(tags[14].Value).IsEqualTo(Single.MaxValue);
 
         Check.That(tags[15].Key).IsEqualTo("ppp");
+
         Check.That(tags[15].Value).IsEqualTo(Double.MaxValue);
 
         Check.That(tags[16].Key).IsEqualTo("qqq");
+
         Check.That(tags[16].Value).IsEqualTo(Decimal.MaxValue);
 
         Check.That(tags[17].Key).IsEqualTo("rrr");
+
         Check.That(tags[17].Value).IsEqualTo(DateOnly.FromDateTime(now.DateTime));
 
         Check.That(tags[18].Key).IsEqualTo("sss");
+
         Check.That(tags[18].Value).IsEqualTo(TimeOnly.FromDateTime(now.DateTime));
 
         Check.That(tags[19].Key).IsEqualTo("ttt");
+
         Check.That(tags[19].Value).IsEqualTo(now.DateTime);
 
         Check.That(tags[20].Key).IsEqualTo("uuu");
+
         Check.That(tags[20].Value).IsEqualTo(now);
 
         Check.That(tags[21].Key).IsEqualTo("vvv");
+
         Check.That(tags[21].Value).IsEqualTo(new Byte[] { 0x11, 0x22, 0x33, 0x44 });
 
         Check.That(tags[22].Key).IsEqualTo("www");
+
         Check.That(tags[22].Value).IsEqualTo(guid);
 
         Check.That(tags[23].Key).IsEqualTo("xxx");
+
         Check.That(tags[23].Value).IsEqualTo("1.2.3");
 
         Check.That(tags[24].Key).IsEqualTo("yyy");
+
         Check.That(tags[24].Value).IsEqualTo("Local");
 
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_via_Archive_Single_Activity_With_Tags(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_via_Archive_Single_Activity_With_Tags(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -388,11 +423,17 @@ public class IntegrationTests
         Check.That(activities).HasSize(1);
 
         Check.That(activities[0].Session.Uuid).IsEqualTo(sessionUuid);
+
         Check.That(activities[0].Session.StartTime).IsEqualTo(sessionStartTime);
+
         Check.That(activities[0].Source.Name).IsEmpty();
+
         Check.That(activities[0].Source.Version).IsNull();
+
         Check.That(activities[0].OperationName).IsEqualTo("Foo()");
+
         Check.That(activities[0].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
         Check.That(activities[0].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
 
         Check.That(activities[0].Tags).HasSize(25);
@@ -400,87 +441,110 @@ public class IntegrationTests
         var tags = activities[0].Tags;
 
         Check.That(tags[0].Key).IsEqualTo("aaa");
+
         Check.That(tags[0].Value).IsEqualTo(null);
 
         Check.That(tags[1].Key).IsEqualTo("bbb");
+
         Check.That(tags[1].Value).IsEqualTo(null);
 
         Check.That(tags[2].Key).IsEqualTo("ccc");
+
         Check.That(tags[2].Value).IsEqualTo(Byte.MaxValue);
 
         Check.That(tags[3].Key).IsEqualTo("ddd");
+
         Check.That(tags[3].Value).IsEqualTo(UInt16.MaxValue);
 
         Check.That(tags[4].Key).IsEqualTo("eee");
+
         Check.That(tags[4].Value).IsEqualTo(UInt32.MaxValue);
 
         Check.That(tags[5].Key).IsEqualTo("fff");
+
         Check.That(tags[5].Value).IsEqualTo(UInt64.MaxValue);
 
         Check.That(tags[6].Key).IsEqualTo("ggg");
+
         Check.That(tags[6].Value).IsEqualTo(SByte.MaxValue);
 
         Check.That(tags[7].Key).IsEqualTo("hhh");
+
         Check.That(tags[7].Value).IsEqualTo(Int16.MaxValue);
 
         Check.That(tags[8].Key).IsEqualTo("iii");
+
         Check.That(tags[8].Value).IsEqualTo(Int32.MaxValue);
 
         Check.That(tags[9].Key).IsEqualTo("jjj");
+
         Check.That(tags[9].Value).IsEqualTo(Int64.MaxValue);
 
         Check.That(tags[10].Key).IsEqualTo("kkk");
+
         Check.That(tags[10].Value).IsEqualTo(true);
 
         Check.That(tags[11].Key).IsEqualTo("lll");
+
         Check.That(tags[11].Value).IsEqualTo("X");
 
         Check.That(tags[12].Key).IsEqualTo("mmm");
+
         Check.That(tags[12].Value).IsEqualTo("The quick brown fox");
 
         Check.That(tags[13].Key).IsEqualTo("nnn");
+
         Check.That(tags[13].Value).IsEqualTo((Double)Half.MaxValue);
 
         Check.That(tags[14].Key).IsEqualTo("ooo");
+
         Check.That(tags[14].Value).IsEqualTo(Single.MaxValue);
 
         Check.That(tags[15].Key).IsEqualTo("ppp");
+
         Check.That(tags[15].Value).IsEqualTo(Double.MaxValue);
 
         Check.That(tags[16].Key).IsEqualTo("qqq");
+
         Check.That(tags[16].Value).IsEqualTo(Decimal.MaxValue);
 
         Check.That(tags[17].Key).IsEqualTo("rrr");
+
         Check.That(tags[17].Value).IsEqualTo(DateOnly.FromDateTime(now.DateTime));
 
         Check.That(tags[18].Key).IsEqualTo("sss");
+
         Check.That(tags[18].Value).IsEqualTo(TimeOnly.FromDateTime(now.DateTime));
 
         Check.That(tags[19].Key).IsEqualTo("ttt");
+
         Check.That(tags[19].Value).IsEqualTo(now.DateTime);
 
         Check.That(tags[20].Key).IsEqualTo("uuu");
+
         Check.That(tags[20].Value).IsEqualTo(now);
 
         Check.That(tags[21].Key).IsEqualTo("vvv");
+
         Check.That(tags[21].Value).IsEqualTo(new Byte[] { 0x11, 0x22, 0x33, 0x44 });
 
         Check.That(tags[22].Key).IsEqualTo("www");
+
         Check.That(tags[22].Value).IsEqualTo(guid);
 
         Check.That(tags[23].Key).IsEqualTo("xxx");
+
         Check.That(tags[23].Value).IsEqualTo("1.2.3");
 
         Check.That(tags[24].Key).IsEqualTo("yyy");
+
         Check.That(tags[24].Value).IsEqualTo("Local");
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_Single_Activity_With_Many_Tags(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_Single_Activity_With_Many_Tags(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -513,11 +577,17 @@ public class IntegrationTests
         Check.That(activities).HasSize(1);
 
         Check.That(activities[0].Session.Uuid).IsEqualTo(sessionUuid);
+
         Check.That(activities[0].Session.StartTime).IsEqualTo(sessionStartTime);
+
         Check.That(activities[0].Source.Name).IsEmpty();
+
         Check.That(activities[0].Source.Version).IsNull();
+
         Check.That(activities[0].OperationName).IsEqualTo("Foo()");
+
         Check.That(activities[0].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
         Check.That(activities[0].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
 
         Check.That(activities[0].Tags).HasSize(10000);
@@ -527,20 +597,20 @@ public class IntegrationTests
         for (var i = 0; i < tags.Count; i++)
         {
             Check.That(tags[i].Key).IsEqualTo($"index_{i}");
+
             Check.That(tags[i].Value).IsEqualTo(i);
         }
 
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_Many_Activities_OneWrite_OneFlushAsync(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_Many_Activities_OneWrite_OneFlushAsync(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -558,9 +628,9 @@ public class IntegrationTests
                     ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
                     ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
-                .SetStartTime(activityStartTime)
-                .SetEndTime(activityEndTime)
-                .AddTag("index", i);
+               .SetStartTime(activityStartTime)
+               .SetEndTime(activityEndTime)
+               .AddTag("index", i);
 
             mWriter!.Write(activity);
 
@@ -580,33 +650,43 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(sessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(sessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEmpty();
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Foo()");
+
             Check.That(activities[i].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
             Check.That(activities[i].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId)
-                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId)
-                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].TraceId).IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].ParentSpanId).IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsTrue();
+
         Check.That(File.Exists(_MakePath(3))).IsFalse();
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_Many_Activities_ManyWrite_OneFlushAsync(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_Many_Activities_ManyWrite_OneFlushAsync(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -625,16 +705,12 @@ public class IntegrationTests
             for (var i = 0; i < 1000; i++)
             {
                 var activity = new Activity("Foo()").SetParentId(
-                        ActivityTraceId.CreateFromString(
-                            (index + 1).ToString("x32", CultureInfo.InvariantCulture)
-                        ),
-                        ActivitySpanId.CreateFromString(
-                            (index + 1).ToString("x16", CultureInfo.InvariantCulture)
-                        )
+                        ActivityTraceId.CreateFromString((index + 1).ToString("x32", CultureInfo.InvariantCulture)),
+                        ActivitySpanId.CreateFromString((index + 1).ToString("x16", CultureInfo.InvariantCulture))
                     )
-                    .SetStartTime(activityStartTime)
-                    .SetEndTime(activityEndTime)
-                    .AddTag("index", index++);
+                   .SetStartTime(activityStartTime)
+                   .SetEndTime(activityEndTime)
+                   .AddTag("index", index++);
 
                 mWriter!.Write(activity);
             }
@@ -655,33 +731,43 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(sessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(sessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEmpty();
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Foo()");
+
             Check.That(activities[i].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
             Check.That(activities[i].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId)
-                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId)
-                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].TraceId).IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].ParentSpanId).IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsTrue();
+
         Check.That(File.Exists(_MakePath(3))).IsFalse();
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_Many_Activities_Multiple_Rollover(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_Many_Activities_Multiple_Rollover(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -699,9 +785,9 @@ public class IntegrationTests
                     ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
                     ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
-                .SetStartTime(activityStartTime)
-                .SetEndTime(activityEndTime)
-                .AddTag("index", i);
+               .SetStartTime(activityStartTime)
+               .SetEndTime(activityEndTime)
+               .AddTag("index", i);
 
             mWriter!.Write(activity);
 
@@ -721,38 +807,53 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(sessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(sessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEmpty();
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Foo()");
+
             Check.That(activities[i].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
             Check.That(activities[i].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId)
-                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId)
-                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].TraceId).IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].ParentSpanId).IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
 
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsTrue();
+
         Check.That(File.Exists(_MakePath(3))).IsTrue();
+
         Check.That(File.Exists(_MakePath(4))).IsTrue();
+
         Check.That(File.Exists(_MakePath(5))).IsTrue();
+
         Check.That(File.Exists(_MakePath(6))).IsTrue();
+
         Check.That(File.Exists(_MakePath(7))).IsTrue();
+
         Check.That(File.Exists(_MakePath(8))).IsFalse();
     }
 
     [Test]
     [TestCase(false)]
     [TestCase(true)]
-    public async Task Roundtrip_via_Archive_Many_Activities_Multiple_Rollover(
-        Boolean useCompression
-    )
+    public async Task Roundtrip_via_Archive_Many_Activities_Multiple_Rollover(Boolean useCompression)
     {
         // arrange
         var sessionUuid = Guid.NewGuid();
@@ -770,9 +871,9 @@ public class IntegrationTests
                     ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
                     ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
-                .SetStartTime(activityStartTime)
-                .SetEndTime(activityEndTime)
-                .AddTag("index", i);
+               .SetStartTime(activityStartTime)
+               .SetEndTime(activityEndTime)
+               .AddTag("index", i);
 
             mWriter!.Write(activity);
 
@@ -794,19 +895,29 @@ public class IntegrationTests
         for (var i = 0; i < activities.Length; i++)
         {
             Check.That(activities[i].Session.Uuid).IsEqualTo(sessionUuid);
+
             Check.That(activities[i].Session.StartTime).IsEqualTo(sessionStartTime);
+
             Check.That(activities[i].Source.Name).IsEmpty();
+
             Check.That(activities[i].Source.Version).IsNull();
+
             Check.That(activities[i].OperationName).IsEqualTo("Foo()");
+
             Check.That(activities[i].StartTime).IsEqualTo(new DateTimeOffset(activityStartTime));
+
             Check.That(activities[i].Duration).IsEqualTo(TimeSpan.FromMilliseconds(1234));
+
             Check.That(activities[i].Tags).HasSize(1);
+
             Check.That(activities[i].Tags[0].Key).IsEqualTo("index");
+
             Check.That(activities[i].Tags[0].Value).IsEqualTo(i);
-            Check.That(activities[i].TraceId)
-                .IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
-            Check.That(activities[i].ParentSpanId)
-                .IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].TraceId).IsEqualTo((i + 1).ToString("x32", CultureInfo.InvariantCulture));
+
+            Check.That(activities[i].ParentSpanId).IsEqualTo((i + 1).ToString("x16", CultureInfo.InvariantCulture));
+
             Check.That(activities[i].SpanId).IsEqualTo("0000000000000000");
         }
     }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Globalization;
 using System.Text.Json;
@@ -11,10 +11,7 @@ namespace Amarok.Diagnostics.Persistence.Tracing;
 
 internal sealed class PerfettoJsonConverter
 {
-    public void Run(
-        ITraceReader reader,
-        String outDir
-    )
+    public void Run(ITraceReader reader, String outDir)
     {
         var tracks = new Dictionary<String, (Int32 Pid, Int32 Tid)>(StringComparer.Ordinal);
         var pids = new Dictionary<String, Int32>(StringComparer.Ordinal);
@@ -72,6 +69,7 @@ internal sealed class PerfettoJsonConverter
                 jsonWriter.WriteStartArray("traceEvents");
 
                 _Json_WriteProcessMetadata(jsonWriter, 0, "Global");
+
                 _Json_WriteThreadMetadata(jsonWriter, 0, 0, "Application Session");
 
                 _Json_WriteCompleteEvent(
@@ -268,10 +266,7 @@ internal sealed class PerfettoJsonConverter
         }
     }
 
-    private static void _Json_WriteOtherData(
-        Utf8JsonWriter writer,
-        SessionInfo sessionInfo
-    )
+    private static void _Json_WriteOtherData(Utf8JsonWriter writer, SessionInfo sessionInfo)
     {
         writer.WriteStartObject("otherData");
         writer.WriteString("SessionUuid", _Fmt(sessionInfo.Uuid));
@@ -279,16 +274,12 @@ internal sealed class PerfettoJsonConverter
         writer.WriteEndObject();
     }
 
-    private static String _Fmt(
-        Guid value
-    )
+    private static String _Fmt(Guid value)
     {
         return value.ToString("D", CultureInfo.InvariantCulture);
     }
 
-    private static String _Fmt(
-        DateTimeOffset value
-    )
+    private static String _Fmt(DateTimeOffset value)
     {
         return value.ToString("O", CultureInfo.InvariantCulture);
     }

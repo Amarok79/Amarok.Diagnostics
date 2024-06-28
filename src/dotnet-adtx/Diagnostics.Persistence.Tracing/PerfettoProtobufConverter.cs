@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 using System.Globalization;
@@ -31,11 +31,7 @@ internal sealed class PerfettoProtobufConverter
     private Int64 mCount;
 
 
-    public void Run(
-        ITraceReader reader,
-        String outDir,
-        Boolean includeIds
-    )
+    public void Run(ITraceReader reader, String outDir, Boolean includeIds)
     {
         outDir = Path.GetFullPath(outDir);
 
@@ -45,11 +41,7 @@ internal sealed class PerfettoProtobufConverter
     }
 
 
-    private void _RunCore(
-        ITraceReader reader,
-        String outDir,
-        Boolean includeIds
-    )
+    private void _RunCore(ITraceReader reader, String outDir, Boolean includeIds)
     {
         var sw = Stopwatch.StartNew();
 
@@ -103,17 +95,14 @@ internal sealed class PerfettoProtobufConverter
         //AnsiConsole.MarkupLine($"[grey]  Arg Values :  {mArgValues.Count}[/]");
 
         AnsiConsole.WriteLine();
+
         AnsiConsole.MarkupLine(
-            $"[green]SUCCESS:[/] Converted [aqua]{mCount}[/] activities " +
-            $"in [aqua]{sw.ElapsedMilliseconds:D}[/] ms"
+            $"[green]SUCCESS:[/] Converted [aqua]{mCount}[/] activities " + $"in [aqua]{sw.ElapsedMilliseconds:D}[/] ms"
         );
     }
 
 
-    private void _StartNewSession(
-        ActivityInfo activity,
-        String outDir
-    )
+    private void _StartNewSession(ActivityInfo activity, String outDir)
     {
         var outFileName = String.Format(
             CultureInfo.InvariantCulture,
@@ -137,9 +126,7 @@ internal sealed class PerfettoProtobufConverter
         AnsiConsole.MarkupLine($"  [grey]Writing {outFileName} to {outDir}[/]");
     }
 
-    private void _WriteFileHeader(
-        ActivityInfo activity
-    )
+    private void _WriteFileHeader(ActivityInfo activity)
     {
         _Protobuf_WriteFirstPacket();
         _Protobuf_WriteTrack(TrackInitialId, "Application Session");
@@ -151,17 +138,12 @@ internal sealed class PerfettoProtobufConverter
             TimeSpan.Zero,
             new KeyValuePair<String, Object?>[] {
                 new("SessionUuid", activity.Session.Uuid.ToString("D", CultureInfo.InvariantCulture)),
-                new(
-                    "SessionStartTime",
-                    activity.Session.StartTime.ToString("O", CultureInfo.InvariantCulture)
-                ),
+                new("SessionStartTime", activity.Session.StartTime.ToString("O", CultureInfo.InvariantCulture)),
             }
         );
     }
 
-    private UInt64 _EnsureTrack(
-        ActivityInfo activity
-    )
+    private UInt64 _EnsureTrack(ActivityInfo activity)
     {
         if (mTrackIds.TryGetValue(activity.Source.Name, out var trackId))
         {
@@ -229,12 +211,8 @@ internal sealed class PerfettoProtobufConverter
 
         args ??= Array.Empty<KeyValuePair<String, Object?>>();
 
-        var idAnnotations = new DebugAnnotation {
-            NameIid = _InternArgName(ref internedData, "ids"),
-        };
-        var argsAnnotations = new DebugAnnotation {
-            NameIid = _InternArgName(ref internedData, "args"),
-        };
+        var idAnnotations = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "ids") };
+        var argsAnnotations = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "args") };
 
         foreach (var arg in args.OrderBy(x => x.Key))
         {
@@ -316,14 +294,9 @@ internal sealed class PerfettoProtobufConverter
         trace.WriteTo(mWriter);
     }
 
-    private DebugAnnotation _CreateArg(
-        ref InternedData? internedData,
-        KeyValuePair<String, Object> arg
-    )
+    private DebugAnnotation _CreateArg(ref InternedData? internedData, KeyValuePair<String, Object> arg)
     {
-        var value = new DebugAnnotation {
-            NameIid = _InternArgName(ref internedData, arg.Key),
-        };
+        var value = new DebugAnnotation { NameIid = _InternArgName(ref internedData, arg.Key) };
 
         if (arg.Value is Boolean boolValue)
         {
@@ -365,10 +338,7 @@ internal sealed class PerfettoProtobufConverter
         return value;
     }
 
-    private void _Protobuf_WriteProcessTrack(
-        UInt64 processId,
-        String processName
-    )
+    private void _Protobuf_WriteProcessTrack(UInt64 processId, String processName)
     {
         var trace = new Trace {
             Packet = {
@@ -385,11 +355,7 @@ internal sealed class PerfettoProtobufConverter
         trace.WriteTo(mWriter);
     }
 
-    private void _Protobuf_WriteTrack(
-        UInt64 trackId,
-        String trackName,
-        UInt64? processTrackId = null
-    )
+    private void _Protobuf_WriteTrack(UInt64 trackId, String trackName, UInt64? processTrackId = null)
     {
         var desc = new TrackDescriptor {
             Uuid = trackId,
@@ -414,10 +380,7 @@ internal sealed class PerfettoProtobufConverter
     }
 
 
-    private UInt64 _InternEventName(
-        ref InternedData? internedData,
-        String eventName
-    )
+    private UInt64 _InternEventName(ref InternedData? internedData, String eventName)
     {
         if (mEventNames.TryGetValue(eventName, out var eventNameId))
         {
@@ -440,10 +403,7 @@ internal sealed class PerfettoProtobufConverter
         return eventNameId;
     }
 
-    private UInt64 _InternArgName(
-        ref InternedData? internedData,
-        String argName
-    )
+    private UInt64 _InternArgName(ref InternedData? internedData, String argName)
     {
         if (mArgNames.TryGetValue(argName, out var argNameId))
         {
@@ -466,10 +426,7 @@ internal sealed class PerfettoProtobufConverter
         return argNameId;
     }
 
-    private UInt64 _InternArgValue(
-        ref InternedData? internedData,
-        String argValue
-    )
+    private UInt64 _InternArgValue(ref InternedData? internedData, String argValue)
     {
         if (mArgValues.TryGetValue(argValue, out var argValueId))
         {
@@ -493,9 +450,7 @@ internal sealed class PerfettoProtobufConverter
     }
 
 
-    private static void _CreateOutDirectory(
-        String outDir
-    )
+    private static void _CreateOutDirectory(String outDir)
     {
         if (!Directory.Exists(outDir))
         {

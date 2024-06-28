@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.CommandLine;
 using System.IO.Compression;
@@ -40,9 +40,7 @@ internal sealed class ConvertCommand : Command
             "--include-ids",
             () => false,
             "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format."
-        ) {
-            Arity = ArgumentArity.ZeroOrOne,
-        };
+        ) { Arity = ArgumentArity.ZeroOrOne };
 
         AddArgument(inArgument);
         AddArgument(outArgument);
@@ -60,12 +58,7 @@ internal sealed class ConvertCommand : Command
     }
 
 
-    private static void _Execute(
-        FileSystemInfo inPath,
-        DirectoryInfo? outDir,
-        OutputFormat format,
-        Boolean includeIds
-    )
+    private static void _Execute(FileSystemInfo inPath, DirectoryInfo? outDir, OutputFormat format, Boolean includeIds)
     {
         if (File.Exists(inPath.FullName))
         {
@@ -110,9 +103,7 @@ internal sealed class ConvertCommand : Command
     }
 
 
-    private static Boolean _IsZipArchive(
-        String filePath
-    )
+    private static Boolean _IsZipArchive(String filePath)
     {
         try
         {
@@ -126,12 +117,7 @@ internal sealed class ConvertCommand : Command
         }
     }
 
-    private static void _ExecuteCore(
-        ITraceReader reader,
-        String outDir,
-        OutputFormat format,
-        Boolean includeIds
-    )
+    private static void _ExecuteCore(ITraceReader reader, String outDir, OutputFormat format, Boolean includeIds)
     {
         if (format == OutputFormat.PerfettoJson)
         {

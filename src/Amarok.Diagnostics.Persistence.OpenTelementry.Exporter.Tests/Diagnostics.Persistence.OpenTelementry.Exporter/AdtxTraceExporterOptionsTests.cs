@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using Amarok.Diagnostics.Persistence.Tracing.Writer;
 using NFluent;
@@ -18,7 +18,9 @@ public class AdtxTraceExporterOptionsTests
         var options = new AdtxTraceExporterOptions(dir);
 
         Check.That(options.Directory.FullName).IsEqualTo(dir);
+
         Check.That(options.WriterOptions.MaxDiskSpaceUsedInMegaBytes).IsEqualTo(100);
+
         Check.That(options.WriterOptions.UseCompression).IsTrue();
 
         Check.That(options.ToString()).MatchesWildcards("Directory: *, WriterOptions: { * }");
@@ -39,9 +41,13 @@ public class AdtxTraceExporterOptionsTests
         };
 
         Check.That(options.Directory).IsSameReferenceAs(dir);
+
         Check.That(options.WriterOptions.MaxDiskSpaceUsedInMegaBytes).IsEqualTo(123);
+
         Check.That(options.WriterOptions.UseCompression).IsFalse();
+
         Check.That(options.WriterOptions.SessionUuid).IsEqualTo(Guid.Empty);
+
         Check.That(options.WriterOptions.SessionStartTime).IsEqualTo(DateTimeOffset.MinValue);
 
         Check.That(options.ToString()).MatchesWildcards("Directory: *, WriterOptions: { * }");

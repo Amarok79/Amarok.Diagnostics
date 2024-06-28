@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
@@ -21,9 +21,7 @@ public class StreamTraceReaderTests
     }
 
 
-    private void _CreateReader(
-        params Byte[] bytes
-    )
+    private void _CreateReader(params Byte[] bytes)
     {
         var stream = new MemoryStream(bytes);
         mReader = new StreamTraceReader(stream);

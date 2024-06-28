@@ -8,20 +8,13 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Writer.Internal;
 
 internal sealed class OperationSerializer : SerializerBase<String>
 {
-    public OperationSerializer(
-        Int32 maxNumberOfItems,
-        ObjectsPool objectsPool
-    )
+    public OperationSerializer(Int32 maxNumberOfItems, ObjectsPool objectsPool)
         : base(maxNumberOfItems, objectsPool)
     {
     }
 
 
-    protected override void AppendDefineRecord(
-        String value,
-        Int32 id,
-        TraceRecord record
-    )
+    protected override void AppendDefineRecord(String value, Int32 id, TraceRecord record)
     {
         var define = ObjectsPool.GetDefineOperation();
 
@@ -31,9 +24,7 @@ internal sealed class OperationSerializer : SerializerBase<String>
         record.DefineOperation = define;
     }
 
-    protected override void AppendResetRecord(
-        TraceRecord record
-    )
+    protected override void AppendResetRecord(TraceRecord record)
     {
         record.ResetOperations = new TraceResetOperations();
     }

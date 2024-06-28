@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using Amarok.Diagnostics.Persistence.Tracing.Writer.Internal;
 
@@ -27,10 +27,7 @@ public static class TraceWriter
     ///     An object capable of serializing and persisting activities. Don't forget to dispose the
     ///     returned writer after use.
     /// </returns>
-    public static ITraceWriter Create(
-        String directoryPath,
-        TraceWriterOptions? options = null
-    )
+    public static ITraceWriter Create(String directoryPath, TraceWriterOptions? options = null)
     {
         return Create(new DirectoryInfo(directoryPath), options);
     }
@@ -51,10 +48,7 @@ public static class TraceWriter
     ///     An object capable of serializing and persisting activities. Don't forget to dispose the
     ///     returned writer after use.
     /// </returns>
-    public static ITraceWriter Create(
-        DirectoryInfo directory,
-        TraceWriterOptions? options = null
-    )
+    public static ITraceWriter Create(DirectoryInfo directory, TraceWriterOptions? options = null)
     {
         options ??= new TraceWriterOptions();
 

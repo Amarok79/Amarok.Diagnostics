@@ -20,12 +20,7 @@ internal sealed class TagsSerializer
     private Int32 mNextId = InitialId;
 
 
-    public TagsSerializer(
-        Int32 maxNumberOfItems,
-        Int32 maxStringLength,
-        Int32 maxBytesLength,
-        ObjectsPool objectsPool
-    )
+    public TagsSerializer(Int32 maxNumberOfItems, Int32 maxStringLength, Int32 maxBytesLength, ObjectsPool objectsPool)
     {
         mMaxNumberOfItems = maxNumberOfItems;
         mObjectsPool = objectsPool;
@@ -41,11 +36,7 @@ internal sealed class TagsSerializer
         mNextId = InitialId;
     }
 
-    public void Serialize(
-        Activity activity,
-        RepeatedField<TraceActivityTag> tagsField,
-        TraceRecords records
-    )
+    public void Serialize(Activity activity, RepeatedField<TraceActivityTag> tagsField, TraceRecords records)
     {
         foreach (var tag in activity.EnumerateTagObjects())
         {
@@ -62,10 +53,7 @@ internal sealed class TagsSerializer
     }
 
 
-    private Int32 _InternKey(
-        String key,
-        TraceRecords records
-    )
+    private Int32 _InternKey(String key, TraceRecords records)
     {
         if (!mKeys.TryGetValue(key, out var id))
         {
@@ -75,10 +63,7 @@ internal sealed class TagsSerializer
         return id;
     }
 
-    private Int32 _InternKeySlow(
-        String key,
-        TraceRecords records
-    )
+    private Int32 _InternKeySlow(String key, TraceRecords records)
     {
         var id = _GetAndAdvanceId(records);
 
@@ -89,9 +74,7 @@ internal sealed class TagsSerializer
         return id;
     }
 
-    private Int32 _GetAndAdvanceId(
-        TraceRecords records
-    )
+    private Int32 _GetAndAdvanceId(TraceRecords records)
     {
         if (mKeys.Count >= mMaxNumberOfItems)
         {
@@ -101,9 +84,7 @@ internal sealed class TagsSerializer
         return mNextId++;
     }
 
-    private void _ResetDueToOverrun(
-        TraceRecords records
-    )
+    private void _ResetDueToOverrun(TraceRecords records)
     {
         _AppendResetRecord(records);
 
@@ -112,11 +93,7 @@ internal sealed class TagsSerializer
         mNextId = InitialId;
     }
 
-    private void _AppendDefineRecord(
-        String key,
-        Int32 id,
-        TraceRecords records
-    )
+    private void _AppendDefineRecord(String key, Int32 id, TraceRecords records)
     {
         var record = mObjectsPool.GetRecord();
         var define = mObjectsPool.GetDefineTag();
@@ -129,9 +106,7 @@ internal sealed class TagsSerializer
         records.Items.Add(record);
     }
 
-    private void _AppendResetRecord(
-        TraceRecords records
-    )
+    private void _AppendResetRecord(TraceRecords records)
     {
         var record = mObjectsPool.GetRecord();
 

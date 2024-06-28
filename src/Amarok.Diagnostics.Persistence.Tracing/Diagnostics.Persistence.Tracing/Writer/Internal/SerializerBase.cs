@@ -21,10 +21,7 @@ internal abstract class SerializerBase<T>
     protected ObjectsPool ObjectsPool => mObjectsPool;
 
 
-    protected SerializerBase(
-        Int32 maxNumberOfItems,
-        ObjectsPool objectsPool
-    )
+    protected SerializerBase(Int32 maxNumberOfItems, ObjectsPool objectsPool)
     {
         mItems = new Dictionary<T, Int32>(maxNumberOfItems);
         mMaxNumberOfItems = maxNumberOfItems;
@@ -39,10 +36,7 @@ internal abstract class SerializerBase<T>
         mNextId = InitialId;
     }
 
-    public Int32 Serialize(
-        T value,
-        TraceRecords records
-    )
+    public Int32 Serialize(T value, TraceRecords records)
     {
         if (mItems.TryGetValue(value, out var id))
         {
@@ -53,10 +47,7 @@ internal abstract class SerializerBase<T>
     }
 
 
-    private Int32 _SerializeSlow(
-        T value,
-        TraceRecords records
-    )
+    private Int32 _SerializeSlow(T value, TraceRecords records)
     {
         var id = _GetAndAdvanceId(records);
 
@@ -71,9 +62,7 @@ internal abstract class SerializerBase<T>
         return id;
     }
 
-    private Int32 _GetAndAdvanceId(
-        TraceRecords records
-    )
+    private Int32 _GetAndAdvanceId(TraceRecords records)
     {
         if (mItems.Count >= mMaxNumberOfItems)
         {
@@ -83,9 +72,7 @@ internal abstract class SerializerBase<T>
         return mNextId++;
     }
 
-    private void _ResetDueToOverrun(
-        TraceRecords records
-    )
+    private void _ResetDueToOverrun(TraceRecords records)
     {
         var record = mObjectsPool.GetRecord();
 
@@ -99,13 +86,7 @@ internal abstract class SerializerBase<T>
     }
 
 
-    protected abstract void AppendDefineRecord(
-        T value,
-        Int32 id,
-        TraceRecord record
-    );
+    protected abstract void AppendDefineRecord(T value, Int32 id, TraceRecord record);
 
-    protected abstract void AppendResetRecord(
-        TraceRecord record
-    );
+    protected abstract void AppendResetRecord(TraceRecord record);
 }

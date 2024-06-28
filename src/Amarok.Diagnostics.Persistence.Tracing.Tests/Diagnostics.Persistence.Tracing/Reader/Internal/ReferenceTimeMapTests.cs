@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
@@ -32,8 +32,7 @@ public class ReferenceTimeMapTests
 
         Check.That(mMap.GetAbsolutePointInTime(TimeSpan.Zero)).IsEqualTo(refTime);
 
-        Check.That(mMap.GetAbsolutePointInTime(TimeSpan.FromSeconds(12)))
-            .IsEqualTo(refTime + TimeSpan.FromSeconds(12));
+        Check.That(mMap.GetAbsolutePointInTime(TimeSpan.FromSeconds(12))).IsEqualTo(refTime + TimeSpan.FromSeconds(12));
     }
 
     [Test]

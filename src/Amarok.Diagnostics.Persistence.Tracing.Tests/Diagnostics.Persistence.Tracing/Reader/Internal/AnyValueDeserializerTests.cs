@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using Amarok.Diagnostics.Persistence.Protos;
 using Google.Protobuf;
@@ -137,9 +137,7 @@ public class AnyValueDeserializerTests
     {
         var time = new TimeOnly(11, 22, 33, 456);
 
-        var any = new AnyValue {
-            TimeOnly = time.Ticks,
-        };
+        var any = new AnyValue { TimeOnly = time.Ticks };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(time);
     }
@@ -149,9 +147,7 @@ public class AnyValueDeserializerTests
     {
         var duration = TimeSpan.FromMilliseconds(12345);
 
-        var any = new AnyValue {
-            TimeSpan = duration.Ticks,
-        };
+        var any = new AnyValue { TimeSpan = duration.Ticks };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(duration);
     }

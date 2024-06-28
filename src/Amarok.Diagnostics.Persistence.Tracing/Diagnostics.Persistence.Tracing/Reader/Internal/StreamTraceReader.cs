@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Buffers.Binary;
 using System.IO.Compression;
@@ -23,10 +23,7 @@ internal sealed class StreamTraceReader : ITraceReader
     private readonly AnyValueDeserializer mAnyValueDeserializer = new();
 
 
-    public StreamTraceReader(
-        Stream stream,
-        ITraceReaderHooks? hooks = null
-    )
+    public StreamTraceReader(Stream stream, ITraceReaderHooks? hooks = null)
     {
         mStream = stream;
         mHooks = hooks;
@@ -95,10 +92,7 @@ internal sealed class StreamTraceReader : ITraceReader
     }
 
 
-    private static Int32 _ReadContentFrame(
-        BinaryReader reader,
-        ref Byte[] buffer
-    )
+    private static Int32 _ReadContentFrame(BinaryReader reader, ref Byte[] buffer)
     {
         // content-frame        =  frame-preamble, frame-length , records ;
         // frame-preamble       =  %xAA ;
@@ -127,11 +121,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return frameLen;
 
 
-        static Int32 readExact(
-            BinaryReader reader,
-            Byte[] buffer,
-            Int32 length
-        )
+        static Int32 readExact(BinaryReader reader, Byte[] buffer, Int32 length)
         {
             var totalBytesRead = 0;
 
@@ -148,24 +138,18 @@ internal sealed class StreamTraceReader : ITraceReader
             }
         }
 
-        static Byte[] resizeBuffer(
-            Int32 length
-        )
+        static Byte[] resizeBuffer(Int32 length)
         {
             return new Byte[(length / 4096 + 1) * 4096];
         }
 
-        static void throwUnableToRead(
-            Int32 length
-        )
+        static void throwUnableToRead(Int32 length)
         {
             throw new EndOfStreamException($"Unable to read frame of length {length} bytes.");
         }
     }
 
-    private static Boolean _ReadContentFramePreamble(
-        BinaryReader reader
-    )
+    private static Boolean _ReadContentFramePreamble(BinaryReader reader)
     {
         const Int32 size = 1;
 
@@ -216,19 +200,13 @@ internal sealed class StreamTraceReader : ITraceReader
         session = new SessionInfo(sessionUuid, sessionStart);
 
 
-        static void throwUnsupported(
-            Int32 version
-        )
+        static void throwUnsupported(Int32 version)
         {
             throw new FormatException($"Unsupported file version {version}.");
         }
     }
 
-    private static void _ReadFileSession(
-        Stream stream,
-        out Guid sessionUuid,
-        out DateTimeOffset sessionStart
-    )
+    private static void _ReadFileSession(Stream stream, out Guid sessionUuid, out DateTimeOffset sessionStart)
     {
         // file-session         =  session-uuid , session-start ;
         // session-uuid         =  <Guid> ;
@@ -261,11 +239,7 @@ internal sealed class StreamTraceReader : ITraceReader
         }
     }
 
-    private static void _ReadFileFlags(
-        Stream stream,
-        out Boolean isCompressed,
-        out Boolean isFinished
-    )
+    private static void _ReadFileFlags(Stream stream, out Boolean isCompressed, out Boolean isFinished)
     {
         // file-flags           =  %x00 , active | isFinished | isCompressed-isFinished ;
         // active               =  %x0A ;
@@ -310,10 +284,7 @@ internal sealed class StreamTraceReader : ITraceReader
         }
     }
 
-    private static void _ReadFileVersion(
-        Stream stream,
-        out Int32 version
-    )
+    private static void _ReadFileVersion(Stream stream, out Int32 version)
     {
         // file-version         =  %x00 , version ;
 
@@ -347,9 +318,7 @@ internal sealed class StreamTraceReader : ITraceReader
         }
     }
 
-    private static void _ReadFileSignature(
-        Stream stream
-    )
+    private static void _ReadFileSignature(Stream stream)
     {
         // file-signature       =  %x61 , %x64 , %x74 , %x78 ;      // "adtx"
 
@@ -382,22 +351,16 @@ internal sealed class StreamTraceReader : ITraceReader
     }
 
 
-    private ActivityInfo? _ProcessRecord(
-        TraceRecord record,
-        SessionInfo session
-    )
+    private ActivityInfo? _ProcessRecord(TraceRecord record, SessionInfo session)
     {
         var activity = record.DataCase switch {
-            TraceRecord.DataOneofCase.Activity => _ProcessActivity(record.Activity, session),
-            TraceRecord.DataOneofCase.DefinePointInTime =>
-                _ProcessDefinePointInTime(record.DefinePointInTime),
-            TraceRecord.DataOneofCase.DefineSource    => _ProcessDefineSource(record.DefineSource),
-            TraceRecord.DataOneofCase.DefineOperation => _ProcessDefineOperation(record.DefineOperation),
-            TraceRecord.DataOneofCase.DefineTag       => _ProcessDefineTag(record.DefineTag),
-            TraceRecord.DataOneofCase.DefineTraceId   => _ProcessDefineTraceId(record.DefineTraceId),
-            TraceRecord.DataOneofCase.DefineParentSpanId => _ProcessDefineParentSpanId(
-                record.DefineParentSpanId
-            ),
+            TraceRecord.DataOneofCase.Activity           => _ProcessActivity(record.Activity, session),
+            TraceRecord.DataOneofCase.DefinePointInTime  => _ProcessDefinePointInTime(record.DefinePointInTime),
+            TraceRecord.DataOneofCase.DefineSource       => _ProcessDefineSource(record.DefineSource),
+            TraceRecord.DataOneofCase.DefineOperation    => _ProcessDefineOperation(record.DefineOperation),
+            TraceRecord.DataOneofCase.DefineTag          => _ProcessDefineTag(record.DefineTag),
+            TraceRecord.DataOneofCase.DefineTraceId      => _ProcessDefineTraceId(record.DefineTraceId),
+            TraceRecord.DataOneofCase.DefineParentSpanId => _ProcessDefineParentSpanId(record.DefineParentSpanId),
             TraceRecord.DataOneofCase.ResetSources       => _ProcessResetSources(),
             TraceRecord.DataOneofCase.ResetOperations    => _ProcessResetOperations(),
             TraceRecord.DataOneofCase.ResetTags          => _ProcessResetTags(),
@@ -410,17 +373,13 @@ internal sealed class StreamTraceReader : ITraceReader
         return activity;
 
 
-        static Exception makeUnexpectedException(
-            TraceRecord.DataOneofCase caseValue
-        )
+        static Exception makeUnexpectedException(TraceRecord.DataOneofCase caseValue)
         {
             return new FormatException($"Unexpected TraceRecord case '{caseValue}.");
         }
     }
 
-    private ActivityInfo? _ProcessDefinePointInTime(
-        TraceDefinePointInTime value
-    )
+    private ActivityInfo? _ProcessDefinePointInTime(TraceDefinePointInTime value)
     {
         var referenceTime = new DateTimeOffset(value.Ticks, TimeSpan.FromMinutes(value.OffsetMinutes));
 
@@ -429,9 +388,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return null;
     }
 
-    private ActivityInfo? _ProcessDefineSource(
-        TraceDefineSource value
-    )
+    private ActivityInfo? _ProcessDefineSource(TraceDefineSource value)
     {
         var version = String.IsNullOrEmpty(value.Version) ? null : value.Version;
 
@@ -449,9 +406,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return null;
     }
 
-    private ActivityInfo? _ProcessDefineOperation(
-        TraceDefineOperation value
-    )
+    private ActivityInfo? _ProcessDefineOperation(TraceDefineOperation value)
     {
         mOperationNameMap.Define(value.Id, value.Name);
 
@@ -465,9 +420,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return null;
     }
 
-    private ActivityInfo? _ProcessDefineTag(
-        TraceDefineTag value
-    )
+    private ActivityInfo? _ProcessDefineTag(TraceDefineTag value)
     {
         mTagKeyMap.Define(value.Id, value.Key);
 
@@ -481,9 +434,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return null;
     }
 
-    private ActivityInfo? _ProcessDefineTraceId(
-        TraceDefineTraceId value
-    )
+    private ActivityInfo? _ProcessDefineTraceId(TraceDefineTraceId value)
     {
         mActivityTraceIdMap.Define(value.Id, value.TraceId);
 
@@ -497,9 +448,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return null;
     }
 
-    private ActivityInfo? _ProcessDefineParentSpanId(
-        TraceDefineParentSpanId value
-    )
+    private ActivityInfo? _ProcessDefineParentSpanId(TraceDefineParentSpanId value)
     {
         mActivityParentSpanIdMap.Define(value.Id, value.SpanId);
 
@@ -513,10 +462,7 @@ internal sealed class StreamTraceReader : ITraceReader
         return null;
     }
 
-    private ActivityInfo _ProcessActivity(
-        TraceActivity activity,
-        SessionInfo session
-    )
+    private ActivityInfo _ProcessActivity(TraceActivity activity, SessionInfo session)
     {
         var source = mActivitySourceMap.Lookup(activity.SourceId);
         var operation = mOperationNameMap.Lookup(activity.OperationId);
@@ -528,23 +474,12 @@ internal sealed class StreamTraceReader : ITraceReader
         var duration = TimeSpan.FromTicks(activity.DurationTicks);
         var tags = _ProcessActivityTags(activity);
 
-        return new ActivityInfo(
-            session,
-            source,
-            operation,
-            traceId,
-            parentSpanId,
-            spanId,
-            startTime,
-            duration
-        ) {
+        return new ActivityInfo(session, source, operation, traceId, parentSpanId, spanId, startTime, duration) {
             Tags = tags,
         };
     }
 
-    private IReadOnlyList<KeyValuePair<String, Object?>> _ProcessActivityTags(
-        TraceActivity activity
-    )
+    private IReadOnlyList<KeyValuePair<String, Object?>> _ProcessActivityTags(TraceActivity activity)
     {
         if (activity.Tags.Count == 0)
         {

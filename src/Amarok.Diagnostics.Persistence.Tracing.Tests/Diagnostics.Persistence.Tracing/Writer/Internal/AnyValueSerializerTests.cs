@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using Amarok.Diagnostics.Persistence.Protos;
 
@@ -314,8 +314,11 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Decimal.Element1).IsEqualTo(125);
+
         Check.That(mAny.Decimal.Element2).IsEqualTo(0);
+
         Check.That(mAny.Decimal.Element3).IsEqualTo(0);
+
         Check.That(mAny.Decimal.Element4).IsEqualTo(65536);
     }
 
@@ -328,7 +331,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.DateOnly.Year).IsEqualTo(2022);
+
         Check.That(mAny.DateOnly.Month).IsEqualTo(10);
+
         Check.That(mAny.DateOnly.Day).IsEqualTo(04);
     }
 
@@ -350,6 +355,7 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.DateTime.Ticks).IsEqualTo(638004935031230000);
+
         Check.That(mAny.DateTime.Kind).IsEqualTo(0);
     }
 
@@ -361,6 +367,7 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.DateTime.Ticks).IsEqualTo(638004935031230000);
+
         Check.That(mAny.DateTime.Kind).IsEqualTo(2);
     }
 
@@ -372,6 +379,7 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.DateTime.Ticks).IsEqualTo(638004935031230000);
+
         Check.That(mAny.DateTime.Kind).IsEqualTo(1);
     }
 
@@ -423,7 +431,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Bytes.ToByteArray()[0]).IsEqualTo(0x11);
+
         Check.That(mAny.Bytes.ToByteArray()[31]).IsEqualTo(0xFF);
+
         Check.That(mAny.Bytes).HasSize(32);
     }
 
@@ -440,7 +450,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Bytes.ToByteArray()[0]).IsEqualTo(0x11);
+
         Check.That(mAny.Bytes.ToByteArray()[31]).IsEqualTo(0xFF);
+
         Check.That(mAny.Bytes).HasSize(32);
     }
 
@@ -477,7 +489,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Bytes.ToByteArray()[0]).IsEqualTo(0x11);
+
         Check.That(mAny.Bytes.ToByteArray()[31]).IsEqualTo(0xFF);
+
         Check.That(mAny.Bytes).HasSize(32);
     }
 
@@ -494,7 +508,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Bytes.ToByteArray()[0]).IsEqualTo(0x11);
+
         Check.That(mAny.Bytes.ToByteArray()[31]).IsEqualTo(0xFF);
+
         Check.That(mAny.Bytes).HasSize(32);
     }
 
@@ -531,7 +547,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Bytes.ToByteArray()[0]).IsEqualTo(0x11);
+
         Check.That(mAny.Bytes.ToByteArray()[31]).IsEqualTo(0xFF);
+
         Check.That(mAny.Bytes).HasSize(32);
     }
 
@@ -548,7 +566,9 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Bytes.ToByteArray()[0]).IsEqualTo(0x11);
+
         Check.That(mAny.Bytes.ToByteArray()[31]).IsEqualTo(0xFF);
+
         Check.That(mAny.Bytes).HasSize(32);
     }
 
@@ -561,7 +581,7 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Guid.ToByteArray())
-            .ContainsExactly(new Guid("69A51F8D-E87F-4527-B7D4-F6314DCF04AE").ToByteArray());
+           .ContainsExactly(new Guid("69A51F8D-E87F-4527-B7D4-F6314DCF04AE").ToByteArray());
     }
 
 

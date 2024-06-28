@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Collections;
 
@@ -32,18 +32,14 @@ public class DirectoryInfoExtensionsTests
     }
 
 
-    private void _MakeTraceFile(
-        Int32 ordinal
-    )
+    private void _MakeTraceFile(Int32 ordinal)
     {
         mDirectory.Create();
 
         using var stream = File.OpenWrite(Path.Combine(mDirectory.FullName, $"{ordinal}.adtx"));
     }
 
-    private void _MakeForeignFile(
-        String name
-    )
+    private void _MakeForeignFile(String name)
     {
         mDirectory.Create();
 
@@ -88,6 +84,7 @@ public class DirectoryInfoExtensionsTests
         ((ICheck<IEnumerable>)Check.That(files)).HasSize(1);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
+
         Check.That(files[0].FileInfo.Name).IsEqualTo("1.adtx");
     }
 
@@ -105,18 +102,23 @@ public class DirectoryInfoExtensionsTests
         ((ICheck<IEnumerable>)Check.That(files)).HasSize(5);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
+
         Check.That(files[0].FileInfo.Name).IsEqualTo("1.adtx");
 
         Check.That(files[1].Ordinal).IsEqualTo(2);
+
         Check.That(files[1].FileInfo.Name).IsEqualTo("2.adtx");
 
         Check.That(files[2].Ordinal).IsEqualTo(5);
+
         Check.That(files[2].FileInfo.Name).IsEqualTo("5.adtx");
 
         Check.That(files[3].Ordinal).IsEqualTo(10);
+
         Check.That(files[3].FileInfo.Name).IsEqualTo("10.adtx");
 
         Check.That(files[4].Ordinal).IsEqualTo(11);
+
         Check.That(files[4].FileInfo.Name).IsEqualTo("11.adtx");
     }
 
@@ -139,18 +141,23 @@ public class DirectoryInfoExtensionsTests
         ((ICheck<IEnumerable>)Check.That(files)).HasSize(5);
 
         Check.That(files[0].Ordinal).IsEqualTo(1);
+
         Check.That(files[0].FileInfo.Name).IsEqualTo("1.adtx");
 
         Check.That(files[1].Ordinal).IsEqualTo(2);
+
         Check.That(files[1].FileInfo.Name).IsEqualTo("2.adtx");
 
         Check.That(files[2].Ordinal).IsEqualTo(5);
+
         Check.That(files[2].FileInfo.Name).IsEqualTo("5.adtx");
 
         Check.That(files[3].Ordinal).IsEqualTo(10);
+
         Check.That(files[3].FileInfo.Name).IsEqualTo("10.adtx");
 
         Check.That(files[4].Ordinal).IsEqualTo(11);
+
         Check.That(files[4].FileInfo.Name).IsEqualTo("11.adtx");
     }
 }

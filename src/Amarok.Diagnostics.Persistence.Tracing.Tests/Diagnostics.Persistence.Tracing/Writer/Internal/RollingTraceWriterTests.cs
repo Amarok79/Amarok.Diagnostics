@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 using System.IO.Compression;
@@ -65,23 +65,14 @@ public class RollingTraceWriterTests
     }
 
 
-    private String _MakePath(
-        Int32 ordinal
-    )
+    private String _MakePath(Int32 ordinal)
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
 
-    private Byte[] _ReadTraceFile(
-        Int32 ordinal
-    )
+    private Byte[] _ReadTraceFile(Int32 ordinal)
     {
-        using var stream = new FileStream(
-            _MakePath(ordinal),
-            FileMode.Open,
-            FileAccess.Read,
-            FileShare.ReadWrite
-        );
+        using var stream = new FileStream(_MakePath(ordinal), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
         var bytes = new Byte[stream.Length];
         _ = stream.Read(bytes, 0, bytes.Length);
@@ -89,9 +80,7 @@ public class RollingTraceWriterTests
         return bytes;
     }
 
-    private Byte[] _ReadEntry(
-        ZipArchiveEntry entry
-    )
+    private Byte[] _ReadEntry(ZipArchiveEntry entry)
     {
         var bytes = new Byte[entry.Length];
 
@@ -111,7 +100,9 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsFalse();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
@@ -124,7 +115,9 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsFalse();
+
         Check.That(File.Exists(_MakePath(2))).IsFalse();
     }
 
@@ -142,14 +135,19 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsTrue();
 
         var bytes = _ReadTraceFile(1);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         Check.That(bytes.Length).IsStrictlyGreaterThan(90);
@@ -171,7 +169,9 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(mExportFile.FullName)).IsTrue();
 
         using var zip = ZipFile.OpenRead(mExportFile.FullName);
@@ -179,9 +179,13 @@ public class RollingTraceWriterTests
         var bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         Check.That(bytes.Length).IsStrictlyGreaterThan(90);
@@ -203,14 +207,19 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsTrue();
 
         var bytes = _ReadTraceFile(1);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         Check.That(bytes.Length).IsStrictlyGreaterThan(130);
@@ -234,7 +243,9 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(mExportFile.FullName)).IsTrue();
 
         using var zip = ZipFile.OpenRead(mExportFile.FullName);
@@ -242,9 +253,13 @@ public class RollingTraceWriterTests
         var bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         Check.That(bytes.Length).IsStrictlyGreaterThan(130);
@@ -270,29 +285,45 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsTrue();
+
         Check.That(File.Exists(_MakePath(3))).IsTrue();
+
         Check.That(File.Exists(_MakePath(4))).IsTrue();
+
         Check.That(File.Exists(_MakePath(5))).IsTrue();
+
         Check.That(File.Exists(_MakePath(6))).IsTrue();
+
         Check.That(File.Exists(_MakePath(7))).IsTrue();
+
         Check.That(File.Exists(_MakePath(8))).IsFalse();
 
         var bytes = _ReadTraceFile(1);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         bytes = _ReadTraceFile(2);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
     }
 
@@ -318,13 +349,21 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
+
         Check.That(File.Exists(_MakePath(1))).IsTrue();
+
         Check.That(File.Exists(_MakePath(2))).IsTrue();
+
         Check.That(File.Exists(_MakePath(3))).IsTrue();
+
         Check.That(File.Exists(_MakePath(4))).IsTrue();
+
         Check.That(File.Exists(_MakePath(5))).IsTrue();
+
         Check.That(File.Exists(_MakePath(6))).IsTrue();
+
         Check.That(File.Exists(_MakePath(7))).IsTrue();
+
         Check.That(File.Exists(_MakePath(8))).IsFalse();
 
         using var zip = ZipFile.OpenRead(mExportFile.FullName);
@@ -332,18 +371,26 @@ public class RollingTraceWriterTests
         var bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         entry = zip.GetEntry("2.adtx");
         bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+
         Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+
         Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+
         Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         Check.That(zip.Entries).HasSize(7);

@@ -11,9 +11,7 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
 internal sealed class AnyValueDeserializer
 {
-    public Object? Deserialize(
-        AnyValue value
-    )
+    public Object? Deserialize(AnyValue value)
     {
         return value.ValuesCase switch {
             AnyValue.ValuesOneofCase.Null           => null,
@@ -37,69 +35,50 @@ internal sealed class AnyValueDeserializer
     }
 
 
-    private static Exception _MakeUnexpectedCaseException(
-        AnyValue.ValuesOneofCase caseValue
-    )
+    private static Exception _MakeUnexpectedCaseException(AnyValue.ValuesOneofCase caseValue)
     {
         return new FormatException($"Unexpected AnyValue case '{caseValue}'.");
     }
 
 
-    private static Object _DeserializeDecimal(
-        DecimalValue value
-    )
+    private static Object _DeserializeDecimal(DecimalValue value)
     {
-        Span<Int32> bits =
-            stackalloc Int32[4] { value.Element1, value.Element2, value.Element3, value.Element4 };
+        Span<Int32> bits = stackalloc Int32[4] { value.Element1, value.Element2, value.Element3, value.Element4 };
 
         return new Decimal(bits);
     }
 
-    private static Object _DeserializeTimeSpan(
-        Int64 value
-    )
+    private static Object _DeserializeTimeSpan(Int64 value)
     {
         return new TimeSpan(value);
     }
 
-    private static Object _DeserializeTimeOnly(
-        Int64 value
-    )
+    private static Object _DeserializeTimeOnly(Int64 value)
     {
         return new TimeOnly(value);
     }
 
-    private static Object _DeserializeDateTimeOffset(
-        DateTimeOffsetValue value
-    )
+    private static Object _DeserializeDateTimeOffset(DateTimeOffsetValue value)
     {
         return new DateTimeOffset(value.Ticks, TimeSpan.FromMinutes(value.OffsetMinutes));
     }
 
-    private static Object _DeserializeDateTime(
-        DateTimeValue value
-    )
+    private static Object _DeserializeDateTime(DateTimeValue value)
     {
         return new DateTime(value.Ticks, (DateTimeKind)value.Kind);
     }
 
-    private static Object _DeserializeDateOnly(
-        DateOnlyValue value
-    )
+    private static Object _DeserializeDateOnly(DateOnlyValue value)
     {
         return new DateOnly(value.Year, value.Month, value.Day);
     }
 
-    private static Object _DeserializeBytes(
-        ByteString value
-    )
+    private static Object _DeserializeBytes(ByteString value)
     {
         return value.ToByteArray();
     }
 
-    private static Object _DeserializeGuid(
-        ByteString value
-    )
+    private static Object _DeserializeGuid(ByteString value)
     {
         return new Guid(value.Span);
     }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 using Amarok.Diagnostics.Persistence.OpenTelementry.Exporter;
@@ -34,9 +34,9 @@ internal class Program
     {
         var logger = LoggerFactory.Create(
                 builder => builder.AddSystemdConsole(x => x.TimestampFormat = "|HH:mm:ss.fff|")
-                    .SetMinimumLevel(LogLevel.Trace)
+                   .SetMinimumLevel(LogLevel.Trace)
             )
-            .CreateLogger("TEST");
+           .CreateLogger("TEST");
 
 
         Console.WriteLine("writing...");
@@ -50,9 +50,9 @@ internal class Program
         };
 
         using var provider = Sdk.CreateTracerProviderBuilder()
-            .AddSource("*")
-            .AddAdtxTraceExporter(options, out var context)
-            .Build();
+           .AddSource("*")
+           .AddAdtxTraceExporter(options, out var context)
+           .Build();
 
         Thread.Sleep(3000);
 
@@ -133,32 +133,20 @@ internal class Program
 
     internal class MyHooks : ITraceReaderHooks
     {
-        public void OnBeginReadFile(
-            String filePath
-        )
+        public void OnBeginReadFile(String filePath)
         {
         }
 
-        public void OnReadFileHeader(
-            Int32 version,
-            Boolean isCompressed,
-            Boolean isFinished,
-            SessionInfo session
-        )
+        public void OnReadFileHeader(Int32 version, Boolean isCompressed, Boolean isFinished, SessionInfo session)
         {
         }
 
-        public void OnBeginReadFrame(
-            Byte[] buffer,
-            Int32 frameLen
-        )
+        public void OnBeginReadFrame(Byte[] buffer, Int32 frameLen)
         {
             Console.WriteLine($"FRAME: {frameLen}");
         }
 
-        public void OnReadRecord(
-            TraceRecord record
-        )
+        public void OnReadRecord(TraceRecord record)
         {
             if (record.DataCase != TraceRecord.DataOneofCase.Activity)
             {
@@ -166,9 +154,7 @@ internal class Program
             }
         }
 
-        public void OnReadActivity(
-            ActivityInfo activity
-        )
+        public void OnReadActivity(ActivityInfo activity)
         {
             Console.WriteLine("  ACTIVITY");
         }
@@ -178,9 +164,7 @@ internal class Program
             Console.WriteLine();
         }
 
-        public void OnEndReadFile(
-            String filePath
-        )
+        public void OnEndReadFile(String filePath)
         {
         }
     }

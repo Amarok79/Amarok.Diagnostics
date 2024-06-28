@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 using Amarok.Diagnostics.Persistence.Tracing.Protos;
@@ -36,6 +36,7 @@ internal sealed class ActivitySerializer
         mTraceIdSerializer = new TraceIdSerializer(maxNumberOfIds, mObjectsPool);
         mParentSpanIdSerializer = new ParentSpanIdSerializer(maxNumberOfIds, mObjectsPool);
         mOperationSerializer = new OperationSerializer(maxNumberOfItems, mObjectsPool);
+
         mTagsSerializer = new TagsSerializer(maxNumberOfItems, maxStringLength, maxBytesLength, mObjectsPool);
 
         mRedefineReferenceTimeInterval = redefineReferenceTimeInterval;
@@ -52,10 +53,7 @@ internal sealed class ActivitySerializer
         mTagsSerializer.Reset();
     }
 
-    public void Serialize(
-        Activity activity,
-        TraceRecords records
-    )
+    public void Serialize(Activity activity, TraceRecords records)
     {
         // define reference point in time
         if (!mReferenceTimeSerializer.IsDefined)

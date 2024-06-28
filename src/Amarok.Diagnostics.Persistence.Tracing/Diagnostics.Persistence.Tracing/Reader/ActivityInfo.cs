@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 
@@ -84,7 +84,7 @@ public sealed record ActivityInfo(
     public override String ToString()
     {
         return $"{{ Source: {Source}, Operation: {OperationName}, StartTime: {StartTime}, " +
-               $"Duration: {Duration.TotalMilliseconds} ms, TraceId: {TraceId}, " +
-               $"ParentSpanId: {ParentSpanId}, SpanId: {SpanId} }}";
+            $"Duration: {Duration.TotalMilliseconds} ms, TraceId: {TraceId}, " +
+            $"ParentSpanId: {ParentSpanId}, SpanId: {SpanId} }}";
     }
 }

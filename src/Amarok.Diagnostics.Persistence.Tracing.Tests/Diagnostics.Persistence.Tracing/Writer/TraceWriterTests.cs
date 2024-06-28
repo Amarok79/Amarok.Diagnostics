@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.Diagnostics;
 
@@ -32,23 +32,14 @@ public class TraceWriterTests
     }
 
 
-    private String _MakePath(
-        Int32 ordinal
-    )
+    private String _MakePath(Int32 ordinal)
     {
         return Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
     }
 
-    private Byte[] _ReadTraceFile(
-        Int32 ordinal
-    )
+    private Byte[] _ReadTraceFile(Int32 ordinal)
     {
-        using var stream = new FileStream(
-            _MakePath(ordinal),
-            FileMode.Open,
-            FileAccess.Read,
-            FileShare.ReadWrite
-        );
+        using var stream = new FileStream(_MakePath(ordinal), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
         var bytes = new Byte[stream.Length];
         _ = stream.Read(bytes, 0, bytes.Length);
@@ -78,6 +69,7 @@ public class TraceWriterTests
     public async Task Usage_With_Options()
     {
         var guid = new Guid("0C6122357E6344E7915E97D478022F07");
+
         var start = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.FromHours(2));
 
         var options = new TraceWriterOptions {

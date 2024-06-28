@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.OpenTelementry.Exporter;
 
@@ -21,7 +21,5 @@ public interface IAdtxTraceExporter
     /// <exception cref="InvalidOperationException">
     ///     Not initialized or already disposed.
     /// </exception>
-    Task HotExportAsync(
-        String archivePath
-    );
+    Task HotExportAsync(String archivePath);
 }

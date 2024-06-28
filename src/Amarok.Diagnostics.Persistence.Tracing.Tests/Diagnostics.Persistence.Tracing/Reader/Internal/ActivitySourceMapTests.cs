@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 namespace Amarok.Diagnostics.Persistence.Tracing.Reader.Internal;
 
@@ -29,9 +29,13 @@ public class ActivitySourceMapTests
     public void Lookup_when_NotDefined()
     {
         Check.ThatCode(() => mMap.Lookup(0)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(2)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(3)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(4)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(123)).Throws<FormatException>();
     }
 
@@ -42,12 +46,14 @@ public class ActivitySourceMapTests
         mMap.Define(2, mItem2);
 
         Check.That(mMap.Lookup(1)).IsSameReferenceAs(mItem1);
+
         Check.That(mMap.Lookup(2)).IsSameReferenceAs(mItem2);
 
         mMap.Define(3, mItem3);
         mMap.Define(4, mItem4);
 
         Check.That(mMap.Lookup(3)).IsSameReferenceAs(mItem3);
+
         Check.That(mMap.Lookup(4)).IsSameReferenceAs(mItem4);
     }
 
@@ -66,6 +72,7 @@ public class ActivitySourceMapTests
         mMap.Define(2, mItem2);
 
         Check.That(mMap.Lookup(1)).IsSameReferenceAs(mItem1);
+
         Check.That(mMap.Lookup(2)).IsSameReferenceAs(mItem2);
 
         mMap.Reset();
@@ -77,37 +84,52 @@ public class ActivitySourceMapTests
     public void Usage()
     {
         Check.ThatCode(() => mMap.Lookup(1)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(2)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(3)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(4)).Throws<FormatException>();
 
         mMap.Define(1, mItem1);
         mMap.Define(2, mItem2);
 
         Check.That(mMap.Lookup(1)).IsSameReferenceAs(mItem1);
+
         Check.That(mMap.Lookup(2)).IsSameReferenceAs(mItem2);
+
         Check.ThatCode(() => mMap.Lookup(3)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(4)).Throws<FormatException>();
 
         mMap.Define(3, mItem3);
 
         Check.That(mMap.Lookup(1)).IsSameReferenceAs(mItem1);
+
         Check.That(mMap.Lookup(2)).IsSameReferenceAs(mItem2);
+
         Check.That(mMap.Lookup(3)).IsSameReferenceAs(mItem3);
+
         Check.ThatCode(() => mMap.Lookup(4)).Throws<FormatException>();
 
         mMap.Define(4, mItem4);
 
         Check.That(mMap.Lookup(1)).IsSameReferenceAs(mItem1);
+
         Check.That(mMap.Lookup(2)).IsSameReferenceAs(mItem2);
+
         Check.That(mMap.Lookup(3)).IsSameReferenceAs(mItem3);
+
         Check.That(mMap.Lookup(4)).IsSameReferenceAs(mItem4);
 
         mMap.Reset();
 
         Check.ThatCode(() => mMap.Lookup(1)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(2)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(3)).Throws<FormatException>();
+
         Check.ThatCode(() => mMap.Lookup(4)).Throws<FormatException>();
     }
 }

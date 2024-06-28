@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023, Olaf Kober <olaf.kober@outlook.com>
+﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
 using System.IO.Compression;
 
@@ -14,10 +14,7 @@ internal sealed class ZipArchiveTraceReader : ITraceReader
     private ITraceReader? mFileReader;
 
 
-    public ZipArchiveTraceReader(
-        String zipFile,
-        ITraceReaderHooks? hooks = null
-    )
+    public ZipArchiveTraceReader(String zipFile, ITraceReaderHooks? hooks = null)
     {
         mZipFile = zipFile;
         mHooks = hooks;

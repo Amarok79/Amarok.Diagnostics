@@ -15,9 +15,7 @@ internal abstract class ObjectsPool
     private static readonly ObjectsPool sNonPoolingInstance = new NonPoolingObjectsPool();
 
 
-    public static ObjectsPool Create(
-        Boolean usePooling
-    )
+    public static ObjectsPool Create(Boolean usePooling)
     {
         return usePooling ? new PoolingObjectsPool() : sNonPoolingInstance;
     }
@@ -41,9 +39,7 @@ internal abstract class ObjectsPool
 
     public abstract TraceActivity GetActivity();
 
-    public abstract void ReturnRecords(
-        TraceRecords records
-    );
+    public abstract void ReturnRecords(TraceRecords records);
 
 
     private sealed class NonPoolingObjectsPool : ObjectsPool
@@ -93,9 +89,7 @@ internal abstract class ObjectsPool
             return new TraceActivity();
         }
 
-        public override void ReturnRecords(
-            TraceRecords records
-        )
+        public override void ReturnRecords(TraceRecords records)
         {
         }
     }
@@ -172,9 +166,7 @@ internal abstract class ObjectsPool
             return mActivityPool.Get();
         }
 
-        public override void ReturnRecords(
-            TraceRecords records
-        )
+        public override void ReturnRecords(TraceRecords records)
         {
             // ReSharper disable once ForCanBeConvertedToForeach
             for (var r = 0; r < records.Items.Count; r++)
@@ -226,9 +218,7 @@ internal abstract class ObjectsPool
                 return new TraceRecords();
             }
 
-            public override Boolean Return(
-                TraceRecords obj
-            )
+            public override Boolean Return(TraceRecords obj)
             {
                 obj.Items.Clear();
 
@@ -243,9 +233,7 @@ internal abstract class ObjectsPool
                 return new TraceRecord();
             }
 
-            public override Boolean Return(
-                TraceRecord obj
-            )
+            public override Boolean Return(TraceRecord obj)
             {
                 obj.ClearData();
 
@@ -260,9 +248,7 @@ internal abstract class ObjectsPool
                 return new TraceDefineSource();
             }
 
-            public override Boolean Return(
-                TraceDefineSource obj
-            )
+            public override Boolean Return(TraceDefineSource obj)
             {
                 return true;
             }
@@ -275,9 +261,7 @@ internal abstract class ObjectsPool
                 return new TraceDefineOperation();
             }
 
-            public override Boolean Return(
-                TraceDefineOperation obj
-            )
+            public override Boolean Return(TraceDefineOperation obj)
             {
                 return true;
             }
@@ -290,25 +274,20 @@ internal abstract class ObjectsPool
                 return new TraceDefineTraceId();
             }
 
-            public override Boolean Return(
-                TraceDefineTraceId obj
-            )
+            public override Boolean Return(TraceDefineTraceId obj)
             {
                 return true;
             }
         }
 
-        private sealed class DefineParentSpanIdPooledObjectPolicy :
-            PooledObjectPolicy<TraceDefineParentSpanId>
+        private sealed class DefineParentSpanIdPooledObjectPolicy : PooledObjectPolicy<TraceDefineParentSpanId>
         {
             public override TraceDefineParentSpanId Create()
             {
                 return new TraceDefineParentSpanId();
             }
 
-            public override Boolean Return(
-                TraceDefineParentSpanId obj
-            )
+            public override Boolean Return(TraceDefineParentSpanId obj)
             {
                 return true;
             }
@@ -321,9 +300,7 @@ internal abstract class ObjectsPool
                 return new TraceActivityTag { Value = new AnyValue() };
             }
 
-            public override Boolean Return(
-                TraceActivityTag obj
-            )
+            public override Boolean Return(TraceActivityTag obj)
             {
                 obj.Value.ClearValues();
 
@@ -338,9 +315,7 @@ internal abstract class ObjectsPool
                 return new TraceDefineTag();
             }
 
-            public override Boolean Return(
-                TraceDefineTag obj
-            )
+            public override Boolean Return(TraceDefineTag obj)
             {
                 return true;
             }
@@ -353,9 +328,7 @@ internal abstract class ObjectsPool
                 return new TraceActivity();
             }
 
-            public override Boolean Return(
-                TraceActivity obj
-            )
+            public override Boolean Return(TraceActivity obj)
             {
                 obj.Tags.Clear();
 
