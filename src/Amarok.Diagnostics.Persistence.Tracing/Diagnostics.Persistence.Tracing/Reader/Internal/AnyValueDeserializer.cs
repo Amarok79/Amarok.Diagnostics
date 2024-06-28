@@ -30,12 +30,13 @@ internal sealed class AnyValueDeserializer
             AnyValue.ValuesOneofCase.Uint32         => value.Uint32,
             AnyValue.ValuesOneofCase.Uint64         => value.Uint64,
             AnyValue.ValuesOneofCase.Decimal        => _DeserializeDecimal(value.Decimal),
+            AnyValue.ValuesOneofCase.None           => throw _MakeUnexpectedCaseException(value.ValuesCase),
             _                                       => throw _MakeUnexpectedCaseException(value.ValuesCase),
         };
     }
 
 
-    private static Exception _MakeUnexpectedCaseException(AnyValue.ValuesOneofCase caseValue)
+    private static FormatException _MakeUnexpectedCaseException(AnyValue.ValuesOneofCase caseValue)
     {
         return new FormatException($"Unexpected AnyValue case '{caseValue}'.");
     }
@@ -73,7 +74,7 @@ internal sealed class AnyValueDeserializer
         return new DateOnly(value.Year, value.Month, value.Day);
     }
 
-    private static Object _DeserializeBytes(ByteString value)
+    private static Byte[] _DeserializeBytes(ByteString value)
     {
         return value.ToByteArray();
     }

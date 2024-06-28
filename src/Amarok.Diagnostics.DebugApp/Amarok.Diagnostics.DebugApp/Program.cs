@@ -15,7 +15,7 @@ namespace Amarok.Amarok.Diagnostics.DebugApp;
 
 internal class Program
 {
-    private const String OutputDir = @"..\..\..\..\..\bin\test\traces";
+    private const String OutputDir = @"traces";
 
 
     public static void Main()
@@ -87,7 +87,7 @@ internal class Program
 
             if (i == 500000)
             {
-                context.Exporter.HotExportAsync(@"..\..\..\..\..\bin\test\export.zip");
+                context.Exporter.HotExportAsync(@"export.zip");
             }
         }
 

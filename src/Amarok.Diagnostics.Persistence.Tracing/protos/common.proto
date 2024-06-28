@@ -7,7 +7,7 @@ package amarok.diagnostics.persistence;
 option csharp_namespace = "Amarok.Diagnostics.Persistence.Protos";
 
 
-// Represents an arbitrary value.
+// Represents an arbitrary value
 message AnyValue {
 	oneof values {
 		bool null = 1;
@@ -29,26 +29,26 @@ message AnyValue {
 	}
 }
 
-// Represents a DateOnly.
+// Represents a DateOnly
 message DateOnlyValue {
 	int32 year = 1;
 	int32 month = 2;
 	int32 day = 3;
 }
 
-// Represents a DateTime.
+// Represents a DateTime
 message DateTimeValue {
 	int64 ticks = 1;
 	int32 kind = 2;
 }
 
-// Represents a DateTimeOffset.
+// Represents a DateTimeOffset
 message DateTimeOffsetValue {
 	int64 ticks = 1;
 	int32 offsetMinutes = 2;
 }
 
-// Represents a Decimal.
+// Represents a Decimal
 message DecimalValue {
 	sint32 element1 = 1;
 	sint32 element2 = 2;

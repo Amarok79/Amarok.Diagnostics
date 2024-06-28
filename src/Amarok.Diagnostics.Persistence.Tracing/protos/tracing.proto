@@ -9,12 +9,12 @@ import "protos/common.proto";
 option csharp_namespace = "Amarok.Diagnostics.Persistence.Tracing.Protos";
 
 
-// Defines a collection of records.
+// Defines a collection of records
 message TraceRecords {
 	repeated TraceRecord items = 1;
 }
 
-// Defines a single arbitrary record.
+// Defines a single arbitrary record
 message TraceRecord {
 	oneof data {
 		TraceActivity activity = 1;
@@ -34,106 +34,106 @@ message TraceRecord {
 }
 
 
-// Defines an activity source and associates it with an id for interning.
+// Defines an activity source and associates it with an id for interning
 message TraceDefineSource {
-	// The id of the interned activity source.
+	// The id of the interned activity source
 	int32 id = 1;
-	// The name of the activity source, e.g. "Drivers/Dio".
+	// The name of the activity source, e.g. "Drivers/Dio"
 	string name = 2;
-	// The optional version of the activity source, e.g. "1.2", or empty.
+	// The optional version of the activity source, e.g. "1.2", or empty
 	string version = 3;
 }
 
-// Invalidates all ids referring to interned activity sources.
+// Invalidates all ids referring to interned activity sources
 message TraceResetSources {
 }
 
 
-// Defines an operation and associates it with an id for interning.
+// Defines an operation and associates it with an id for interning
 message TraceDefineOperation {
-	// The id of the interned operation.
+	// The id of the interned operation
 	int32 id = 1;
-	// The name of the operation, e.g. "WriteIsolatedIo".
+	// The name of the operation, e.g. "WriteIsolatedIo"
 	string name = 2;
 }
 
-// Invalidates all ids referring to interned operations.
+// Invalidates all ids referring to interned operations
 message TraceResetOperations {
 }
 
 
-// Defines an absolute point in time, which is used as reference point for further events.
+// Defines an absolute point in time, which is used as reference point for further events
 message TraceDefinePointInTime {
-	// The ticks of the local date/time.
+	// The ticks of the local date/time
 	int64 ticks = 1;
-	// The minutes of the timezone offset.
+	// The minutes of the timezone offset
 	int32 offsetMinutes = 2;
 }
 
 
-// Defines a tag and associates it with an id for interning.
+// Defines a tag and associates it with an id for interning
 message TraceDefineTag {
-	// The id of the interned tag.
+	// The id of the interned tag
 	int32 id = 1;
-	// The key of the tag.
+	// The key of the tag
 	string key = 2;
 }
 
-// Invalidates all ids referring to interned tags.
+// Invalidates all ids referring to interned tags
 message TraceResetTags {
 }
 
 
-// Defines a W3C TraceId and associates it with an id for interning.
+// Defines a W3C TraceId and associates it with an id for interning
 message TraceDefineTraceId {
-	// The id of the interned W3C TraceId.
+	// The id of the interned W3C TraceId
 	int32 id = 1;
-	// The W3C TraceId as Hex string.
+	// The W3C TraceId as Hex string
 	string traceId = 2;
 }
 
-// Invalidates all ids referring to interned W3C TraceIds.
+// Invalidates all ids referring to interned W3C TraceIds
 message TraceResetTraceIds {
 }
 
 
-// Defines a W3C SpanId and associates it with an id for interning.
+// Defines a W3C SpanId and associates it with an id for interning
 message TraceDefineParentSpanId {
-	// The id of the interned W3C SpanId.
+	// The id of the interned W3C SpanId
 	int32 id = 1;
-	// The W3C SpanId as Hex string.
+	// The W3C SpanId as Hex string
 	string spanId = 2;
 }
 
-// Invalidates all ids referring to interned W3C SpanIds.
+// Invalidates all ids referring to interned W3C SpanIds
 message TraceResetParentSpanIds {
 }
 
 
-// Represents a tag consisting of interned key and value.
+// Represents a tag consisting of interned key and value
 message TraceActivityTag {
-	// The id of the interned tag.
+	// The id of the interned tag
 	int32 keyId = 1;
-	// The value of the tag.
+	// The value of the tag
 	AnyValue value = 2;
 }
 
-// Represents an activity.
+// Represents an activity
 message TraceActivity {
-	// The id of the interned activity source.
+	// The id of the interned activity source
 	int32 sourceId = 1;
-	// The id of the interned operation.
+	// The id of the interned operation
 	int32 operationId = 2;
-	// The id of the interned activity trace id.
+	// The id of the interned activity trace id
 	int32 traceId = 3;
-	// The id of the interned activity parent span id.
+	// The id of the interned activity parent span id
 	int32 parentSpanId = 4;
-	// The span id.
+	// The span id
 	string spanId = 5;
-	// The start of the operation represented as time delta to the last reference point in time.
+	// The start of the operation represented as time delta to the last reference point in time
 	int64 startTimeRelativeTicks = 6;
-	// The duration of the operation.
+	// The duration of the operation
 	int64 durationTicks = 7;
-	// A collection of tags.
+	// A collection of tags
 	repeated TraceActivityTag tags = 8;
 }

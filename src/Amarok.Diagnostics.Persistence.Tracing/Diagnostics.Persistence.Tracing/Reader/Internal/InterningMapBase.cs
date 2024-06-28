@@ -66,7 +66,7 @@ internal abstract class InterningMapBase<T>
         throw _MakeNotDefinedException(id);
     }
 
-    private static Exception _MakeNotDefinedException(Int32 id)
+    private static FormatException _MakeNotDefinedException(Int32 id)
     {
         return new FormatException($"{typeof(T).Name} with id '{id}' is not defined.");
     }

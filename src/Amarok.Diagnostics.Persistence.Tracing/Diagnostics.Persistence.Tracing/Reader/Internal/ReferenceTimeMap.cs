@@ -30,7 +30,7 @@ internal sealed class ReferenceTimeMap
         throw _MakeNotDefinedException();
     }
 
-    private static Exception _MakeNotDefinedException()
+    private static FormatException _MakeNotDefinedException()
     {
         return new FormatException("Reference point in time not defined.");
     }
