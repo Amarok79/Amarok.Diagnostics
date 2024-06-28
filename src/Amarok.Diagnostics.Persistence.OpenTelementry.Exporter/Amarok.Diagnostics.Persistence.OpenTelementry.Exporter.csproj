@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <IsPackable>True</IsPackable>
         <Description>An OpenTelemetry exporter for persisting Traces into binary, rolling files.</Description>
     </PropertyGroup>
 

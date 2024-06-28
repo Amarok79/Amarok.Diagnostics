@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <IsPackable>True</IsPackable>
         <Description>Binary, rolling-file persistence for System.Diagnostics.Activity.</Description>
     </PropertyGroup>
 

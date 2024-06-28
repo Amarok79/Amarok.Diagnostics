@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <IsPackable>True</IsPackable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <Description>.NET CLI tools for Amarok.Diagnostics.Persistence.Tracing</Description>
         <OutputType>Exe</OutputType>

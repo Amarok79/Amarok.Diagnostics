@@ -3,8 +3,6 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
-        <IsPackable>False</IsPackable>
-        <GenerateDocumentationFile>False</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

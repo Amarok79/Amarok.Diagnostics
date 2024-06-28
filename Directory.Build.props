@@ -9,6 +9,7 @@
         <Nullable>Enable</Nullable>
         <RootNamespace>Amarok</RootNamespace>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <IsPackable>True</IsPackable>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -29,5 +30,29 @@
     <ItemGroup>
         <None Include="..\amarok.png" Pack="True" PackagePath="\" />
     </ItemGroup>
+
+    <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+        <OutputPath>..\..\bin\tests</OutputPath>
+        <Nullable>Enable</Nullable>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <IsPackable>False</IsPackable>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Benchmarks'))">
+        <OutputPath>..\..\bin\benchmarks</OutputPath>
+        <Nullable>Disable</Nullable>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <IsPackable>False</IsPackable>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.DebugApp'))">
+        <OutputPath>..\..\bin\dbgapp</OutputPath>
+        <Nullable>Enable</Nullable>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <IsPackable>False</IsPackable>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    </PropertyGroup>
 
 </Project>
