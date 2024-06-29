@@ -5,14 +5,6 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <ImplicitUsings>Enable</ImplicitUsings>
-        <Nullable>Enable</Nullable>
-        <RootNamespace>Amarok</RootNamespace>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <IsPackable>True</IsPackable>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <Authors>Olaf Kober</Authors>
         <Copyright>Copyright (c) 2024, Olaf Kober</Copyright>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -31,8 +23,22 @@
         <None Include="..\amarok.png" Pack="True" PackagePath="\" />
     </ItemGroup>
 
+    <PropertyGroup>
+        <UseArtifactsOutput>True</UseArtifactsOutput>
+        <ArtifactsPath>..\..\bin</ArtifactsPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <ImplicitUsings>Enable</ImplicitUsings>
+        <Nullable>Enable</Nullable>
+        <RootNamespace>Amarok</RootNamespace>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <IsPackable>True</IsPackable>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <Deterministic>True</Deterministic>
+    </PropertyGroup>
+
     <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
-        <OutputPath>..\..\bin\tests</OutputPath>
         <Nullable>Enable</Nullable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <IsPackable>False</IsPackable>
@@ -40,7 +46,6 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Benchmarks'))">
-        <OutputPath>..\..\bin\benchmarks</OutputPath>
         <Nullable>Disable</Nullable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <IsPackable>False</IsPackable>
@@ -48,7 +53,6 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.DebugApp'))">
-        <OutputPath>..\..\bin\dbgapp</OutputPath>
         <Nullable>Enable</Nullable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <IsPackable>False</IsPackable>
