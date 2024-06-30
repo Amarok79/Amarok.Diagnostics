@@ -72,7 +72,7 @@ public class AnyValueDeserializerTests
     public void Deserialize_Guid()
     {
         var guid = Guid.NewGuid();
-        var any = new AnyValue { Guid = ByteString.CopyFrom(guid.ToByteArray()) };
+        var any  = new AnyValue { Guid = ByteString.CopyFrom(guid.ToByteArray()) };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(guid);
     }
@@ -81,7 +81,7 @@ public class AnyValueDeserializerTests
     public void Deserialize_Bytes()
     {
         var bytes = new Byte[] { 0x11, 0x22, 0x33, 0x44 };
-        var any = new AnyValue { Bytes = ByteString.CopyFrom(bytes) };
+        var any   = new AnyValue { Bytes = ByteString.CopyFrom(bytes) };
 
         Check.That((Byte[])mDeserializer.Deserialize(any)!).ContainsExactly(0x11, 0x22, 0x33, 0x44);
     }
@@ -93,9 +93,9 @@ public class AnyValueDeserializerTests
 
         var any = new AnyValue {
             DateOnly = new DateOnlyValue {
-                Year = date.Year,
+                Year  = date.Year,
                 Month = date.Month,
-                Day = date.Day,
+                Day   = date.Day,
             },
         };
 
@@ -110,7 +110,7 @@ public class AnyValueDeserializerTests
         var any = new AnyValue {
             DateTime = new DateTimeValue {
                 Ticks = date.Ticks,
-                Kind = (Int32)date.Kind,
+                Kind  = (Int32)date.Kind,
             },
         };
 
@@ -125,7 +125,8 @@ public class AnyValueDeserializerTests
         var any = new AnyValue {
             DateTimeOffset = new DateTimeOffsetValue {
                 Ticks = date.Ticks,
-                OffsetMinutes = (Int32)date.Offset.TotalMinutes,
+                OffsetMinutes =
+                    (Int32)date.Offset.TotalMinutes,
             },
         };
 

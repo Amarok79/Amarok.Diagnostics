@@ -23,7 +23,7 @@ internal sealed class TagsSerializer
     public TagsSerializer(Int32 maxNumberOfItems, Int32 maxStringLength, Int32 maxBytesLength, ObjectsPool objectsPool)
     {
         mMaxNumberOfItems = maxNumberOfItems;
-        mObjectsPool = objectsPool;
+        mObjectsPool      = objectsPool;
 
         mAnyValueSerializer = new AnyValueSerializer(maxStringLength, maxBytesLength);
     }
@@ -98,7 +98,7 @@ internal sealed class TagsSerializer
         var record = mObjectsPool.GetRecord();
         var define = mObjectsPool.GetDefineTag();
 
-        define.Id = id;
+        define.Id  = id;
         define.Key = key;
 
         record.DefineTag = define;

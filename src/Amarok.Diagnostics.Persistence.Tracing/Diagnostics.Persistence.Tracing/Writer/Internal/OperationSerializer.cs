@@ -18,7 +18,7 @@ internal sealed class OperationSerializer : SerializerBase<String>
     {
         var define = ObjectsPool.GetDefineOperation();
 
-        define.Id = id;
+        define.Id   = id;
         define.Name = value;
 
         record.DefineOperation = define;

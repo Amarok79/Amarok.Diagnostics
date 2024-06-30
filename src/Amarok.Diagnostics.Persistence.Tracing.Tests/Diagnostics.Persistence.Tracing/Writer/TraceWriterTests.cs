@@ -73,7 +73,7 @@ public class TraceWriterTests
         var start = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.FromHours(2));
 
         var options = new TraceWriterOptions {
-            SessionUuid = guid,
+            SessionUuid      = guid,
             SessionStartTime = start,
         };
 

@@ -12,10 +12,10 @@ public class ActivityInfoTests
     {
         var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
 
-        var source = new ActivitySourceInfo("src");
-        var traceId = "11111111111111111111111111111111";
+        var source       = new ActivitySourceInfo("src");
+        var traceId      = "11111111111111111111111111111111";
         var parentSpanId = "3333333333333333";
-        var spanId = "2222222222222222";
+        var spanId       = "2222222222222222";
 
         var start = new DateTimeOffset(2022, 10, 26, 12, 00, 00, TimeSpan.Zero);
 
@@ -48,7 +48,7 @@ public class ActivityInfoTests
         Check.That(info.EndTimeDelta).IsEqualTo(info.EndTime - session.StartTime);
 
         Check.That(info.ToString())
-           .IsEqualTo(
+            .IsEqualTo(
                 "{ Source: src, Operation: foo, StartTime: 10/26/2022 12:00:00 PM +00:00, " +
                 "Duration: 1234 ms, TraceId: 11111111111111111111111111111111, " +
                 "ParentSpanId: 3333333333333333, SpanId: 2222222222222222 }"
@@ -61,15 +61,15 @@ public class ActivityInfoTests
     {
         var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
 
-        var source = new ActivitySourceInfo("src");
-        var traceId = "11111111111111111111111111111111";
+        var source       = new ActivitySourceInfo("src");
+        var traceId      = "11111111111111111111111111111111";
         var parentSpanId = "3333333333333333";
-        var spanId = "2222222222222222";
+        var spanId       = "2222222222222222";
 
         var start = new DateTimeOffset(2022, 10, 26, 12, 00, 00, TimeSpan.Zero);
 
         var duration = TimeSpan.FromMilliseconds(1234);
-        var tags = new KeyValuePair<String, Object?>[] { new("aaa", 123), new("bbb", "xyz") };
+        var tags     = new KeyValuePair<String, Object?>[] { new("aaa", 123), new("bbb", "xyz") };
 
         var info = new ActivityInfo(
             session,
@@ -115,7 +115,7 @@ public class ActivityInfoTests
         Check.That(info.EndTimeDelta).IsEqualTo(info.EndTime - session.StartTime);
 
         Check.That(info.ToString())
-           .IsEqualTo(
+            .IsEqualTo(
                 "{ Source: src, Operation: foo, StartTime: 10/26/2022 12:00:00 PM +00:00, " +
                 "Duration: 1234 ms, TraceId: 11111111111111111111111111111111, " +
                 "ParentSpanId: 3333333333333333, SpanId: 2222222222222222 }"

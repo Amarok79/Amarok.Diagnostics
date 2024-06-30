@@ -17,7 +17,7 @@ public class SourceSerializersTests
     [SetUp]
     public void Setup()
     {
-        mRecords = new TraceRecords();
+        mRecords    = new TraceRecords();
         mSerializer = new SourceSerializer(4, ObjectsPool.Create(false));
     }
 

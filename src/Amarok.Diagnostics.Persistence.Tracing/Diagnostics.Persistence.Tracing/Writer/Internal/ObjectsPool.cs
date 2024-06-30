@@ -109,15 +109,15 @@ internal abstract class ObjectsPool
 
         public PoolingObjectsPool()
         {
-            mRecordsPool = ObjectPool.Create(new RecordsPooledObjectPolicy());
-            mRecordPool = ObjectPool.Create(new RecordPooledObjectPolicy());
-            mDefineSourcePool = ObjectPool.Create(new DefineSourcePooledObjectPolicy());
-            mDefineOperationPool = ObjectPool.Create(new DefineOperationPooledObjectPolicy());
-            mDefineTraceIdPool = ObjectPool.Create(new DefineTraceIdPooledObjectPolicy());
+            mRecordsPool            = ObjectPool.Create(new RecordsPooledObjectPolicy());
+            mRecordPool             = ObjectPool.Create(new RecordPooledObjectPolicy());
+            mDefineSourcePool       = ObjectPool.Create(new DefineSourcePooledObjectPolicy());
+            mDefineOperationPool    = ObjectPool.Create(new DefineOperationPooledObjectPolicy());
+            mDefineTraceIdPool      = ObjectPool.Create(new DefineTraceIdPooledObjectPolicy());
             mDefineParentSpanIdPool = ObjectPool.Create(new DefineParentSpanIdPooledObjectPolicy());
-            mActivityTagPool = ObjectPool.Create(new ActivityTagPooledObjectPolicy());
-            mDefineTagPool = ObjectPool.Create(new DefineTagPooledObjectPolicy());
-            mActivityPool = ObjectPool.Create(new ActivityPooledObjectPolicy());
+            mActivityTagPool        = ObjectPool.Create(new ActivityTagPooledObjectPolicy());
+            mDefineTagPool          = ObjectPool.Create(new DefineTagPooledObjectPolicy());
+            mActivityPool           = ObjectPool.Create(new ActivityPooledObjectPolicy());
         }
 
 

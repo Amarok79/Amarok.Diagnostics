@@ -8,10 +8,10 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 /// </summary>
 /// 
 /// <remarks>
-///     An activity describes a performed operation, which starts at a specific point in time and lasts
-///     for a specific duration. Every activity is associated with a single activity source and belongs
-///     to an application session. Activities can carry optional tags (key-value pairs), which provide
-///     additional details about the performed operation.
+///     An activity describes a performed operation, which starts at a specific point in time and lasts for a specific
+///     duration. Every activity is associated with a single activity source and belongs to an application session.
+///     Activities can carry optional tags (key-value pairs), which provide additional details about the performed
+///     operation.
 /// </remarks>
 /// 
 /// <param name="Session">
@@ -24,8 +24,7 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 ///     The name of the operation performed.
 /// </param>
 /// <param name="TraceId">
-///     The W3C TraceId of the whole trace forest used to uniquely identify a distributed trace through
-///     a system.
+///     The W3C TraceId of the whole trace forest used to uniquely identify a distributed trace through a system.
 /// </param>
 /// <param name="ParentSpanId">
 ///     The W3C SpanId of the parent activity.
@@ -51,8 +50,7 @@ public sealed record ActivityInfo(
 )
 {
     /// <summary>
-    ///     A list of optional tags associated with the activity, providing additional details about the
-    ///     performed operation.
+    ///     A list of optional tags associated with the activity, providing additional details about the performed operation.
     /// </summary>
     public IReadOnlyList<KeyValuePair<String, Object?>> Tags { get; init; } =
         Array.Empty<KeyValuePair<String, Object?>>();
@@ -66,16 +64,14 @@ public sealed record ActivityInfo(
 
 
     /// <summary>
-    ///     The time delta relative to the application session's start time representing the point in time
-    ///     when the activity started. Calculated from <see cref="StartTime"/> and
-    ///     <see cref="SessionInfo.StartTime"/>.
+    ///     The time delta relative to the application session's start time representing the point in time when the activity
+    ///     started. Calculated from <see cref="StartTime"/> and <see cref="SessionInfo.StartTime"/>.
     /// </summary>
     public TimeSpan StartTimeDelta => StartTime - Session.StartTime;
 
     /// <summary>
-    ///     The time delta relative to the application session's start time representing the point in time
-    ///     when the activity ended. Calculated from <see cref="EndTime"/> and
-    ///     <see cref="SessionInfo.StartTime"/>.
+    ///     The time delta relative to the application session's start time representing the point in time when the activity
+    ///     ended. Calculated from <see cref="EndTime"/> and <see cref="SessionInfo.StartTime"/>.
     /// </summary>
     public TimeSpan EndTimeDelta => EndTime - Session.StartTime;
 

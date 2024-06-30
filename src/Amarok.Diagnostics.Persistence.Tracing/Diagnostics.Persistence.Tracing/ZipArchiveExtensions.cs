@@ -21,18 +21,18 @@ public static class ZipArchiveExtensions
     /// </param>
     /// 
     /// <returns>
-    ///     An ordered list of trace log files, where each list element consists of the file ordinal and
-    ///     archive entry object. The returned list is ordered ascending by file ordinals. If the given
-    ///     archive doesn't contain any trace log file, then an empty list is returned.
+    ///     An ordered list of trace log files, where each list element consists of the file ordinal and archive entry object.
+    ///     The returned list is ordered ascending by file ordinals. If the given archive doesn't contain any trace log file,
+    ///     then an empty list is returned.
     /// </returns>
     public static IList<(Int32 Ordinal, ZipArchiveEntry Entry)> GetTraceFiles(this ZipArchive zipArchive)
     {
         return zipArchive.Entries.Where(x => inRoot(x) && isAdtx(x))
-           .Select(map)
-           .Where(x => x.Entry != null)
-           .OrderBy(x => x.Ordinal)
-           .Select(x => (x.Ordinal, x.Entry!))
-           .ToList();
+            .Select(map)
+            .Where(x => x.Entry != null)
+            .OrderBy(x => x.Ordinal)
+            .Select(x => (x.Ordinal, x.Entry!))
+            .ToList();
 
 
         static Boolean inRoot(ZipArchiveEntry entry)
@@ -50,7 +50,7 @@ public static class ZipArchiveExtensions
         static (Int32 Ordinal, ZipArchiveEntry? Entry) map(ZipArchiveEntry entry)
         {
             var fileName = Path.GetFileNameWithoutExtension(entry.Name);
-            var ordinal = parseOrdinal(fileName);
+            var ordinal  = parseOrdinal(fileName);
 
             if (ordinal == null)
             {

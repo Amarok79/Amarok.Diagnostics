@@ -14,7 +14,7 @@ public class AdtxTraceExporterOptionsTests
     [Test]
     public void Usage_DirectoryPath_with_Defaults()
     {
-        var dir = Path.GetTempPath();
+        var dir     = Path.GetTempPath();
         var options = new AdtxTraceExporterOptions(dir);
 
         Check.That(options.Directory.FullName).IsEqualTo(dir);
@@ -34,9 +34,9 @@ public class AdtxTraceExporterOptionsTests
         var options = new AdtxTraceExporterOptions(dir) {
             WriterOptions = new TraceWriterOptions {
                 MaxDiskSpaceUsedInMegaBytes = 123,
-                UseCompression = false,
-                SessionUuid = Guid.Empty,
-                SessionStartTime = DateTimeOffset.MinValue,
+                UseCompression              = false,
+                SessionUuid                 = Guid.Empty,
+                SessionStartTime            = DateTimeOffset.MinValue,
             },
         };
 

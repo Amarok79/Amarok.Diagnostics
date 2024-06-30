@@ -46,7 +46,7 @@ internal sealed class PerfettoProtobufConverter
         var sw = Stopwatch.StartNew();
 
         var lastSession = (SessionInfo?)null;
-        var isFirst = true;
+        var isFirst     = true;
 
         foreach (var activity in reader.Read())
         {
@@ -55,7 +55,7 @@ internal sealed class PerfettoProtobufConverter
                 _StartNewSession(activity, outDir);
 
                 lastSession = activity.Session;
-                isFirst = true;
+                isFirst     = true;
             }
 
             if (isFirst)
@@ -151,7 +151,7 @@ internal sealed class PerfettoProtobufConverter
         }
 
         var processName = Path.GetDirectoryName(activity.Source.Name);
-        var trackName = Path.GetFileName(activity.Source.Name);
+        var trackName   = Path.GetFileName(activity.Source.Name);
 
         UInt64 processId;
 
@@ -186,7 +186,7 @@ internal sealed class PerfettoProtobufConverter
         var trace = new Trace {
             Packet = {
                 new TracePacket {
-                    SequenceFlags = (UInt32)TracePacket.Types.SequenceFlags.SeqIncrementalStateCleared,
+                    SequenceFlags           = (UInt32)TracePacket.Types.SequenceFlags.SeqIncrementalStateCleared,
                     TrustedPacketSequenceId = PacketSequenceId,
                 },
             },
@@ -211,7 +211,7 @@ internal sealed class PerfettoProtobufConverter
 
         args ??= Array.Empty<KeyValuePair<String, Object?>>();
 
-        var idAnnotations = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "ids") };
+        var idAnnotations   = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "ids") };
         var argsAnnotations = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "args") };
 
         foreach (var arg in args.OrderBy(x => x.Key))
@@ -223,7 +223,7 @@ internal sealed class PerfettoProtobufConverter
         {
             idAnnotations.DictEntries.Add(
                 new DebugAnnotation {
-                    NameIid = _InternArgName(ref internedData, "parent"),
+                    NameIid     = _InternArgName(ref internedData, "parent"),
                     StringValue = parentSpanId,
                 }
             );
@@ -233,7 +233,7 @@ internal sealed class PerfettoProtobufConverter
         {
             idAnnotations.DictEntries.Add(
                 new DebugAnnotation {
-                    NameIid = _InternArgName(ref internedData, "span"),
+                    NameIid     = _InternArgName(ref internedData, "span"),
                     StringValue = spanId,
                 }
             );
@@ -243,7 +243,7 @@ internal sealed class PerfettoProtobufConverter
         {
             idAnnotations.DictEntries.Add(
                 new DebugAnnotation {
-                    NameIid = _InternArgName(ref internedData, "trace"),
+                    NameIid     = _InternArgName(ref internedData, "trace"),
                     StringValue = traceId,
                 }
             );
@@ -254,8 +254,8 @@ internal sealed class PerfettoProtobufConverter
             Timestamp = Convert.ToUInt64(relativeStartTime.Ticks / 10 * 1000),
             TrackEvent = new TrackEvent {
                 TrackUuid = trackId,
-                Type = TrackEvent.Types.Type.SliceBegin,
-                NameIid = _InternEventName(ref internedData, eventName),
+                Type      = TrackEvent.Types.Type.SliceBegin,
+                NameIid   = _InternEventName(ref internedData, eventName),
             },
             TrustedPacketSequenceId = PacketSequenceId,
         };
@@ -279,7 +279,7 @@ internal sealed class PerfettoProtobufConverter
             Timestamp = Convert.ToUInt64((relativeStartTime.Ticks + duration.Ticks) / 10 * 1000),
             TrackEvent = new TrackEvent {
                 TrackUuid = trackId,
-                Type = TrackEvent.Types.Type.SliceEnd,
+                Type      = TrackEvent.Types.Type.SliceEnd,
             },
             TrustedPacketSequenceId = PacketSequenceId,
         };
@@ -345,7 +345,8 @@ internal sealed class PerfettoProtobufConverter
                 new TracePacket {
                     TrackDescriptor = new TrackDescriptor {
                         Uuid = processId,
-                        Name = processName,
+                        Name =
+                            processName,
                     },
                     TrustedPacketSequenceId = PacketSequenceId,
                 },
@@ -370,7 +371,7 @@ internal sealed class PerfettoProtobufConverter
         var trace = new Trace {
             Packet = {
                 new TracePacket {
-                    TrackDescriptor = desc,
+                    TrackDescriptor         = desc,
                     TrustedPacketSequenceId = PacketSequenceId,
                 },
             },
@@ -395,7 +396,7 @@ internal sealed class PerfettoProtobufConverter
 
         internedData.EventNames.Add(
             new EventName {
-                Iid = eventNameId,
+                Iid  = eventNameId,
                 Name = eventName,
             }
         );
@@ -419,7 +420,7 @@ internal sealed class PerfettoProtobufConverter
         internedData.DebugAnnotationNames.Add(
             new DebugAnnotationName {
                 Name = argName,
-                Iid = argNameId,
+                Iid  = argNameId,
             }
         );
 

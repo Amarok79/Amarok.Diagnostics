@@ -23,9 +23,9 @@ internal abstract class SerializerBase<T>
 
     protected SerializerBase(Int32 maxNumberOfItems, ObjectsPool objectsPool)
     {
-        mItems = new Dictionary<T, Int32>(maxNumberOfItems);
+        mItems            = new Dictionary<T, Int32>(maxNumberOfItems);
         mMaxNumberOfItems = maxNumberOfItems;
-        mObjectsPool = objectsPool;
+        mObjectsPool      = objectsPool;
     }
 
 

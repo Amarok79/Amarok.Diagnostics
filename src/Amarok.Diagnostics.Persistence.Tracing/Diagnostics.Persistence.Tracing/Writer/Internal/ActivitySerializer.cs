@@ -32,10 +32,10 @@ internal sealed class ActivitySerializer
         mObjectsPool = objectsPool;
 
         mReferenceTimeSerializer = new ReferenceTimeSerializer(mObjectsPool);
-        mSourceSerializer = new SourceSerializer(maxNumberOfItems, mObjectsPool);
-        mTraceIdSerializer = new TraceIdSerializer(maxNumberOfIds, mObjectsPool);
-        mParentSpanIdSerializer = new ParentSpanIdSerializer(maxNumberOfIds, mObjectsPool);
-        mOperationSerializer = new OperationSerializer(maxNumberOfItems, mObjectsPool);
+        mSourceSerializer        = new SourceSerializer(maxNumberOfItems, mObjectsPool);
+        mTraceIdSerializer       = new TraceIdSerializer(maxNumberOfIds, mObjectsPool);
+        mParentSpanIdSerializer  = new ParentSpanIdSerializer(maxNumberOfIds, mObjectsPool);
+        mOperationSerializer     = new OperationSerializer(maxNumberOfItems, mObjectsPool);
 
         mTagsSerializer = new TagsSerializer(maxNumberOfItems, maxStringLength, maxBytesLength, mObjectsPool);
 
@@ -77,20 +77,20 @@ internal sealed class ActivitySerializer
         var operationId = mOperationSerializer.Serialize(activity.OperationName, records);
 
         // intern trace id, parent span id
-        var traceId = mTraceIdSerializer.Serialize(activity.TraceId, records);
+        var traceId      = mTraceIdSerializer.Serialize(activity.TraceId, records);
         var parentSpanId = mParentSpanIdSerializer.Serialize(activity.ParentSpanId, records);
 
         // define activity
         var record = mObjectsPool.GetRecord();
-        var item = mObjectsPool.GetActivity();
+        var item   = mObjectsPool.GetActivity();
 
-        item.SourceId = activitySourceId;
-        item.OperationId = operationId;
-        item.TraceId = traceId;
-        item.SpanId = activity.SpanId.ToHexString();
-        item.ParentSpanId = parentSpanId;
+        item.SourceId               = activitySourceId;
+        item.OperationId            = operationId;
+        item.TraceId                = traceId;
+        item.SpanId                 = activity.SpanId.ToHexString();
+        item.ParentSpanId           = parentSpanId;
         item.StartTimeRelativeTicks = timeDelta.Ticks;
-        item.DurationTicks = activity.Duration.Ticks;
+        item.DurationTicks          = activity.Duration.Ticks;
 
         mTagsSerializer.Serialize(activity, item.Tags, records);
 

@@ -34,9 +34,9 @@ internal class Program
     {
         var logger = LoggerFactory.Create(
                 builder => builder.AddSystemdConsole(x => x.TimestampFormat = "|HH:mm:ss.fff|")
-                   .SetMinimumLevel(LogLevel.Trace)
+                    .SetMinimumLevel(LogLevel.Trace)
             )
-           .CreateLogger("TEST");
+            .CreateLogger("TEST");
 
 
         Console.WriteLine("writing...");
@@ -45,14 +45,14 @@ internal class Program
         var options = new AdtxTraceExporterOptions(OutputDir) {
             WriterOptions = new TraceWriterOptions {
                 MaxDiskSpaceUsedInMegaBytes = 100,
-                Logger = logger,
+                Logger                      = logger,
             },
         };
 
         using var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var context)
-           .Build();
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var context)
+            .Build();
 
         Thread.Sleep(3000);
 

@@ -31,11 +31,11 @@ public class TraceWriterOptionsTests
         var time = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.Zero);
 
         var options = new TraceWriterOptions {
-            SessionUuid = guid,
-            SessionStartTime = time,
+            SessionUuid                 = guid,
+            SessionStartTime            = time,
             MaxDiskSpaceUsedInMegaBytes = 55,
-            UseCompression = false,
-            AutoFlushInterval = TimeSpan.FromSeconds(33),
+            UseCompression              = false,
+            AutoFlushInterval           = TimeSpan.FromSeconds(33),
         };
 
         Check.That(options.SessionUuid).IsEqualTo(guid);
@@ -49,12 +49,10 @@ public class TraceWriterOptionsTests
         Check.That(options.AutoFlushInterval).IsEqualTo(33, TimeUnit.Seconds);
 
         Check.That(options.ToString())
-           .IsEqualTo(
+            .IsEqualTo(
                 "SessionUuid: 94c8c239-d282-4002-a569-cfe2f811b336, " +
-                "SessionStartTime: 10/31/2022 11:22:33 AM +00:00, " +
-                "MaxDiskSpaceUsedInMegaBytes: 55 MB, " +
-                "UseCompression: False, " +
-                "AutoFlushInterval: 33 s"
+                "SessionStartTime: 10/31/2022 11:22:33 AM +00:00, " + "MaxDiskSpaceUsedInMegaBytes: 55 MB, " +
+                "UseCompression: False, " + "AutoFlushInterval: 33 s"
             );
     }
 
@@ -66,11 +64,11 @@ public class TraceWriterOptionsTests
         var time = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.Zero);
 
         var inner = new TraceWriterOptions {
-            SessionUuid = guid,
-            SessionStartTime = time,
+            SessionUuid                 = guid,
+            SessionStartTime            = time,
             MaxDiskSpaceUsedInMegaBytes = 55,
-            UseCompression = false,
-            AutoFlushInterval = TimeSpan.FromSeconds(33),
+            UseCompression              = false,
+            AutoFlushInterval           = TimeSpan.FromSeconds(33),
         };
 
         var options = new TraceWriterOptions(inner);

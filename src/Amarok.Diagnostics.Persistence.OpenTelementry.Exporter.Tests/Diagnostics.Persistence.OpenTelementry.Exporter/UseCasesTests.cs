@@ -62,9 +62,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
 
@@ -125,9 +125,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
 
@@ -191,9 +191,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
 
@@ -264,9 +264,9 @@ public class IntegrationTests
 
         // act writing
         using (var provider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("*")
-           .AddAdtxTraceExporter(options, out var ctx)
-           .Build())
+            .AddSource("*")
+            .AddAdtxTraceExporter(options, out var ctx)
+            .Build())
         {
             Check.That(ctx).IsNotNull();
 

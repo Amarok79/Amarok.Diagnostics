@@ -40,7 +40,7 @@ internal sealed class ReferenceTimeSerializer
 
     public void SetReferencePointInTime(DateTimeOffset timestamp, TraceRecords records)
     {
-        mPointInTime = timestamp;
+        mPointInTime    = timestamp;
         mPointInTimeUtc = timestamp.UtcDateTime;
 
         IsDefined = true;
@@ -49,7 +49,7 @@ internal sealed class ReferenceTimeSerializer
         var record = mObjectsPool.GetRecord();
 
         record.DefinePointInTime = new TraceDefinePointInTime {
-            Ticks = mPointInTime.LocalDateTime.Ticks,
+            Ticks         = mPointInTime.LocalDateTime.Ticks,
             OffsetMinutes = (Int32)mPointInTime.Offset.TotalMinutes,
         };
 

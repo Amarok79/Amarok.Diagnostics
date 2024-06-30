@@ -17,7 +17,7 @@ internal sealed class ZipArchiveTraceReader : ITraceReader
     public ZipArchiveTraceReader(String zipFile, ITraceReaderHooks? hooks = null)
     {
         mZipFile = zipFile;
-        mHooks = hooks;
+        mHooks   = hooks;
     }
 
 

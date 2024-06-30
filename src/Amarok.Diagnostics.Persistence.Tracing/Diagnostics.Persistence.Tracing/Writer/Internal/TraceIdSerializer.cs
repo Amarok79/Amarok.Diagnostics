@@ -19,7 +19,7 @@ internal sealed class TraceIdSerializer : SerializerBase<ActivityTraceId>
     {
         var define = ObjectsPool.GetDefineTraceId();
 
-        define.Id = id;
+        define.Id      = id;
         define.TraceId = value.ToHexString();
 
         record.DefineTraceId = define;

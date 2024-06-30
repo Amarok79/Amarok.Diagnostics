@@ -50,7 +50,7 @@ public class RollingFileWriterTests
         using var stream = File.OpenWrite(_MakePath(ordinal));
 
         var random = new Random();
-        var bytes = new Byte[size];
+        var bytes  = new Byte[size];
         random.NextBytes(bytes);
 
         stream.Write(bytes);

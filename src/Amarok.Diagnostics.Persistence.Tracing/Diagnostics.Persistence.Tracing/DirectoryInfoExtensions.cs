@@ -16,14 +16,13 @@ public static class DirectoryInfoExtensions
     /// </summary>
     /// 
     /// <param name="directoryInfo">
-    ///     The directory from which to return trace log files. If the directory doesn't exist, an empty
-    ///     list is returned.
+    ///     The directory from which to return trace log files. If the directory doesn't exist, an empty list is returned.
     /// </param>
     /// 
     /// <returns>
-    ///     An ordered list of trace log files, where each list element consists of the file ordinal and
-    ///     file info object. The returned list is ordered ascending by file ordinals. If the given
-    ///     directory doesn't exist or doesn't contain any trace log file, then an empty list is returned.
+    ///     An ordered list of trace log files, where each list element consists of the file ordinal and file info object. The
+    ///     returned list is ordered ascending by file ordinals. If the given directory doesn't exist or doesn't contain any
+    ///     trace log file, then an empty list is returned.
     /// </returns>
     public static IList<(Int32 Ordinal, FileInfo FileInfo)> GetTraceFiles(this DirectoryInfo directoryInfo)
     {
@@ -36,17 +35,17 @@ public static class DirectoryInfoExtensions
 
 
         return directoryInfo.GetFiles("*.adtx", SearchOption.TopDirectoryOnly)
-           .Select(map)
-           .Where(x => x.FileInfo != null)
-           .OrderBy(x => x.Ordinal)
-           .Select(x => (x.Ordinal, x.FileInfo!))
-           .ToList();
+            .Select(map)
+            .Where(x => x.FileInfo != null)
+            .OrderBy(x => x.Ordinal)
+            .Select(x => (x.Ordinal, x.FileInfo!))
+            .ToList();
 
 
         static (Int32 Ordinal, FileInfo? FileInfo) map(FileInfo fileInfo)
         {
             var fileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
-            var ordinal = parseOrdinal(fileName);
+            var ordinal  = parseOrdinal(fileName);
 
             if (ordinal == null)
             {

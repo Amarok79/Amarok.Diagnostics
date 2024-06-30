@@ -16,7 +16,7 @@ public class OperationSerializerTests
     [SetUp]
     public void Setup()
     {
-        mRecords = new TraceRecords();
+        mRecords    = new TraceRecords();
         mSerializer = new OperationSerializer(4, ObjectsPool.Create(false));
     }
 

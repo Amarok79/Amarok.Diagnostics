@@ -174,9 +174,9 @@ public class RollingTraceWriterTests
 
         Check.That(File.Exists(mExportFile.FullName)).IsTrue();
 
-        using var zip = ZipFile.OpenRead(mExportFile.FullName);
-        var entry = zip.GetEntry("1.adtx");
-        var bytes = _ReadEntry(entry!);
+        using var zip   = ZipFile.OpenRead(mExportFile.FullName);
+        var       entry = zip.GetEntry("1.adtx");
+        var       bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
 
@@ -248,9 +248,9 @@ public class RollingTraceWriterTests
 
         Check.That(File.Exists(mExportFile.FullName)).IsTrue();
 
-        using var zip = ZipFile.OpenRead(mExportFile.FullName);
-        var entry = zip.GetEntry("1.adtx");
-        var bytes = _ReadEntry(entry!);
+        using var zip   = ZipFile.OpenRead(mExportFile.FullName);
+        var       entry = zip.GetEntry("1.adtx");
+        var       bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
 
@@ -366,9 +366,9 @@ public class RollingTraceWriterTests
 
         Check.That(File.Exists(_MakePath(8))).IsFalse();
 
-        using var zip = ZipFile.OpenRead(mExportFile.FullName);
-        var entry = zip.GetEntry("1.adtx");
-        var bytes = _ReadEntry(entry!);
+        using var zip   = ZipFile.OpenRead(mExportFile.FullName);
+        var       entry = zip.GetEntry("1.adtx");
+        var       bytes = _ReadEntry(entry!);
 
         Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
 

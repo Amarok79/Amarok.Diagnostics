@@ -14,11 +14,11 @@ internal sealed class PerfettoJsonConverter
     public void Run(ITraceReader reader, String outDir)
     {
         var tracks = new Dictionary<String, (Int32 Pid, Int32 Tid)>(StringComparer.Ordinal);
-        var pids = new Dictionary<String, Int32>(StringComparer.Ordinal);
-        var tids = new Dictionary<String, Int32>(StringComparer.Ordinal);
+        var pids   = new Dictionary<String, Int32>(StringComparer.Ordinal);
+        var tids   = new Dictionary<String, Int32>(StringComparer.Ordinal);
 
-        Utf8JsonWriter? jsonWriter = null;
-        SessionInfo? lastSession = null;
+        Utf8JsonWriter? jsonWriter  = null;
+        SessionInfo?    lastSession = null;
 
         var count = 0;
         var first = true;
@@ -53,7 +53,7 @@ internal sealed class PerfettoJsonConverter
                 AnsiConsole.MarkupLine($"  [grey]Writing {outFileName} to {outDir}[/]");
 
                 lastSession = activity.Session;
-                first = true;
+                first       = true;
 
                 tracks.Clear();
                 pids.Clear();

@@ -17,18 +17,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Google.Protobuf" Version="3.27.2" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-        <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.6" />
-        <PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
+        <PackageReference Include="Google.Protobuf" Version="3.27.2"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.6"/>
+        <PackageReference Include="System.IO.Pipelines" Version="8.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include="protos\*.proto" GrpcServices="Client" />
+        <Protobuf Include="protos\*.proto" GrpcServices="Client"/>
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="$(TargetName).Tests" />
+        <InternalsVisibleTo Include="$(TargetName).Tests"/>
     </ItemGroup>
 
 </Project>

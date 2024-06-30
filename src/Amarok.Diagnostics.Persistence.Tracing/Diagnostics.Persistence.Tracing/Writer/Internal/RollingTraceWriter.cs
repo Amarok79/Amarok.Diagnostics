@@ -50,7 +50,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
         mMaxFileLength = maxDiskSpaceUsed / minNumberOfFiles;
 
         mFlushInterval = flushInterval;
-        mLogger = logger;
+        mLogger        = logger;
 
         mActivitySerializer = new ActivitySerializer(
             maxNumberOfItems,
@@ -177,7 +177,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
         span[0] = 0xAA;
 
         // length
-        var i = 1;
+        var i      = 1;
         var uValue = (UInt32)value;
 
         while (uValue > 0x7Fu)

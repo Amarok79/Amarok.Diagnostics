@@ -17,7 +17,7 @@ public class TraceIdSerializerTests
     [SetUp]
     public void Setup()
     {
-        mRecords = new TraceRecords();
+        mRecords    = new TraceRecords();
         mSerializer = new TraceIdSerializer(4, ObjectsPool.Create(false));
     }
 

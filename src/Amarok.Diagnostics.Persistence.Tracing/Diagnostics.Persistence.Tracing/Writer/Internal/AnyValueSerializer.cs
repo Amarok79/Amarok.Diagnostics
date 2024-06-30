@@ -16,7 +16,7 @@ internal sealed class AnyValueSerializer
     public AnyValueSerializer(Int32 maxStringLength, Int32 maxBytesLength)
     {
         mMaxStringLength = maxStringLength;
-        mMaxBytesLength = maxBytesLength;
+        mMaxBytesLength  = maxBytesLength;
     }
 
 
@@ -133,7 +133,7 @@ internal sealed class AnyValueSerializer
 
             case Memory<Byte> byteMemory:
             {
-                var span = byteMemory.Span;
+                var span  = byteMemory.Span;
                 var count = Math.Min(span.Length, mMaxBytesLength);
 
                 any.Bytes = ByteString.CopyFrom(span[..count]);
@@ -143,7 +143,7 @@ internal sealed class AnyValueSerializer
 
             case ReadOnlyMemory<Byte> readOnlyByteMemory:
             {
-                var span = readOnlyByteMemory.Span;
+                var span  = readOnlyByteMemory.Span;
                 var count = Math.Min(span.Length, mMaxBytesLength);
 
                 any.Bytes = ByteString.CopyFrom(span[..count]);
@@ -216,9 +216,9 @@ internal sealed class AnyValueSerializer
     private static void _SerializeDateOnly(AnyValue any, DateOnly value)
     {
         any.DateOnly = new DateOnlyValue {
-            Year = value.Year,
+            Year  = value.Year,
             Month = value.Month,
-            Day = value.Day,
+            Day   = value.Day,
         };
     }
 
@@ -226,14 +226,14 @@ internal sealed class AnyValueSerializer
     {
         any.DateTime = new DateTimeValue {
             Ticks = value.Ticks,
-            Kind = (Int32)value.Kind,
+            Kind  = (Int32)value.Kind,
         };
     }
 
     private static void _SerializeDateTimeOffset(AnyValue any, DateTimeOffset value)
     {
         any.DateTimeOffset = new DateTimeOffsetValue {
-            Ticks = value.Ticks,
+            Ticks         = value.Ticks,
             OffsetMinutes = (Int32)value.Offset.TotalMinutes,
         };
     }

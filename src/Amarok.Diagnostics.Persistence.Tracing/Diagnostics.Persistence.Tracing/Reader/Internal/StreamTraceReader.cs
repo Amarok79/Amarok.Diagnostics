@@ -26,7 +26,7 @@ internal sealed class StreamTraceReader : ITraceReader
     public StreamTraceReader(Stream stream, ITraceReaderHooks? hooks = null)
     {
         mStream = stream;
-        mHooks = hooks;
+        mHooks  = hooks;
     }
 
 
@@ -48,7 +48,7 @@ internal sealed class StreamTraceReader : ITraceReader
         );
 
         var records = new TraceRecords();
-        var buffer = new Byte[4096];
+        var buffer  = new Byte[4096];
 
         while (true)
         {
@@ -227,7 +227,7 @@ internal sealed class StreamTraceReader : ITraceReader
 
         sessionUuid = new Guid(bytes[..16]);
 
-        var ticks = BinaryPrimitives.ReadInt64LittleEndian(bytes[16..24]);
+        var ticks  = BinaryPrimitives.ReadInt64LittleEndian(bytes[16..24]);
         var offset = BinaryPrimitives.ReadInt16LittleEndian(bytes[24..26]);
 
         sessionStart = new DateTimeOffset(ticks, TimeSpan.FromMinutes(offset));
@@ -270,7 +270,7 @@ internal sealed class StreamTraceReader : ITraceReader
         var flags = bytes[1];
 
         isCompressed = (flags & 0xC0) == 0xC0;
-        isFinished = (flags & 0x0F) == 0x0F;
+        isFinished   = (flags & 0x0F) == 0x0F;
 
 
         static void throwUnableToRead()
@@ -464,15 +464,15 @@ internal sealed class StreamTraceReader : ITraceReader
 
     private ActivityInfo _ProcessActivity(TraceActivity activity, SessionInfo session)
     {
-        var source = mActivitySourceMap.Lookup(activity.SourceId);
-        var operation = mOperationNameMap.Lookup(activity.OperationId);
-        var traceId = mActivityTraceIdMap.Lookup(activity.TraceId);
+        var source       = mActivitySourceMap.Lookup(activity.SourceId);
+        var operation    = mOperationNameMap.Lookup(activity.OperationId);
+        var traceId      = mActivityTraceIdMap.Lookup(activity.TraceId);
         var parentSpanId = mActivityParentSpanIdMap.Lookup(activity.ParentSpanId);
-        var spanId = activity.SpanId;
-        var timeDelta = TimeSpan.FromTicks(activity.StartTimeRelativeTicks);
-        var startTime = mReferenceTimeMap.GetAbsolutePointInTime(timeDelta);
-        var duration = TimeSpan.FromTicks(activity.DurationTicks);
-        var tags = _ProcessActivityTags(activity);
+        var spanId       = activity.SpanId;
+        var timeDelta    = TimeSpan.FromTicks(activity.StartTimeRelativeTicks);
+        var startTime    = mReferenceTimeMap.GetAbsolutePointInTime(timeDelta);
+        var duration     = TimeSpan.FromTicks(activity.DurationTicks);
+        var tags         = _ProcessActivityTags(activity);
 
         return new ActivityInfo(session, source, operation, traceId, parentSpanId, spanId, startTime, duration) {
             Tags = tags,
@@ -492,7 +492,7 @@ internal sealed class StreamTraceReader : ITraceReader
         {
             var tag = activity.Tags[i];
 
-            var key = mTagKeyMap.Lookup(tag.KeyId);
+            var key   = mTagKeyMap.Lookup(tag.KeyId);
             var value = mAnyValueDeserializer.Deserialize(tag.Value);
 
             items[i] = new KeyValuePair<String, Object?>(key, value);

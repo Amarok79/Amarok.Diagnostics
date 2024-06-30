@@ -14,7 +14,7 @@ internal sealed class DirectoryTraceReader : ITraceReader
     public DirectoryTraceReader(String directory, ITraceReaderHooks? hooks = null)
     {
         mDirectory = new DirectoryInfo(directory);
-        mHooks = hooks;
+        mHooks     = hooks;
     }
 
 

@@ -19,8 +19,8 @@ internal sealed class SourceSerializer : SerializerBase<ActivitySource>
     {
         var define = ObjectsPool.GetDefineSource();
 
-        define.Id = id;
-        define.Name = value.Name;
+        define.Id      = id;
+        define.Name    = value.Name;
         define.Version = value.Version ?? String.Empty;
 
         record.DefineSource = define;

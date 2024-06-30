@@ -16,7 +16,7 @@ public class ReferenceTimeSerializerTests
     [SetUp]
     public void Setup()
     {
-        mRecords = new TraceRecords();
+        mRecords    = new TraceRecords();
         mSerializer = new ReferenceTimeSerializer(ObjectsPool.Create(false));
     }
 
@@ -66,7 +66,7 @@ public class ReferenceTimeSerializerTests
 
         mSerializer.SetReferencePointInTime(now, mRecords);
 
-        var utc = now.UtcDateTime + TimeSpan.FromSeconds(23);
+        var utc       = now.UtcDateTime + TimeSpan.FromSeconds(23);
         var timeDelta = mSerializer.GetRelativeTimeDelta(utc);
 
         Check.That(timeDelta).IsEqualTo(TimeSpan.FromSeconds(23));

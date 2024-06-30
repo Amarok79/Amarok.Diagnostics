@@ -16,7 +16,7 @@ public class AnyValueSerializerTests
     [SetUp]
     public void Setup()
     {
-        mAny = new AnyValue();
+        mAny        = new AnyValue();
         mSerializer = new AnyValueSerializer(128, 32);
     }
 
@@ -423,7 +423,7 @@ public class AnyValueSerializerTests
     public void Serialize_ArrayOfByte_Long()
     {
         var bytes = new Byte[32];
-        bytes[0] = 0x11;
+        bytes[0]  = 0x11;
         bytes[31] = 0xFF;
 
         Object value = bytes;
@@ -441,7 +441,7 @@ public class AnyValueSerializerTests
     public void Serialize_ArrayOfByte_TooLong()
     {
         var bytes = new Byte[40];
-        bytes[0] = 0x11;
+        bytes[0]  = 0x11;
         bytes[31] = 0xFF;
         bytes[32] = 0xAA;
 
@@ -481,7 +481,7 @@ public class AnyValueSerializerTests
     public void Serialize_MemoryOfByte_Long()
     {
         var bytes = new Byte[32];
-        bytes[0] = 0x11;
+        bytes[0]  = 0x11;
         bytes[31] = 0xFF;
 
         Object value = new Memory<Byte>(bytes);
@@ -499,7 +499,7 @@ public class AnyValueSerializerTests
     public void Serialize_MemoryOfByte_TooLong()
     {
         var bytes = new Byte[40];
-        bytes[0] = 0x11;
+        bytes[0]  = 0x11;
         bytes[31] = 0xFF;
         bytes[32] = 0xAA;
 
@@ -539,7 +539,7 @@ public class AnyValueSerializerTests
     public void Serialize_ReadOnlyMemoryOfByte_Long()
     {
         var bytes = new Byte[32];
-        bytes[0] = 0x11;
+        bytes[0]  = 0x11;
         bytes[31] = 0xFF;
 
         Object value = new ReadOnlyMemory<Byte>(bytes);
@@ -557,7 +557,7 @@ public class AnyValueSerializerTests
     public void Serialize_ReadOnlyMemoryOfByte_TooLong()
     {
         var bytes = new Byte[40];
-        bytes[0] = 0x11;
+        bytes[0]  = 0x11;
         bytes[31] = 0xFF;
         bytes[32] = 0xAA;
 
@@ -581,7 +581,7 @@ public class AnyValueSerializerTests
         mSerializer.Serialize(mAny, value);
 
         Check.That(mAny.Guid.ToByteArray())
-           .ContainsExactly(new Guid("69A51F8D-E87F-4527-B7D4-F6314DCF04AE").ToByteArray());
+            .ContainsExactly(new Guid("69A51F8D-E87F-4527-B7D4-F6314DCF04AE").ToByteArray());
     }
 
 
@@ -640,7 +640,7 @@ public class AnyValueSerializerTests
     public void Serialize_NullableOfBoolean_Null()
     {
         Boolean? nullable = null;
-        Object? value = nullable;
+        Object?  value    = nullable;
 
         mSerializer.Serialize(mAny, value);
 

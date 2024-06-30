@@ -19,7 +19,7 @@ internal sealed class ParentSpanIdSerializer : SerializerBase<ActivitySpanId>
     {
         var define = ObjectsPool.GetDefineParentSpanId();
 
-        define.Id = id;
+        define.Id     = id;
         define.SpanId = value.ToHexString();
 
         record.DefineParentSpanId = define;

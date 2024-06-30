@@ -13,14 +13,12 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Writer;
 public sealed class TraceWriterOptions
 {
     /// <summary>
-    ///     The unique identifier of the current application session. Defaults to
-    ///     <see cref="Guid.NewGuid"/>.
+    ///     The unique identifier of the current application session. Defaults to <see cref="Guid.NewGuid"/>.
     /// </summary>
     public Guid SessionUuid { get; set; } = Guid.NewGuid();
 
     /// <summary>
-    ///     The start date and time of the current application session. Defaults to
-    ///     <see cref="DateTimeOffset.Now"/> .
+    ///     The start date and time of the current application session. Defaults to <see cref="DateTimeOffset.Now"/> .
     /// </summary>
     public DateTimeOffset SessionStartTime { get; set; } = DateTimeOffset.Now;
 
@@ -35,8 +33,7 @@ public sealed class TraceWriterOptions
     public Boolean UseCompression { get; set; } = true;
 
     /// <summary>
-    ///     The minimum interval in which written file content is flushed to persistence storage. Defaults
-    ///     to 15 seconds.
+    ///     The minimum interval in which written file content is flushed to persistence storage. Defaults to 15 seconds.
     /// </summary>
     public TimeSpan AutoFlushInterval { get; set; } = TimeSpan.FromSeconds(15);
 
@@ -58,12 +55,12 @@ public sealed class TraceWriterOptions
     /// </summary>
     public TraceWriterOptions(TraceWriterOptions other)
     {
-        SessionUuid = other.SessionUuid;
-        SessionStartTime = other.SessionStartTime;
+        SessionUuid                 = other.SessionUuid;
+        SessionStartTime            = other.SessionStartTime;
         MaxDiskSpaceUsedInMegaBytes = other.MaxDiskSpaceUsedInMegaBytes;
-        UseCompression = other.UseCompression;
-        AutoFlushInterval = other.AutoFlushInterval;
-        Logger = other.Logger;
+        UseCompression              = other.UseCompression;
+        AutoFlushInterval           = other.AutoFlushInterval;
+        Logger                      = other.Logger;
     }
 
 

@@ -120,19 +120,19 @@ public class IntegrationTests
     public async Task Roundtrip_Single_Activity(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         var activity = new Activity("Foo()")
-           .SetParentId(
+            .SetParentId(
                 ActivityTraceId.CreateFromString("11223344556677881122334455667788"),
                 ActivitySpanId.CreateFromString("1122334411223344")
             )
-           .SetStartTime(activityStartTime)
-           .SetEndTime(activityEndTime);
+            .SetStartTime(activityStartTime)
+            .SetEndTime(activityEndTime);
 
         // act writing
         _CreateWriter(sessionUuid, sessionStartTime, useCompression: useCompression);
@@ -182,15 +182,15 @@ public class IntegrationTests
     public async Task Roundtrip_Single_Activity_With_Tags(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         var activity = new Activity("Foo()").SetStartTime(activityStartTime).SetEndTime(activityEndTime);
 
-        var now = DateTimeOffset.Now;
+        var now  = DateTimeOffset.Now;
         var guid = Guid.NewGuid();
 
         activity.AddTag("aaa", null);
@@ -365,15 +365,15 @@ public class IntegrationTests
     public async Task Roundtrip_via_Archive_Single_Activity_With_Tags(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         var activity = new Activity("Foo()").SetStartTime(activityStartTime).SetEndTime(activityEndTime);
 
-        var now = DateTimeOffset.Now;
+        var now  = DateTimeOffset.Now;
         var guid = Guid.NewGuid();
 
         activity.AddTag("aaa", null);
@@ -547,11 +547,11 @@ public class IntegrationTests
     public async Task Roundtrip_Single_Activity_With_Many_Tags(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         var activity = new Activity("Foo()").SetStartTime(activityStartTime).SetEndTime(activityEndTime);
 
@@ -613,11 +613,11 @@ public class IntegrationTests
     public async Task Roundtrip_Many_Activities_OneWrite_OneFlushAsync(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         // act writing
         _CreateWriter(sessionUuid, sessionStartTime, useCompression: useCompression);
@@ -628,9 +628,9 @@ public class IntegrationTests
                     ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
                     ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
-               .SetStartTime(activityStartTime)
-               .SetEndTime(activityEndTime)
-               .AddTag("index", i);
+                .SetStartTime(activityStartTime)
+                .SetEndTime(activityEndTime)
+                .AddTag("index", i);
 
             mWriter!.Write(activity);
 
@@ -689,11 +689,11 @@ public class IntegrationTests
     public async Task Roundtrip_Many_Activities_ManyWrite_OneFlushAsync(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         // act writing
         _CreateWriter(sessionUuid, sessionStartTime, useCompression: useCompression);
@@ -708,9 +708,9 @@ public class IntegrationTests
                         ActivityTraceId.CreateFromString((index + 1).ToString("x32", CultureInfo.InvariantCulture)),
                         ActivitySpanId.CreateFromString((index + 1).ToString("x16", CultureInfo.InvariantCulture))
                     )
-                   .SetStartTime(activityStartTime)
-                   .SetEndTime(activityEndTime)
-                   .AddTag("index", index++);
+                    .SetStartTime(activityStartTime)
+                    .SetEndTime(activityEndTime)
+                    .AddTag("index", index++);
 
                 mWriter!.Write(activity);
             }
@@ -770,11 +770,11 @@ public class IntegrationTests
     public async Task Roundtrip_Many_Activities_Multiple_Rollover(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         // act writing
         _CreateWriter(sessionUuid, sessionStartTime, 20, useCompression: useCompression);
@@ -785,9 +785,9 @@ public class IntegrationTests
                     ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
                     ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
-               .SetStartTime(activityStartTime)
-               .SetEndTime(activityEndTime)
-               .AddTag("index", i);
+                .SetStartTime(activityStartTime)
+                .SetEndTime(activityEndTime)
+                .AddTag("index", i);
 
             mWriter!.Write(activity);
 
@@ -856,11 +856,11 @@ public class IntegrationTests
     public async Task Roundtrip_via_Archive_Many_Activities_Multiple_Rollover(Boolean useCompression)
     {
         // arrange
-        var sessionUuid = Guid.NewGuid();
+        var sessionUuid      = Guid.NewGuid();
         var sessionStartTime = DateTimeOffset.Now;
 
         var activityStartTime = DateTime.UtcNow;
-        var activityEndTime = activityStartTime + TimeSpan.FromMilliseconds(1234);
+        var activityEndTime   = activityStartTime + TimeSpan.FromMilliseconds(1234);
 
         // act writing
         _CreateWriter(sessionUuid, sessionStartTime, 20, useCompression: useCompression);
@@ -871,9 +871,9 @@ public class IntegrationTests
                     ActivityTraceId.CreateFromString((i + 1).ToString("x32", CultureInfo.InvariantCulture)),
                     ActivitySpanId.CreateFromString((i + 1).ToString("x16", CultureInfo.InvariantCulture))
                 )
-               .SetStartTime(activityStartTime)
-               .SetEndTime(activityEndTime)
-               .AddTag("index", i);
+                .SetStartTime(activityStartTime)
+                .SetEndTime(activityEndTime)
+                .AddTag("index", i);
 
             mWriter!.Write(activity);
 

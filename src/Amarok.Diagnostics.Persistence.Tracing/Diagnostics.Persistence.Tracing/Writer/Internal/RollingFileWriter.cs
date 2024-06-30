@@ -27,19 +27,19 @@ internal sealed class RollingFileWriter : IDisposable
 
     public RollingFileWriter(DirectoryInfo directory, Int64 maxDiskSpaceUsed, Boolean useCompression, ILogger logger)
     {
-        mDirectory = directory;
+        mDirectory        = directory;
         mMaxDiskSpaceUsed = maxDiskSpaceUsed;
-        mUseCompression = useCompression;
-        mLogger = logger;
+        mUseCompression   = useCompression;
+        mLogger           = logger;
 
-        mSessionUuid = Guid.Empty;
+        mSessionUuid      = Guid.Empty;
         mSessionStartTime = new DateTimeOffset(0, TimeSpan.Zero);
     }
 
 
     public void SetSession(Guid sessionUuid, DateTimeOffset sessionStartTime)
     {
-        mSessionUuid = sessionUuid;
+        mSessionUuid      = sessionUuid;
         mSessionStartTime = sessionStartTime;
     }
 
@@ -91,7 +91,7 @@ internal sealed class RollingFileWriter : IDisposable
                 return;
             }
 
-            var sw = Stopwatch.StartNew();
+            var sw       = Stopwatch.StartNew();
             var fileName = mActiveStream.Name;
 
             mLogger.LogDebug("RollingFileWriter: Completing active log file '{FileName}'...", fileName);
@@ -385,8 +385,8 @@ internal sealed class RollingFileWriter : IDisposable
         // finished             =  %x0F ;
         // compressed-finished  =  %xCF ;
 
-        const Byte activeFlag = 0x0A;
-        const Byte finishedFlag = 0x0F;
+        const Byte activeFlag     = 0x0A;
+        const Byte finishedFlag   = 0x0F;
         const Byte compressedFlag = 0xC0;
 
         var flag = (finished ? finishedFlag : activeFlag) | (compressed ? compressedFlag : 0x00);
