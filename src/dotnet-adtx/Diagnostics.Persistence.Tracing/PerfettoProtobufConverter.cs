@@ -136,19 +136,23 @@ internal sealed class PerfettoProtobufConverter
             "Session Start",
             TimeSpan.Zero,
             TimeSpan.Zero,
-            new KeyValuePair<String, Object?>[] {
-                new("SessionUuid", activity.Session.Uuid.ToString("D", CultureInfo.InvariantCulture)),
-                new("SessionStartTime", activity.Session.StartTime.ToString("O", CultureInfo.InvariantCulture)),
-            }
+            [
+                new KeyValuePair<String, Object?>(
+                    "SessionUuid",
+                    activity.Session.Uuid.ToString("D", CultureInfo.InvariantCulture)
+                ),
+                new KeyValuePair<String, Object?>(
+                    "SessionStartTime",
+                    activity.Session.StartTime.ToString("O", CultureInfo.InvariantCulture)
+                ),
+            ]
         );
     }
 
     private UInt64 _EnsureTrack(ActivityInfo activity)
     {
         if (mTrackIds.TryGetValue(activity.Source.Name, out var trackId))
-        {
             return trackId;
-        }
 
         var processName = Path.GetDirectoryName(activity.Source.Name);
         var trackName   = Path.GetFileName(activity.Source.Name);
@@ -156,9 +160,7 @@ internal sealed class PerfettoProtobufConverter
         UInt64 processId;
 
         if (String.IsNullOrEmpty(processName))
-        {
             processId = ProcessInitialId;
-        }
         else
         {
             if (!mProcessIds.TryGetValue(processName, out processId))
@@ -211,8 +213,12 @@ internal sealed class PerfettoProtobufConverter
 
         args ??= Array.Empty<KeyValuePair<String, Object?>>();
 
-        var idAnnotations   = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "ids") };
-        var argsAnnotations = new DebugAnnotation { NameIid = _InternArgName(ref internedData, "args") };
+        var idAnnotations = new DebugAnnotation {
+            NameIid = _InternArgName(ref internedData, "ids"),
+        };
+        var argsAnnotations = new DebugAnnotation {
+            NameIid = _InternArgName(ref internedData, "args"),
+        };
 
         foreach (var arg in args.OrderBy(x => x.Key))
         {
@@ -261,19 +267,13 @@ internal sealed class PerfettoProtobufConverter
         };
 
         if (argsAnnotations.DictEntries.Count > 0)
-        {
             sliceBegin.TrackEvent.DebugAnnotations.Add(argsAnnotations);
-        }
 
         if (idAnnotations.DictEntries.Count > 0)
-        {
             sliceBegin.TrackEvent.DebugAnnotations.Add(idAnnotations);
-        }
 
         if (internedData != null)
-        {
             sliceBegin.InternedData = internedData;
-        }
 
         var sliceEnd = new TracePacket {
             Timestamp = Convert.ToUInt64((relativeStartTime.Ticks + duration.Ticks) / 10 * 1000),
@@ -296,44 +296,28 @@ internal sealed class PerfettoProtobufConverter
 
     private DebugAnnotation _CreateArg(ref InternedData? internedData, KeyValuePair<String, Object> arg)
     {
-        var value = new DebugAnnotation { NameIid = _InternArgName(ref internedData, arg.Key) };
+        var value = new DebugAnnotation {
+            NameIid = _InternArgName(ref internedData, arg.Key),
+        };
 
         if (arg.Value is Boolean boolValue)
-        {
             value.BoolValue = boolValue;
-        }
         else if (arg.Value is Int32 int32Value)
-        {
             value.IntValue = int32Value;
-        }
         else if (arg.Value is Int64 int64Value)
-        {
             value.IntValue = int64Value;
-        }
         else if (arg.Value is UInt32 uint32Value)
-        {
             value.UintValue = uint32Value;
-        }
         else if (arg.Value is UInt64 uint64Value)
-        {
             value.UintValue = uint64Value;
-        }
         else if (arg.Value is Double doubleValue)
-        {
             value.DoubleValue = doubleValue;
-        }
         else if (arg.Value is Byte[] bytesValue)
-        {
             value.StringValue = String.Join(",", bytesValue.Select(x => x.ToString("X2")));
-        }
         else if (arg.Value is Guid guidValue)
-        {
             value.StringValue = guidValue.ToString("N");
-        }
         else
-        {
             value.StringValue = arg.Value.ToString();
-        }
 
         return value;
     }
@@ -345,8 +329,7 @@ internal sealed class PerfettoProtobufConverter
                 new TracePacket {
                     TrackDescriptor = new TrackDescriptor {
                         Uuid = processId,
-                        Name =
-                            processName,
+                        Name = processName,
                     },
                     TrustedPacketSequenceId = PacketSequenceId,
                 },
@@ -364,9 +347,7 @@ internal sealed class PerfettoProtobufConverter
         };
 
         if (processTrackId != null)
-        {
             desc.ParentUuid = processTrackId.Value;
-        }
 
         var trace = new Trace {
             Packet = {
@@ -384,9 +365,7 @@ internal sealed class PerfettoProtobufConverter
     private UInt64 _InternEventName(ref InternedData? internedData, String eventName)
     {
         if (mEventNames.TryGetValue(eventName, out var eventNameId))
-        {
             return eventNameId;
-        }
 
         eventNameId = (UInt64)(EventNameInitialId + mEventNames.Count);
 
@@ -407,9 +386,7 @@ internal sealed class PerfettoProtobufConverter
     private UInt64 _InternArgName(ref InternedData? internedData, String argName)
     {
         if (mArgNames.TryGetValue(argName, out var argNameId))
-        {
             return argNameId;
-        }
 
         argNameId = (UInt64)(ArgNameInitialId + mArgNames.Count);
 
@@ -430,9 +407,7 @@ internal sealed class PerfettoProtobufConverter
     private UInt64 _InternArgValue(ref InternedData? internedData, String argValue)
     {
         if (mArgValues.TryGetValue(argValue, out var argValueId))
-        {
             return argValueId;
-        }
 
         argValueId = (UInt64)(ArgValueInitialId + mArgValues.Count);
 
@@ -454,8 +429,6 @@ internal sealed class PerfettoProtobufConverter
     private static void _CreateOutDirectory(String outDir)
     {
         if (!Directory.Exists(outDir))
-        {
             Directory.CreateDirectory(outDir);
-        }
     }
 }

@@ -56,9 +56,7 @@ internal sealed class TagsSerializer
     private Int32 _InternKey(String key, TraceRecords records)
     {
         if (!mKeys.TryGetValue(key, out var id))
-        {
             id = _InternKeySlow(key, records);
-        }
 
         return id;
     }
@@ -77,9 +75,7 @@ internal sealed class TagsSerializer
     private Int32 _GetAndAdvanceId(TraceRecords records)
     {
         if (mKeys.Count >= mMaxNumberOfItems)
-        {
             _ResetDueToOverrun(records);
-        }
 
         return mNextId++;
     }

@@ -26,9 +26,7 @@ internal sealed class PerfettoJsonConverter
         outDir = Path.GetFullPath(outDir);
 
         if (!Directory.Exists(outDir))
-        {
             Directory.CreateDirectory(outDir);
-        }
 
         foreach (var activity in reader.Read())
         {
@@ -47,7 +45,9 @@ internal sealed class PerfettoJsonConverter
 
                 jsonWriter = new Utf8JsonWriter(
                     new FileStream(outFilePath, FileMode.Create, FileAccess.Write, FileShare.Read),
-                    new JsonWriterOptions { Indented = true }
+                    new JsonWriterOptions {
+                        Indented = true,
+                    }
                 );
 
                 AnsiConsole.MarkupLine($"  [grey]Writing {outFileName} to {outDir}[/]");
@@ -79,10 +79,10 @@ internal sealed class PerfettoJsonConverter
                     "Session Start",
                     TimeSpan.Zero,
                     TimeSpan.Zero,
-                    new KeyValuePair<String, Object?>[] {
-                        new("SessionUuid", _Fmt(activity.Session.Uuid)),
-                        new("SessionStartTime", _Fmt(activity.Session.StartTime)),
-                    }
+                    [
+                        new KeyValuePair<String, Object?>("SessionUuid", _Fmt(activity.Session.Uuid)),
+                        new KeyValuePair<String, Object?>("SessionStartTime", _Fmt(activity.Session.StartTime)),
+                    ]
                 );
 
                 first = false;
@@ -96,9 +96,7 @@ internal sealed class PerfettoJsonConverter
                 Int32 pid;
 
                 if (String.IsNullOrEmpty(pName))
-                {
                     pid = 0;
-                }
                 else
                 {
                     if (!pids.TryGetValue(pName, out pid))
@@ -184,19 +182,13 @@ internal sealed class PerfettoJsonConverter
             }
 
             if (parentSpanId != null)
-            {
                 writer.WriteString("id.parent", parentSpanId);
-            }
 
             if (spanId != null)
-            {
                 writer.WriteString("id.span", spanId);
-            }
 
             if (traceId != null)
-            {
                 writer.WriteString("id.trace", traceId);
-            }
 
             writer.WriteEndObject();
         }

@@ -43,23 +43,17 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
     protected override Boolean OnShutdown(Int32 timeoutMilliseconds)
     {
         if (mWriter == null)
-        {
             return true;
-        }
 
         var snapshotTask = mSnapshotTask;
 
         if (snapshotTask != null && !snapshotTask.IsCompleted)
-        {
             snapshotTask.GetAwaiter().GetResult();
-        }
 
         var task = mWriter.DisposeAsync();
 
         if (!task.IsCompleted)
-        {
             task.AsTask().Wait();
-        }
 
         return true;
     }
@@ -67,9 +61,7 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
     public override ExportResult Export(in Batch<Activity> batch)
     {
         if (mWriter == null)
-        {
             return ExportResult.Success;
-        }
 
         mSnapshotBarrier.Wait();
 
@@ -85,9 +77,7 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
             var task = mWriter.FlushAsync();
 
             if (!task.IsCompleted)
-            {
                 task.AsTask().Wait();
-            }
 
             return ExportResult.Success;
         }
@@ -104,16 +94,12 @@ internal sealed class AdtxTraceExporter : BaseExporter<Activity>,
     public async Task HotExportAsync(String archivePath)
     {
         if (mIsSnapshotRunning)
-        {
             throw new InvalidOperationException("Another snapshot operation is pending.");
-        }
 
         var writer = mWriter;
 
         if (writer == null)
-        {
             throw new InvalidOperationException("Not initialized or already disposed.");
-        }
 
         try
         {

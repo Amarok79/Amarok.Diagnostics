@@ -93,9 +93,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
     public async ValueTask FlushAsync()
     {
         if (mRecords == null)
-        {
             return;
-        }
 
         _WriteToPipe(mPipe.Writer, mRecords);
 
@@ -109,9 +107,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
         await mPipe.Writer.FlushAsync();
 
         if (mBytesWritten > mMaxFileLength)
-        {
             await _RollOver();
-        }
     }
 
     public async Task<Task> ExportAsync(String archivePath)
@@ -157,10 +153,10 @@ internal sealed class RollingTraceWriter : ITraceWriter
 
     private static void _WriteToPipe(IBufferWriter<Byte> buffer, TraceRecords records)
     {
-        // content-frame        =  frame-preamble, frame-length , records ;
-        // frame-preamble       =  %xAA ;
-        // frame-length         =  <7bitEncodedInt32> ;
-        // records              =  <protobuf-encoded> ;
+        // content-frame   =  frame-preamble, frame-length , records ;
+        // frame-preamble  =  %xAA ;
+        // frame-length    =  <7bitEncodedInt32> ;
+        // records         =  <protobuf-encoded> ;
 
         var size = records.CalculateSize();
 
@@ -292,9 +288,7 @@ internal sealed class RollingTraceWriter : ITraceWriter
                 await pipeReader.CompleteAsync();
 
                 if (disposeToken.IsCancellationRequested)
-                {
                     fileWriter.Dispose();
-                }
 
                 logger.LogDebug("PipeReader: Completed");
 

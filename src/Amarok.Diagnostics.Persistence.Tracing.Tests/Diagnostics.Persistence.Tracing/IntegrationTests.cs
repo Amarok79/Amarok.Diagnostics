@@ -35,18 +35,14 @@ public class IntegrationTests
     public async Task Cleanup()
     {
         if (mWriter != null)
-        {
             await mWriter.DisposeAsync();
-        }
 
         mReader?.Dispose();
 
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
-        {
             mDirectory.Delete(true);
-        }
     }
 
 
@@ -104,9 +100,7 @@ public class IntegrationTests
         mArchive.Refresh();
 
         if (mArchive.Exists)
-        {
             mArchive.Delete();
-        }
 
         ZipFile.CreateFromDirectory(mDirectory.FullName, mArchive.FullName, CompressionLevel.Fastest, false);
 
@@ -214,7 +208,12 @@ public class IntegrationTests
         activity.AddTag("sss", TimeOnly.FromDateTime(now.DateTime));
         activity.AddTag("ttt", now.DateTime);
         activity.AddTag("uuu", now);
-        activity.AddTag("vvv", new Byte[] { 0x11, 0x22, 0x33, 0x44 });
+        activity.AddTag(
+            "vvv",
+            new Byte[] {
+                0x11, 0x22, 0x33, 0x44,
+            }
+        );
         activity.AddTag("www", guid);
         activity.AddTag("xxx", new Version(1, 2, 3));
         activity.AddTag("yyy", DateTimeKind.Local);
@@ -339,7 +338,12 @@ public class IntegrationTests
 
         Check.That(tags[21].Key).IsEqualTo("vvv");
 
-        Check.That(tags[21].Value).IsEqualTo(new Byte[] { 0x11, 0x22, 0x33, 0x44 });
+        Check.That(tags[21].Value)
+            .IsEqualTo(
+                new Byte[] {
+                    0x11, 0x22, 0x33, 0x44,
+                }
+            );
 
         Check.That(tags[22].Key).IsEqualTo("www");
 
@@ -397,7 +401,12 @@ public class IntegrationTests
         activity.AddTag("sss", TimeOnly.FromDateTime(now.DateTime));
         activity.AddTag("ttt", now.DateTime);
         activity.AddTag("uuu", now);
-        activity.AddTag("vvv", new Byte[] { 0x11, 0x22, 0x33, 0x44 });
+        activity.AddTag(
+            "vvv",
+            new Byte[] {
+                0x11, 0x22, 0x33, 0x44,
+            }
+        );
         activity.AddTag("www", guid);
         activity.AddTag("xxx", new Version(1, 2, 3));
         activity.AddTag("yyy", DateTimeKind.Local);
@@ -526,7 +535,12 @@ public class IntegrationTests
 
         Check.That(tags[21].Key).IsEqualTo("vvv");
 
-        Check.That(tags[21].Value).IsEqualTo(new Byte[] { 0x11, 0x22, 0x33, 0x44 });
+        Check.That(tags[21].Value)
+            .IsEqualTo(
+                new Byte[] {
+                    0x11, 0x22, 0x33, 0x44,
+                }
+            );
 
         Check.That(tags[22].Key).IsEqualTo("www");
 

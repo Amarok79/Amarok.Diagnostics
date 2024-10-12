@@ -70,7 +70,9 @@ public static class AdtxTraceProviderBuilderExtensions
             )
             : new SimpleActivityExportProcessor(exporter);
 
-        context = new AdtxTraceExporterContext { Exporter = exporter };
+        context = new AdtxTraceExporterContext {
+            Exporter = exporter,
+        };
 
         return builder.AddProcessor(processor);
     }

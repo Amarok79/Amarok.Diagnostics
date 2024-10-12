@@ -9,7 +9,8 @@ namespace Amarok.Diagnostics.Persistence.OpenTelementry.Exporter;
 public interface IAdtxTraceExporter
 {
     /// <summary>
-    ///     Exports all trace log files into a Zip file at the given location. This method can be invoked at any time.
+    ///     Exports all trace log files into a Zip file at the given location. This method can be invoked at any
+    ///     time.
     /// </summary>
     /// <param name="archivePath">
     ///     The path to the output Zip file.

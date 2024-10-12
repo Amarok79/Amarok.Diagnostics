@@ -24,23 +24,32 @@ internal sealed class ConvertCommand : Command
             "in",
             "Path to the input traces log file (.adtx), to a Zip archive containing traces log files, " +
             "or to a directory containing traces log files."
-        ) { Arity = ArgumentArity.ExactlyOne };
+        ) {
+            Arity = ArgumentArity.ExactlyOne,
+        };
 
         var outArgument = new Argument<DirectoryInfo?>(
             "out",
             "Path to the output directory receiving the converted traces files. Defaults to the input directory."
-        ) { Arity = ArgumentArity.ZeroOrOne };
+        ) {
+            Arity = ArgumentArity.ZeroOrOne,
+        };
 
-        var formatOption =
-            new Option<OutputFormat>("--format", () => OutputFormat.PerfettoProtobuf, "The output format.") {
-                Arity = ArgumentArity.ZeroOrOne,
-            };
+        var formatOption = new Option<OutputFormat>(
+            "--format",
+            () => OutputFormat.PerfettoProtobuf,
+            "The output format."
+        ) {
+            Arity = ArgumentArity.ZeroOrOne,
+        };
 
         var includeIdsOptions = new Option<Boolean>(
             "--include-ids",
             () => false,
             "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format."
-        ) { Arity = ArgumentArity.ZeroOrOne };
+        ) {
+            Arity = ArgumentArity.ZeroOrOne,
+        };
 
         AddArgument(inArgument);
         AddArgument(outArgument);
@@ -97,9 +106,7 @@ internal sealed class ConvertCommand : Command
             );
         }
         else
-        {
             AnsiConsole.MarkupLine("[red]ERROR:[/] The given input file or directory does not exist.");
-        }
     }
 
 
@@ -120,12 +127,8 @@ internal sealed class ConvertCommand : Command
     private static void _ExecuteCore(ITraceReader reader, String outDir, OutputFormat format, Boolean includeIds)
     {
         if (format == OutputFormat.PerfettoJson)
-        {
             new PerfettoJsonConverter().Run(reader, outDir);
-        }
         else if (format == OutputFormat.PerfettoProtobuf)
-        {
             new PerfettoProtobufConverter().Run(reader, outDir, includeIds);
-        }
     }
 }

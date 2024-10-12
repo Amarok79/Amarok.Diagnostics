@@ -59,9 +59,7 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
-        {
             mDirectory.Delete(true);
-        }
     }
 
 

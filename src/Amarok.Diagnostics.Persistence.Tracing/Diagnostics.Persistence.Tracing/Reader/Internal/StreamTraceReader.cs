@@ -42,10 +42,9 @@ internal sealed class StreamTraceReader : ITraceReader
 
         mHooks?.OnReadFileHeader(version, isCompressed, isFinished, session);
 
+        var stream = isCompressed ? new DeflateStream(mStream, CompressionMode.Decompress) : mStream;
 
-        using var reader = new BinaryReader(
-            isCompressed ? new DeflateStream(mStream, CompressionMode.Decompress) : mStream
-        );
+        using var reader = new BinaryReader(stream);
 
         var records = new TraceRecords();
         var buffer  = new Byte[4096];
@@ -55,9 +54,7 @@ internal sealed class StreamTraceReader : ITraceReader
             var frameLen = _ReadContentFrame(reader, ref buffer);
 
             if (frameLen == -1)
-            {
                 break; // expected end of file
-            }
 
             mHooks?.OnBeginReadFrame(buffer, frameLen);
 
@@ -100,23 +97,17 @@ internal sealed class StreamTraceReader : ITraceReader
         // records              =  <protobuf-encoded> ;
 
         if (!_ReadContentFramePreamble(reader))
-        {
             return -1; // expected end of file
-        }
 
         var frameLen = reader.Read7BitEncodedInt();
 
         if (frameLen > buffer.Length)
-        {
             buffer = resizeBuffer(frameLen);
-        }
 
         var bytesRead = readExact(reader, buffer, frameLen);
 
         if (bytesRead != frameLen)
-        {
             throwUnableToRead(frameLen);
-        }
 
         return frameLen;
 
@@ -132,9 +123,7 @@ internal sealed class StreamTraceReader : ITraceReader
                 totalBytesRead += bytesRead;
 
                 if (totalBytesRead == length || bytesRead == 0)
-                {
                     return totalBytesRead;
-                }
             }
         }
 
@@ -158,14 +147,10 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = reader.Read(bytes);
 
         if (bytesRead < size)
-        {
             return false; // expected end of file
-        }
 
         if (bytes[0] != 0xAA)
-        {
             throwUnexpected();
-        }
 
         return true;
 
@@ -189,9 +174,7 @@ internal sealed class StreamTraceReader : ITraceReader
         _ReadFileVersion(stream, out version);
 
         if (version != 0x01)
-        {
             throwUnsupported(version);
-        }
 
         _ReadFileFlags(stream, out isCompressed, out isFinished);
 
@@ -208,11 +191,11 @@ internal sealed class StreamTraceReader : ITraceReader
 
     private static void _ReadFileSession(Stream stream, out Guid sessionUuid, out DateTimeOffset sessionStart)
     {
-        // file-session         =  session-uuid , session-start ;
-        // session-uuid         =  <Guid> ;
-        // session-start        =  ticks , offset-minutes ;
-        // ticks                =  <Int64> ;
-        // offset-minutes       =  <Int16> ;
+        // file-session    =  session-uuid , session-start ;
+        // session-uuid    =  <Guid> ;
+        // session-start   =  ticks , offset-minutes ;
+        // ticks           =  <Int64> ;
+        // offset-minutes  =  <Int16> ;
 
         const Int32 size = 16 + 8 + 2;
 
@@ -221,9 +204,7 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
-        {
             throwUnableToRead();
-        }
 
         sessionUuid = new Guid(bytes[..16]);
 
@@ -241,9 +222,9 @@ internal sealed class StreamTraceReader : ITraceReader
 
     private static void _ReadFileFlags(Stream stream, out Boolean isCompressed, out Boolean isFinished)
     {
-        // file-flags           =  %x00 , active | isFinished | isCompressed-isFinished ;
-        // active               =  %x0A ;
-        // isFinished             =  %x0F ;
+        // file-flags               =  %x00 , active | isFinished | isCompressed-isFinished ;
+        // active                   =  %x0A ;
+        // isFinished               =  %x0F ;
         // isCompressed-isFinished  =  %xCF ;
 
         const Int32 size = 2;
@@ -253,19 +234,13 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
-        {
             throwUnableToRead();
-        }
 
         if (bytes[0] != 0x00)
-        {
             throwUnexpected();
-        }
 
         if (bytes[1] is not 0x0A and not 0x0F and not 0xCF)
-        {
             throwUnexpected();
-        }
 
         var flags = bytes[1];
 
@@ -286,7 +261,7 @@ internal sealed class StreamTraceReader : ITraceReader
 
     private static void _ReadFileVersion(Stream stream, out Int32 version)
     {
-        // file-version         =  %x00 , version ;
+        // file-version  =  %x00 , version ;
 
         const Int32 size = 2;
 
@@ -295,14 +270,10 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
-        {
             throwUnableToRead();
-        }
 
         if (bytes[0] != 0x00)
-        {
             throwUnexpected();
-        }
 
         version = bytes[1];
 
@@ -320,7 +291,7 @@ internal sealed class StreamTraceReader : ITraceReader
 
     private static void _ReadFileSignature(Stream stream)
     {
-        // file-signature       =  %x61 , %x64 , %x74 , %x78 ;      // "adtx"
+        // file-signature  =  %x61 , %x64 , %x74 , %x78 ;      // "adtx"
 
         const Int32 size = 4;
 
@@ -329,14 +300,10 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
-        {
             throwUnableToRead();
-        }
 
         if (bytes[0] != 0x61 || bytes[1] != 0x64 || bytes[2] != 0x74 || bytes[3] != 0x78)
-        {
             throwUnexpected();
-        }
 
 
         static void throwUnableToRead()
@@ -482,9 +449,7 @@ internal sealed class StreamTraceReader : ITraceReader
     private IReadOnlyList<KeyValuePair<String, Object?>> _ProcessActivityTags(TraceActivity activity)
     {
         if (activity.Tags.Count == 0)
-        {
             return Array.Empty<KeyValuePair<String, Object?>>();
-        }
 
         var items = new KeyValuePair<String, Object?>[activity.Tags.Count];
 

@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2024, Olaf Kober <olaf.kober@outlook.com>
 
-#pragma warning disable CA1822 // Mark members as static
-
 using Amarok.Diagnostics.Persistence.Protos;
 using Google.Protobuf;
 
@@ -44,7 +42,9 @@ internal sealed class AnyValueDeserializer
 
     private static Object _DeserializeDecimal(DecimalValue value)
     {
-        Span<Int32> bits = stackalloc Int32[4] { value.Element1, value.Element2, value.Element3, value.Element4 };
+        Span<Int32> bits = stackalloc Int32[4] {
+            value.Element1, value.Element2, value.Element3, value.Element4,
+        };
 
         return new Decimal(bits);
     }

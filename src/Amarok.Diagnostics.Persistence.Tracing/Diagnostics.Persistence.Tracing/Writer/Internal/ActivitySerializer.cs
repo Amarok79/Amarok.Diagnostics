@@ -57,9 +57,7 @@ internal sealed class ActivitySerializer
     {
         // define reference point in time
         if (!mReferenceTimeSerializer.IsDefined)
-        {
             mReferenceTimeSerializer.SetReferencePointInTime(DateTimeOffset.Now, records);
-        }
 
         var timeDelta = mReferenceTimeSerializer.GetRelativeTimeDelta(activity.StartTimeUtc);
 
