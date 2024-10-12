@@ -21,9 +21,7 @@ internal class Program
     public static void Main()
     {
         if (Directory.Exists(OutputDir))
-        {
             Directory.Delete(OutputDir, true);
-        }
 
         _Writing();
         _Reading();
@@ -86,9 +84,7 @@ internal class Program
             activity3?.Dispose();
 
             if (i == 500000)
-            {
                 context.Exporter.HotExportAsync(Path.Combine("..", "..", "..", "traces", "export.zip"));
-            }
         }
 
         provider?.Dispose();
@@ -149,9 +145,7 @@ internal class Program
         public void OnReadRecord(TraceRecord record)
         {
             if (record.DataCase != TraceRecord.DataOneofCase.Activity)
-            {
                 Console.WriteLine($"  RECORD: {record.DataCase}");
-            }
         }
 
         public void OnReadActivity(ActivityInfo activity)

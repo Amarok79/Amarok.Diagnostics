@@ -76,7 +76,9 @@ internal abstract class ObjectsPool
 
         public override TraceActivityTag GetActivityTag()
         {
-            return new TraceActivityTag { Value = new AnyValue() };
+            return new TraceActivityTag {
+                Value = new AnyValue(),
+            };
         }
 
         public override TraceDefineTag GetDefineTag()
@@ -184,25 +186,15 @@ internal abstract class ObjectsPool
                     mActivityPool.Return(record.Activity);
                 }
                 else if (record.DefineSource != null)
-                {
                     mDefineSourcePool.Return(record.DefineSource);
-                }
                 else if (record.DefineOperation != null)
-                {
                     mDefineOperationPool.Return(record.DefineOperation);
-                }
                 else if (record.DefineTraceId != null)
-                {
                     mDefineTraceIdPool.Return(record.DefineTraceId);
-                }
                 else if (record.DefineParentSpanId != null)
-                {
                     mDefineParentSpanIdPool.Return(record.DefineParentSpanId);
-                }
                 else if (record.DefineTag != null)
-                {
                     mDefineTagPool.Return(record.DefineTag);
-                }
 
                 mRecordPool.Return(record);
             }
@@ -297,7 +289,9 @@ internal abstract class ObjectsPool
         {
             public override TraceActivityTag Create()
             {
-                return new TraceActivityTag { Value = new AnyValue() };
+                return new TraceActivityTag {
+                    Value = new AnyValue(),
+                };
             }
 
             public override Boolean Return(TraceActivityTag obj)

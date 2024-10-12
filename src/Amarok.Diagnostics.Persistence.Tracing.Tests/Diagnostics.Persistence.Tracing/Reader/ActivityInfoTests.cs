@@ -69,18 +69,13 @@ public class ActivityInfoTests
         var start = new DateTimeOffset(2022, 10, 26, 12, 00, 00, TimeSpan.Zero);
 
         var duration = TimeSpan.FromMilliseconds(1234);
-        var tags     = new KeyValuePair<String, Object?>[] { new("aaa", 123), new("bbb", "xyz") };
+        var tags = new KeyValuePair<String, Object?>[] {
+            new("aaa", 123), new("bbb", "xyz"),
+        };
 
-        var info = new ActivityInfo(
-            session,
-            source,
-            "foo",
-            traceId,
-            parentSpanId,
-            spanId,
-            start,
-            duration
-        ) { Tags = tags };
+        var info = new ActivityInfo(session, source, "foo", traceId, parentSpanId, spanId, start, duration) {
+            Tags = tags,
+        };
 
         Check.That(info.Session).IsSameReferenceAs(session);
 

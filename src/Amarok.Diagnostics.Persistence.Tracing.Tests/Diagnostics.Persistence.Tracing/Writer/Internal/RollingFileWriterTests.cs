@@ -32,9 +32,7 @@ public class RollingFileWriterTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
-        {
             mDirectory.Delete(true);
-        }
     }
 
 
@@ -253,7 +251,7 @@ public class RollingFileWriterTests
         Check.That(mDirectory.Exists).IsFalse();
 
         mWriter.StartNewLogFile();
-        mWriter.Write(new Byte[] { 0xaa, 0xbb, 0xcc });
+        mWriter.Write([ 0xaa, 0xbb, 0xcc ]);
         mDirectory.Refresh();
 
         Check.That(mDirectory.Exists).IsTrue();
@@ -283,7 +281,7 @@ public class RollingFileWriterTests
         Check.That(mDirectory.Exists).IsFalse();
 
         mWriter.StartNewLogFile();
-        mWriter.Write(new Byte[] { 0xaa, 0xbb, 0xcc });
+        mWriter.Write([ 0xaa, 0xbb, 0xcc ]);
         mWriter.CompleteActiveLogFile();
 
         var exportPath = Path.Combine(mDirectory.FullName, "export.zip");
@@ -335,10 +333,10 @@ public class RollingFileWriterTests
         Check.That(mDirectory.Exists).IsFalse();
 
         mWriter.StartNewLogFile();
-        mWriter.Write(new Byte[] { 0xaa, 0xbb, 0xcc });
+        mWriter.Write([ 0xaa, 0xbb, 0xcc ]);
         mWriter.CompleteActiveLogFile();
         mWriter.StartNewLogFile();
-        mWriter.Write(new Byte[] { 0xaa, 0xbb, 0xcc });
+        mWriter.Write([ 0xaa, 0xbb, 0xcc ]);
 
         var exportPath = Path.Combine(mDirectory.FullName, "export.zip");
 

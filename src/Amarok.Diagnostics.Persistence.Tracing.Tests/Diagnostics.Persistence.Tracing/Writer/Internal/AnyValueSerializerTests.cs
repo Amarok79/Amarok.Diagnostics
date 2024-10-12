@@ -402,7 +402,9 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_ArrayOfByte()
     {
-        Object value = new Byte[] { 0x11, 0x22, 0x33, 0x44 };
+        Object value = new Byte[] {
+            0x11, 0x22, 0x33, 0x44,
+        };
 
         mSerializer.Serialize(mAny, value);
 
@@ -460,7 +462,7 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_MemoryOfByte()
     {
-        Object value = new Memory<Byte>(new Byte[] { 0x11, 0x22, 0x33, 0x44 });
+        Object value = new Memory<Byte>([ 0x11, 0x22, 0x33, 0x44 ]);
 
         mSerializer.Serialize(mAny, value);
 
@@ -470,7 +472,7 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_MemoryOfByte_Empty()
     {
-        Object value = new Memory<Byte>(Array.Empty<Byte>());
+        Object value = new Memory<Byte>([ ]);
 
         mSerializer.Serialize(mAny, value);
 
@@ -518,7 +520,7 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_ReadOnlyMemoryOfByte()
     {
-        Object value = new ReadOnlyMemory<Byte>(new Byte[] { 0x11, 0x22, 0x33, 0x44 });
+        Object value = new ReadOnlyMemory<Byte>([ 0x11, 0x22, 0x33, 0x44 ]);
 
         mSerializer.Serialize(mAny, value);
 
@@ -528,7 +530,7 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_ReadOnlyMemoryOfByte_Empty()
     {
-        Object value = new ReadOnlyMemory<Byte>(Array.Empty<Byte>());
+        Object value = new ReadOnlyMemory<Byte>([ ]);
 
         mSerializer.Serialize(mAny, value);
 

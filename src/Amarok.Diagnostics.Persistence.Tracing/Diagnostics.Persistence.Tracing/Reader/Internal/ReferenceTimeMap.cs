@@ -23,9 +23,7 @@ internal sealed class ReferenceTimeMap
     public DateTimeOffset GetAbsolutePointInTime(TimeSpan timeDelta)
     {
         if (mPointInTime != null)
-        {
             return mPointInTime.Value + timeDelta;
-        }
 
         throw _MakeNotDefinedException();
     }

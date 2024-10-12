@@ -23,7 +23,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_Null()
     {
-        var any = new AnyValue { Null = false };
+        var any = new AnyValue {
+            Null = false,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsNull();
     }
@@ -31,7 +33,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_String()
     {
-        var any = new AnyValue { String = "foo" };
+        var any = new AnyValue {
+            String = "foo",
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo("foo");
     }
@@ -39,7 +43,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_Boolean()
     {
-        var any = new AnyValue { Bool = true };
+        var any = new AnyValue {
+            Bool = true,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(true);
     }
@@ -47,7 +53,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_Int32()
     {
-        var any = new AnyValue { Int32 = 1234567890 };
+        var any = new AnyValue {
+            Int32 = 1234567890,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(1234567890);
     }
@@ -55,7 +63,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_Int64()
     {
-        var any = new AnyValue { Int64 = 1234567890 };
+        var any = new AnyValue {
+            Int64 = 1234567890,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(1234567890);
     }
@@ -63,7 +73,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_Double()
     {
-        var any = new AnyValue { Double = 12345.678 };
+        var any = new AnyValue {
+            Double = 12345.678,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(12345.678);
     }
@@ -72,7 +84,9 @@ public class AnyValueDeserializerTests
     public void Deserialize_Guid()
     {
         var guid = Guid.NewGuid();
-        var any  = new AnyValue { Guid = ByteString.CopyFrom(guid.ToByteArray()) };
+        var any = new AnyValue {
+            Guid = ByteString.CopyFrom(guid.ToByteArray()),
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(guid);
     }
@@ -80,8 +94,12 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_Bytes()
     {
-        var bytes = new Byte[] { 0x11, 0x22, 0x33, 0x44 };
-        var any   = new AnyValue { Bytes = ByteString.CopyFrom(bytes) };
+        var bytes = new Byte[] {
+            0x11, 0x22, 0x33, 0x44,
+        };
+        var any = new AnyValue {
+            Bytes = ByteString.CopyFrom(bytes),
+        };
 
         Check.That((Byte[])mDeserializer.Deserialize(any)!).ContainsExactly(0x11, 0x22, 0x33, 0x44);
     }
@@ -124,9 +142,8 @@ public class AnyValueDeserializerTests
 
         var any = new AnyValue {
             DateTimeOffset = new DateTimeOffsetValue {
-                Ticks = date.Ticks,
-                OffsetMinutes =
-                    (Int32)date.Offset.TotalMinutes,
+                Ticks         = date.Ticks,
+                OffsetMinutes = (Int32)date.Offset.TotalMinutes,
             },
         };
 
@@ -138,7 +155,9 @@ public class AnyValueDeserializerTests
     {
         var time = new TimeOnly(11, 22, 33, 456);
 
-        var any = new AnyValue { TimeOnly = time.Ticks };
+        var any = new AnyValue {
+            TimeOnly = time.Ticks,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(time);
     }
@@ -148,7 +167,9 @@ public class AnyValueDeserializerTests
     {
         var duration = TimeSpan.FromMilliseconds(12345);
 
-        var any = new AnyValue { TimeSpan = duration.Ticks };
+        var any = new AnyValue {
+            TimeSpan = duration.Ticks,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(duration);
     }
@@ -156,7 +177,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_UInt32()
     {
-        var any = new AnyValue { Uint32 = 1234567890 };
+        var any = new AnyValue {
+            Uint32 = 1234567890,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(1234567890);
     }
@@ -164,7 +187,9 @@ public class AnyValueDeserializerTests
     [Test]
     public void Deserialize_UInt64()
     {
-        var any = new AnyValue { Uint64 = 1234567890 };
+        var any = new AnyValue {
+            Uint64 = 1234567890,
+        };
 
         Check.That(mDeserializer.Deserialize(any)).IsEqualTo(1234567890);
     }

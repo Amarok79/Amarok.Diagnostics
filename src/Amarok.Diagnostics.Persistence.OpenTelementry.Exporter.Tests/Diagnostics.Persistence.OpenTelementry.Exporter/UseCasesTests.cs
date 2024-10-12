@@ -35,9 +35,7 @@ public class IntegrationTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
-        {
             mDirectory.Delete(true);
-        }
     }
 
 
@@ -57,7 +55,9 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
+            WriterOptions = new TraceWriterOptions {
+                MaxDiskSpaceUsedInMegaBytes = 100,
+            },
         };
 
         // act writing
@@ -120,7 +120,9 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
+            WriterOptions = new TraceWriterOptions {
+                MaxDiskSpaceUsedInMegaBytes = 100,
+            },
         };
 
         // act writing
@@ -186,7 +188,9 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
+            WriterOptions = new TraceWriterOptions {
+                MaxDiskSpaceUsedInMegaBytes = 100,
+            },
         };
 
         // act writing
@@ -211,9 +215,7 @@ public class IntegrationTests
                 }
 
                 if (i == 3333)
-                {
                     await ctx.Exporter.HotExportAsync(Path.Combine(mDirectory.FullName, "export.zip"));
-                }
             }
 
             provider?.ForceFlush();
@@ -259,7 +261,9 @@ public class IntegrationTests
     {
         // arrange
         var options = new AdtxTraceExporterOptions(mDirectory) {
-            WriterOptions = new TraceWriterOptions { MaxDiskSpaceUsedInMegaBytes = 100 },
+            WriterOptions = new TraceWriterOptions {
+                MaxDiskSpaceUsedInMegaBytes = 100,
+            },
         };
 
         // act writing
@@ -284,9 +288,7 @@ public class IntegrationTests
                 }
 
                 if (i % 1000 == 0)
-                {
                     await ctx.Exporter.HotExportAsync(Path.Combine(mDirectory.FullName, "export.zip"));
-                }
             }
 
             provider?.ForceFlush();

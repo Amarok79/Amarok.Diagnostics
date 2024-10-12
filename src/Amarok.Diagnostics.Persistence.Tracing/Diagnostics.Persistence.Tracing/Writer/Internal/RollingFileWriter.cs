@@ -87,9 +87,7 @@ internal sealed class RollingFileWriter : IDisposable
         try
         {
             if (mActiveStream == null)
-            {
                 return;
-            }
 
             var sw       = Stopwatch.StartNew();
             var fileName = mActiveStream.Name;
@@ -198,9 +196,7 @@ internal sealed class RollingFileWriter : IDisposable
                     var read = sourceStream.Read(buffer, 0, buffer.Length);
 
                     if (read == 0)
-                    {
                         break;
-                    }
 
                     entryStream.Write(buffer, 0, read);
                 }
@@ -230,9 +226,7 @@ internal sealed class RollingFileWriter : IDisposable
         mDirectory.Refresh();
 
         if (!mDirectory.Exists)
-        {
             mDirectory.Create();
-        }
     }
 
     private void _CompressFile(String filePath)
@@ -258,9 +252,7 @@ internal sealed class RollingFileWriter : IDisposable
                             var read = source.Read(bytes, 0, bytes.Length);
 
                             if (read == 0)
-                            {
                                 break;
-                            }
 
                             compressed.Write(bytes, 0, read);
                         }
@@ -275,9 +267,7 @@ internal sealed class RollingFileWriter : IDisposable
         finally
         {
             if (File.Exists(tmpFilePath))
-            {
                 File.Delete(tmpFilePath);
-            }
         }
     }
 
@@ -286,18 +276,14 @@ internal sealed class RollingFileWriter : IDisposable
         var ordinal = 1;
 
         if (files.Count > 0)
-        {
             ordinal = files[^1].Ordinal + 1;
-        }
 
         while (true)
         {
             var stream = _TryOpenFile(ordinal);
 
             if (stream != null)
-            {
                 return stream;
-            }
 
             ordinal++;
         }
@@ -308,9 +294,7 @@ internal sealed class RollingFileWriter : IDisposable
         var filePath = Path.Combine(mDirectory.FullName, $"{ordinal}.adtx");
 
         if (File.Exists(filePath))
-        {
             return null;
-        }
 
         return new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read);
     }
@@ -320,9 +304,7 @@ internal sealed class RollingFileWriter : IDisposable
         var totalSize = files.Sum(x => x.FileInfo.Length);
 
         if (totalSize < mMaxDiskSpaceUsed)
-        {
             return 0;
-        }
 
         var deleted = 0;
 
@@ -337,9 +319,7 @@ internal sealed class RollingFileWriter : IDisposable
             deleted++;
 
             if (totalSize < mMaxDiskSpaceUsed)
-            {
                 break;
-            }
         }
 
         return deleted;
@@ -362,18 +342,22 @@ internal sealed class RollingFileWriter : IDisposable
 
     private static void _WriteFileSignature(Stream stream)
     {
-        // file-signature       =  %x61 , %x64 , %x74 , %x78 ;      // "adtx"
+        // file-signature  =  %x61 , %x64 , %x74 , %x78 ;      // "adtx"
 
-        ReadOnlySpan<Byte> bytes = stackalloc Byte[] { 0x61, 0x64, 0x74, 0x78 };
+        ReadOnlySpan<Byte> bytes = stackalloc Byte[] {
+            0x61, 0x64, 0x74, 0x78,
+        };
 
         stream.Write(bytes);
     }
 
     private static void _WriteFileVersion(Stream stream, Byte version)
     {
-        // file-version         =  %x00 , version ;
+        // file-version  =  %x00 , version ;
 
-        ReadOnlySpan<Byte> bytes = stackalloc Byte[] { 0x00, version };
+        ReadOnlySpan<Byte> bytes = stackalloc Byte[] {
+            0x00, version,
+        };
 
         stream.Write(bytes);
     }
@@ -391,18 +375,20 @@ internal sealed class RollingFileWriter : IDisposable
 
         var flag = (finished ? finishedFlag : activeFlag) | (compressed ? compressedFlag : 0x00);
 
-        ReadOnlySpan<Byte> bytes = stackalloc Byte[] { 0x00, (Byte)flag };
+        ReadOnlySpan<Byte> bytes = stackalloc Byte[] {
+            0x00, (Byte)flag,
+        };
 
         stream.Write(bytes);
     }
 
     private static void _WriteFileSession(Stream stream, Guid sessionUuid, DateTimeOffset sessionStart)
     {
-        // file-session         =  session-uuid , session-start ;
-        // session-uuid         =  <Guid> ;
-        // session-start        =  ticks , offset-minutes ;
-        // ticks                =  <Int64> ;
-        // offset-minutes       =  <Int16> ;
+        // file-session    =  session-uuid , session-start ;
+        // session-uuid    =  <Guid> ;
+        // session-start   =  ticks , offset-minutes ;
+        // ticks           =  <Int64> ;
+        // offset-minutes  =  <Int16> ;
 
         Span<Byte> bytes = stackalloc Byte[16 + 8 + 2];
 
