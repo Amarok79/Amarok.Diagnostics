@@ -10,18 +10,46 @@ public class ActivityInfoTests
     [SetCulture("en")]
     public void Usage_with_Source_Operation_StartTime_Duration()
     {
-        var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
+        var session = new SessionInfo(
+            Guid.Empty,
+            new DateTimeOffset(
+                2022,
+                10,
+                26,
+                11,
+                00,
+                00,
+                TimeSpan.Zero
+            )
+        );
 
         var source       = new ActivitySourceInfo("src");
         var traceId      = "11111111111111111111111111111111";
         var parentSpanId = "3333333333333333";
         var spanId       = "2222222222222222";
 
-        var start = new DateTimeOffset(2022, 10, 26, 12, 00, 00, TimeSpan.Zero);
+        var start = new DateTimeOffset(
+            2022,
+            10,
+            26,
+            12,
+            00,
+            00,
+            TimeSpan.Zero
+        );
 
         var duration = TimeSpan.FromMilliseconds(1234);
 
-        var info = new ActivityInfo(session, source, "foo", traceId, parentSpanId, spanId, start, duration);
+        var info = new ActivityInfo(
+            session,
+            source,
+            "foo",
+            traceId,
+            parentSpanId,
+            spanId,
+            start,
+            duration
+        );
 
         Check.That(info.Session).IsSameReferenceAs(session);
 
@@ -59,21 +87,49 @@ public class ActivityInfoTests
     [SetCulture("en")]
     public void Usage_with_Source_Operation_StartTime_Duration_Tags()
     {
-        var session = new SessionInfo(Guid.Empty, new DateTimeOffset(2022, 10, 26, 11, 00, 00, TimeSpan.Zero));
+        var session = new SessionInfo(
+            Guid.Empty,
+            new DateTimeOffset(
+                2022,
+                10,
+                26,
+                11,
+                00,
+                00,
+                TimeSpan.Zero
+            )
+        );
 
         var source       = new ActivitySourceInfo("src");
         var traceId      = "11111111111111111111111111111111";
         var parentSpanId = "3333333333333333";
         var spanId       = "2222222222222222";
 
-        var start = new DateTimeOffset(2022, 10, 26, 12, 00, 00, TimeSpan.Zero);
+        var start = new DateTimeOffset(
+            2022,
+            10,
+            26,
+            12,
+            00,
+            00,
+            TimeSpan.Zero
+        );
 
         var duration = TimeSpan.FromMilliseconds(1234);
         var tags = new KeyValuePair<String, Object?>[] {
             new("aaa", 123), new("bbb", "xyz"),
         };
 
-        var info = new ActivityInfo(session, source, "foo", traceId, parentSpanId, spanId, start, duration) {
+        var info = new ActivityInfo(
+            session,
+            source,
+            "foo",
+            traceId,
+            parentSpanId,
+            spanId,
+            start,
+            duration
+        ) {
             Tags = tags,
         };
 

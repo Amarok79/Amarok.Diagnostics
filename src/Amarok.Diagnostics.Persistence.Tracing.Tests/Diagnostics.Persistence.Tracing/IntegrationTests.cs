@@ -35,14 +35,18 @@ public class IntegrationTests
     public async Task Cleanup()
     {
         if (mWriter != null)
+        {
             await mWriter.DisposeAsync();
+        }
 
         mReader?.Dispose();
 
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
+        {
             mDirectory.Delete(true);
+        }
     }
 
 
@@ -100,7 +104,9 @@ public class IntegrationTests
         mArchive.Refresh();
 
         if (mArchive.Exists)
+        {
             mArchive.Delete();
+        }
 
         ZipFile.CreateFromDirectory(mDirectory.FullName, mArchive.FullName, CompressionLevel.Fastest, false);
 

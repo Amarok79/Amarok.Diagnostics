@@ -8,9 +8,9 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 /// </summary>
 /// 
 /// <remarks>
-///     Every time an instrumented application is started a new application session is initialized, which is
-///     indicated by a new unique identifier. The absolute start time of the application session can be used to
-///     relate activities to that application start.
+///     Every time an instrumented application is started a new application session is initialized,
+///     which is indicated by a new unique identifier. The absolute start time of the application
+///     session can be used to relate activities to that application start.
 /// </remarks>
 /// 
 /// <param name="Uuid">

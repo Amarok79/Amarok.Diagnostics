@@ -26,7 +26,9 @@ internal sealed class PerfettoJsonConverter
         outDir = Path.GetFullPath(outDir);
 
         if (!Directory.Exists(outDir))
+        {
             Directory.CreateDirectory(outDir);
+        }
 
         foreach (var activity in reader.Read())
         {
@@ -96,7 +98,9 @@ internal sealed class PerfettoJsonConverter
                 Int32 pid;
 
                 if (String.IsNullOrEmpty(pName))
+                {
                     pid = 0;
+                }
                 else
                 {
                     if (!pids.TryGetValue(pName, out pid))
@@ -182,13 +186,19 @@ internal sealed class PerfettoJsonConverter
             }
 
             if (parentSpanId != null)
+            {
                 writer.WriteString("id.parent", parentSpanId);
+            }
 
             if (spanId != null)
+            {
                 writer.WriteString("id.span", spanId);
+            }
 
             if (traceId != null)
+            {
                 writer.WriteString("id.trace", traceId);
+            }
 
             writer.WriteEndObject();
         }

@@ -50,7 +50,13 @@ public class StreamTraceReaderTests
     [Test]
     public void Stream_Too_Short_For_FileVersion()
     {
-        _CreateReader(0x61, 0x64, 0x74, 0x78, 0x00);
+        _CreateReader(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00
+        );
 
         Check.ThatCode(() => mReader!.Read().ToArray()).Throws<EndOfStreamException>();
     }
@@ -58,7 +64,14 @@ public class StreamTraceReaderTests
     [Test]
     public void Stream_With_Unexpected_FileVersion()
     {
-        _CreateReader(0x61, 0x64, 0x74, 0x78, 0xFF, 0x01);
+        _CreateReader(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0xFF,
+            0x01
+        );
 
         //                                   ^
         //                                   0x00 expected
@@ -69,7 +82,14 @@ public class StreamTraceReaderTests
     [Test]
     public void Stream_With_Unexpected_FileVersion_2()
     {
-        _CreateReader(0x61, 0x64, 0x74, 0x78, 0x00, 0xFF);
+        _CreateReader(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0xFF
+        );
 
         //                                         ^
         //                                         0x01 expected
@@ -80,7 +100,15 @@ public class StreamTraceReaderTests
     [Test]
     public void Stream_Too_Short_For_FileFlags()
     {
-        _CreateReader(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00);
+        _CreateReader(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00
+        );
 
         Check.ThatCode(() => mReader!.Read().ToArray()).Throws<EndOfStreamException>();
     }
@@ -88,7 +116,16 @@ public class StreamTraceReaderTests
     [Test]
     public void Stream_With_Unexpected_FileFlags()
     {
-        _CreateReader(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0xFF, 0x0F);
+        _CreateReader(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0xFF,
+            0x0F
+        );
 
         //                                               ^
         //                                               0x00 expected
@@ -99,7 +136,16 @@ public class StreamTraceReaderTests
     [Test]
     public void Stream_With_Unexpected_FileFlags_2()
     {
-        _CreateReader(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0xBB);
+        _CreateReader(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0xBB
+        );
 
         //                                                     ^
         //                                                     0x0A, 0x0F, or 0xCF expected

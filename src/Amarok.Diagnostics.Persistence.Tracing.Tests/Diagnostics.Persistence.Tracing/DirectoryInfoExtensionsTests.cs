@@ -26,7 +26,9 @@ public class DirectoryInfoExtensionsTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
+        {
             mDirectory.Delete(true);
+        }
     }
 
 

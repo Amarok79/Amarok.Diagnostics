@@ -26,7 +26,9 @@ public class TraceWriterTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
+        {
             mDirectory.Delete(true);
+        }
     }
 
 
@@ -49,7 +51,7 @@ public class TraceWriterTests
     [Test]
     public async Task Usage_With_Defaults()
     {
-        await using var writer = TraceWriter.Create(mDirectory.FullName);
+        var writer = TraceWriter.Create(mDirectory.FullName);
 
         writer.Write(new Activity("foo"));
         writer.Write(new Activity("bar"));
@@ -68,14 +70,22 @@ public class TraceWriterTests
     {
         var guid = new Guid("0C6122357E6344E7915E97D478022F07");
 
-        var start = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.FromHours(2));
+        var start = new DateTimeOffset(
+            2022,
+            10,
+            31,
+            11,
+            22,
+            33,
+            TimeSpan.FromHours(2)
+        );
 
         var options = new TraceWriterOptions {
             SessionUuid      = guid,
             SessionStartTime = start,
         };
 
-        await using var writer = TraceWriter.Create(mDirectory.FullName, options);
+        var writer = TraceWriter.Create(mDirectory.FullName, options);
 
         writer.Write(new Activity("foo"));
         writer.Write(new Activity("bar"));

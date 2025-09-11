@@ -30,7 +30,16 @@ public class ReferenceTimeSerializerTests
     [Test]
     public void SetReferencePointInTime()
     {
-        var now = new DateTimeOffset(2022, 10, 01, 20, 06, 53, 123, TimeSpan.FromHours(4));
+        var now = new DateTimeOffset(
+            2022,
+            10,
+            01,
+            20,
+            06,
+            53,
+            123,
+            TimeSpan.FromHours(4)
+        );
 
         mSerializer.SetReferencePointInTime(now, mRecords);
 
@@ -50,7 +59,16 @@ public class ReferenceTimeSerializerTests
     [Test]
     public void GetRelativeTimeDelta_With_DateTimeOffset()
     {
-        var now = new DateTimeOffset(2022, 10, 01, 20, 06, 53, 123, TimeSpan.FromHours(4));
+        var now = new DateTimeOffset(
+            2022,
+            10,
+            01,
+            20,
+            06,
+            53,
+            123,
+            TimeSpan.FromHours(4)
+        );
 
         mSerializer.SetReferencePointInTime(now, mRecords);
 
@@ -62,7 +80,16 @@ public class ReferenceTimeSerializerTests
     [Test]
     public void GetRelativeTimeDelta_With_UtcDateTime()
     {
-        var now = new DateTimeOffset(2022, 10, 01, 20, 06, 53, 123, TimeSpan.FromHours(4));
+        var now = new DateTimeOffset(
+            2022,
+            10,
+            01,
+            20,
+            06,
+            53,
+            123,
+            TimeSpan.FromHours(4)
+        );
 
         mSerializer.SetReferencePointInTime(now, mRecords);
 

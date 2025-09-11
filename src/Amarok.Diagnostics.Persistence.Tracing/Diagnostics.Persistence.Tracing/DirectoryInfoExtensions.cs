@@ -16,21 +16,23 @@ public static class DirectoryInfoExtensions
     /// </summary>
     /// 
     /// <param name="directoryInfo">
-    ///     The directory from which to return trace log files. If the directory doesn't exist, an empty list is
-    ///     returned.
+    ///     The directory from which to return trace log files. If the directory doesn't exist, an empty
+    ///     list is returned.
     /// </param>
     /// 
     /// <returns>
-    ///     An ordered list of trace log files, where each list element consists of the file ordinal and file info
-    ///     object. The returned list is ordered ascending by file ordinals. If the given directory doesn't exist or
-    ///     doesn't contain any trace log file, then an empty list is returned.
+    ///     An ordered list of trace log files, where each list element consists of the file ordinal and
+    ///     file info object. The returned list is ordered ascending by file ordinals. If the given
+    ///     directory doesn't exist or doesn't contain any trace log file, then an empty list is returned.
     /// </returns>
     public static IList<(Int32 Ordinal, FileInfo FileInfo)> GetTraceFiles(this DirectoryInfo directoryInfo)
     {
         directoryInfo.Refresh();
 
         if (!directoryInfo.Exists)
+        {
             return Array.Empty<(Int32, FileInfo)>();
+        }
 
 
         return directoryInfo.GetFiles("*.adtx", SearchOption.TopDirectoryOnly)
@@ -47,7 +49,9 @@ public static class DirectoryInfoExtensions
             var ordinal  = parseOrdinal(fileName);
 
             if (ordinal == null)
+            {
                 return (-1, null);
+            }
 
             return (ordinal.Value, fileInfo);
         }
@@ -55,7 +59,9 @@ public static class DirectoryInfoExtensions
         static Int32? parseOrdinal(String fileName)
         {
             if (Int32.TryParse(fileName, NumberStyles.Integer, CultureInfo.InvariantCulture, out var ordinal))
+            {
                 return ordinal;
+            }
 
             return null;
         }

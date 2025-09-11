@@ -12,7 +12,15 @@ public class SessionInfoTests
     {
         var uuid = new Guid("459bb329-1bfd-4e2c-9a66-4e0a7bc0613f");
 
-        var startTime = new DateTimeOffset(2022, 11, 04, 11, 22, 33, TimeSpan.Zero);
+        var startTime = new DateTimeOffset(
+            2022,
+            11,
+            04,
+            11,
+            22,
+            33,
+            TimeSpan.Zero
+        );
 
         var info = new SessionInfo(uuid, startTime);
 

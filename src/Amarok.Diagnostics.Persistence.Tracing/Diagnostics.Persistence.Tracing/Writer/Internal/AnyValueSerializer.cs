@@ -204,9 +204,13 @@ internal sealed class AnyValueSerializer
         var stringValue = value.ToString();
 
         if (stringValue is null)
+        {
             any.Null = false;
+        }
         else
+        {
             _SerializeString(any, stringValue);
+        }
     }
 
     private static void _SerializeDateOnly(AnyValue any, DateOnly value)

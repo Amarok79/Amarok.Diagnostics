@@ -186,15 +186,25 @@ internal abstract class ObjectsPool
                     mActivityPool.Return(record.Activity);
                 }
                 else if (record.DefineSource != null)
+                {
                     mDefineSourcePool.Return(record.DefineSource);
+                }
                 else if (record.DefineOperation != null)
+                {
                     mDefineOperationPool.Return(record.DefineOperation);
+                }
                 else if (record.DefineTraceId != null)
+                {
                     mDefineTraceIdPool.Return(record.DefineTraceId);
+                }
                 else if (record.DefineParentSpanId != null)
+                {
                     mDefineParentSpanIdPool.Return(record.DefineParentSpanId);
+                }
                 else if (record.DefineTag != null)
+                {
                     mDefineTagPool.Return(record.DefineTag);
+                }
 
                 mRecordPool.Return(record);
             }

@@ -106,7 +106,9 @@ internal sealed class ConvertCommand : Command
             );
         }
         else
+        {
             AnsiConsole.MarkupLine("[red]ERROR:[/] The given input file or directory does not exist.");
+        }
     }
 
 
@@ -127,8 +129,12 @@ internal sealed class ConvertCommand : Command
     private static void _ExecuteCore(ITraceReader reader, String outDir, OutputFormat format, Boolean includeIds)
     {
         if (format == OutputFormat.PerfettoJson)
+        {
             new PerfettoJsonConverter().Run(reader, outDir);
+        }
         else if (format == OutputFormat.PerfettoProtobuf)
+        {
             new PerfettoProtobufConverter().Run(reader, outDir, includeIds);
+        }
     }
 }

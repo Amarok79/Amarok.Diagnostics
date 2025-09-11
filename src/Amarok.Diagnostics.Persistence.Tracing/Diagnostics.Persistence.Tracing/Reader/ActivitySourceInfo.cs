@@ -8,8 +8,8 @@ namespace Amarok.Diagnostics.Persistence.Tracing.Reader;
 /// </summary>
 /// 
 /// <remarks>
-///     Every activity is associated with a single activity source, which is used primarily for categorizing all
-///     the activities of an instrumented application based on their origin.
+///     Every activity is associated with a single activity source, which is used primarily for
+///     categorizing all the activities of an instrumented application based on their origin.
 /// </remarks>
 /// 
 /// <param name="Name">

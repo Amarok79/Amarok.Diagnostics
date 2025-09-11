@@ -30,12 +30,16 @@ public class ZipArchiveExtensionsTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
+        {
             mDirectory.Delete(true);
+        }
 
         mArchive.Refresh();
 
         if (mArchive.Exists)
+        {
             mArchive.Delete();
+        }
     }
 
 
@@ -58,7 +62,9 @@ public class ZipArchiveExtensionsTests
         mArchive.Refresh();
 
         if (mArchive.Exists)
+        {
             mArchive.Delete();
+        }
 
         ZipFile.CreateFromDirectory(mDirectory.FullName, mArchive.FullName, CompressionLevel.Fastest, false);
 

@@ -350,7 +350,16 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_DateTime_Unspecified()
     {
-        Object value = new DateTime(2022, 10, 04, 15, 18, 23, 123, DateTimeKind.Unspecified);
+        Object value = new DateTime(
+            2022,
+            10,
+            04,
+            15,
+            18,
+            23,
+            123,
+            DateTimeKind.Unspecified
+        );
 
         mSerializer.Serialize(mAny, value);
 
@@ -362,7 +371,16 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_DateTime_Local()
     {
-        Object value = new DateTime(2022, 10, 04, 15, 18, 23, 123, DateTimeKind.Local);
+        Object value = new DateTime(
+            2022,
+            10,
+            04,
+            15,
+            18,
+            23,
+            123,
+            DateTimeKind.Local
+        );
 
         mSerializer.Serialize(mAny, value);
 
@@ -374,7 +392,16 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_DateTime_Utc()
     {
-        Object value = new DateTime(2022, 10, 04, 15, 18, 23, 123, DateTimeKind.Utc);
+        Object value = new DateTime(
+            2022,
+            10,
+            04,
+            15,
+            18,
+            23,
+            123,
+            DateTimeKind.Utc
+        );
 
         mSerializer.Serialize(mAny, value);
 
@@ -386,7 +413,16 @@ public class AnyValueSerializerTests
     [Test]
     public void Serialize_DateTimeOffset()
     {
-        Object value = new DateTimeOffset(2022, 10, 04, 15, 18, 23, 123, new TimeSpan(6, 0, 0));
+        Object value = new DateTimeOffset(
+            2022,
+            10,
+            04,
+            15,
+            18,
+            23,
+            123,
+            new TimeSpan(6, 0, 0)
+        );
 
         mSerializer.Serialize(mAny, value);
 

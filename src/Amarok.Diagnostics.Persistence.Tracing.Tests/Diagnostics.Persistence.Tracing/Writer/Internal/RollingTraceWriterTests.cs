@@ -29,7 +29,15 @@ public class RollingTraceWriterTests
 
         mSessionUuid = new Guid("0C6122357E6344E7915E97D478022F07");
 
-        mSessionStartTime = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.FromHours(2));
+        mSessionStartTime = new DateTimeOffset(
+            2022,
+            10,
+            31,
+            11,
+            22,
+            33,
+            TimeSpan.FromHours(2)
+        );
 
         mWriter = new RollingTraceWriter(
             mDirectory,
@@ -59,7 +67,9 @@ public class RollingTraceWriterTests
         mDirectory.Refresh();
 
         if (mDirectory.Exists)
+        {
             mDirectory.Delete(true);
+        }
     }
 
 
@@ -138,13 +148,53 @@ public class RollingTraceWriterTests
 
         var bytes = _ReadTraceFile(1);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
@@ -176,13 +226,53 @@ public class RollingTraceWriterTests
         var       entry = zip.GetEntry("1.adtx");
         var       bytes = _ReadEntry(entry!);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
@@ -210,13 +300,53 @@ public class RollingTraceWriterTests
 
         var bytes = _ReadTraceFile(1);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
@@ -250,13 +380,53 @@ public class RollingTraceWriterTests
         var       entry = zip.GetEntry("1.adtx");
         var       bytes = _ReadEntry(entry!);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
@@ -302,25 +472,105 @@ public class RollingTraceWriterTests
 
         var bytes = _ReadTraceFile(1);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         bytes = _ReadTraceFile(2);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
     }
@@ -368,26 +618,106 @@ public class RollingTraceWriterTests
         var       entry = zip.GetEntry("1.adtx");
         var       bytes = _ReadEntry(entry!);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 
         entry = zip.GetEntry("2.adtx");
         bytes = _ReadEntry(entry!);
 
-        Check.That(bytes[..8]).ContainsExactly(0x61, 0x64, 0x74, 0x78, 0x00, 0x01, 0x00, 0x0F);
+        Check.That(bytes[..8])
+        .ContainsExactly(
+            0x61,
+            0x64,
+            0x74,
+            0x78,
+            0x00,
+            0x01,
+            0x00,
+            0x0F
+        );
 
-        Check.That(bytes[8..16]).ContainsExactly(0x35, 0x22, 0x61, 0x0C, 0x63, 0x7E, 0xE7, 0x44);
+        Check.That(bytes[8..16])
+        .ContainsExactly(
+            0x35,
+            0x22,
+            0x61,
+            0x0C,
+            0x63,
+            0x7E,
+            0xE7,
+            0x44
+        );
 
-        Check.That(bytes[16..24]).ContainsExactly(0x91, 0x5E, 0x97, 0xD4, 0x78, 0x02, 0x2F, 0x07);
+        Check.That(bytes[16..24])
+        .ContainsExactly(
+            0x91,
+            0x5E,
+            0x97,
+            0xD4,
+            0x78,
+            0x02,
+            0x2F,
+            0x07
+        );
 
-        Check.That(bytes[24..32]).ContainsExactly(0x80, 0x62, 0x81, 0x34, 0x32, 0xBB, 0xDA, 0x08);
+        Check.That(bytes[24..32])
+        .ContainsExactly(
+            0x80,
+            0x62,
+            0x81,
+            0x34,
+            0x32,
+            0xBB,
+            0xDA,
+            0x08
+        );
 
         Check.That(bytes[32..34]).ContainsExactly(0x78, 0x00);
 

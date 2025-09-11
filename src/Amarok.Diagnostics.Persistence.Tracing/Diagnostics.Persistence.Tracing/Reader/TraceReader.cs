@@ -23,8 +23,8 @@ public static class TraceReader
     /// </param>
     /// 
     /// <returns>
-    ///     An object capable of reading a stream of activities. Don't forget to dispose the returned reader
-    ///     instance; otherwise the supplied stream will stay open.
+    ///     An object capable of reading a stream of activities. Don't forget to dispose the returned
+    ///     reader instance; otherwise the supplied stream will stay open.
     /// </returns>
     public static ITraceReader OpenStream(Stream stream, ITraceReaderHooks? hooks = null)
     {
@@ -43,8 +43,8 @@ public static class TraceReader
     /// </param>
     /// 
     /// <returns>
-    ///     An object capable of reading a stream of activities. Don't forget to dispose the returned reader
-    ///     instance; otherwise the trace log file will stay open.
+    ///     An object capable of reading a stream of activities. Don't forget to dispose the returned
+    ///     reader instance; otherwise the trace log file will stay open.
     /// </returns>
     public static ITraceReader OpenFile(String filePath, ITraceReaderHooks? hooks = null)
     {
@@ -72,9 +72,9 @@ public static class TraceReader
     /// </param>
     /// 
     /// <returns>
-    ///     An object capable of reading a stream of activities from the trace log files located in the specified
-    ///     source folder. Don't forget to dispose the returned reader instance; otherwise some trace log files will
-    ///     stay open.
+    ///     An object capable of reading a stream of activities from the trace log files located in the
+    ///     specified source folder. Don't forget to dispose the returned reader instance; otherwise some
+    ///     trace log files will stay open.
     /// </returns>
     public static ITraceReader OpenFolder(String directoryPath, ITraceReaderHooks? hooks = null)
     {
@@ -93,8 +93,8 @@ public static class TraceReader
     /// </param>
     /// 
     /// <returns>
-    ///     An object capable of reading a stream of activities from the Zip archive. Don't forget to dispose the
-    ///     returned reader instance; otherwise the Zip archive will stay open.
+    ///     An object capable of reading a stream of activities from the Zip archive. Don't forget to
+    ///     dispose the returned reader instance; otherwise the Zip archive will stay open.
     /// </returns>
     public static ITraceReader OpenZipArchive(String filePath, ITraceReaderHooks? hooks = null)
     {

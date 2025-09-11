@@ -12,10 +12,6 @@
 
     <ItemGroup>
         <PackageReference Include="Spectre.Console" Version="0.51.1" />
-        <PackageReference Include="Spectre.Console.Analyzer" Version="1.0.0">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
         <PackageReference Include="Google.Protobuf" Version="3.32.0" />
         <PackageReference Include="Grpc.Tools" Version="2.72.0">

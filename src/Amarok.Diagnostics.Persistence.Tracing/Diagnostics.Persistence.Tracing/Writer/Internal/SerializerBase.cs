@@ -39,7 +39,9 @@ internal abstract class SerializerBase<T>
     public Int32 Serialize(T value, TraceRecords records)
     {
         if (mItems.TryGetValue(value, out var id))
+        {
             return id;
+        }
 
         return _SerializeSlow(value, records);
     }
@@ -63,7 +65,9 @@ internal abstract class SerializerBase<T>
     private Int32 _GetAndAdvanceId(TraceRecords records)
     {
         if (mItems.Count >= mMaxNumberOfItems)
+        {
             _ResetDueToOverrun(records);
+        }
 
         return mNextId++;
     }

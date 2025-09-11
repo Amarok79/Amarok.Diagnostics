@@ -28,7 +28,15 @@ public class TraceWriterOptionsTests
     {
         var guid = new Guid("94c8c239-d282-4002-a569-cfe2f811b336");
 
-        var time = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.Zero);
+        var time = new DateTimeOffset(
+            2022,
+            10,
+            31,
+            11,
+            22,
+            33,
+            TimeSpan.Zero
+        );
 
         var options = new TraceWriterOptions {
             SessionUuid                 = guid,
@@ -61,7 +69,15 @@ public class TraceWriterOptionsTests
     {
         var guid = new Guid("94c8c239-d282-4002-a569-cfe2f811b336");
 
-        var time = new DateTimeOffset(2022, 10, 31, 11, 22, 33, TimeSpan.Zero);
+        var time = new DateTimeOffset(
+            2022,
+            10,
+            31,
+            11,
+            22,
+            33,
+            TimeSpan.Zero
+        );
 
         var inner = new TraceWriterOptions {
             SessionUuid                 = guid,

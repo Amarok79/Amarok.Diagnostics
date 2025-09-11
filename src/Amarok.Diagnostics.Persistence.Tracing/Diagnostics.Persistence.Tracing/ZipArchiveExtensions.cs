@@ -21,9 +21,9 @@ public static class ZipArchiveExtensions
     /// </param>
     /// 
     /// <returns>
-    ///     An ordered list of trace log files, where each list element consists of the file ordinal and archive
-    ///     entry object. The returned list is ordered ascending by file ordinals. If the given archive doesn't
-    ///     contain any trace log file, then an empty list is returned.
+    ///     An ordered list of trace log files, where each list element consists of the file ordinal and
+    ///     archive entry object. The returned list is ordered ascending by file ordinals. If the given
+    ///     archive doesn't contain any trace log file, then an empty list is returned.
     /// </returns>
     public static IList<(Int32 Ordinal, ZipArchiveEntry Entry)> GetTraceFiles(this ZipArchive zipArchive)
     {
@@ -53,7 +53,9 @@ public static class ZipArchiveExtensions
             var ordinal  = parseOrdinal(fileName);
 
             if (ordinal == null)
+            {
                 return (-1, null);
+            }
 
             return (ordinal.Value, entry);
         }
@@ -61,7 +63,9 @@ public static class ZipArchiveExtensions
         static Int32? parseOrdinal(String fileName)
         {
             if (Int32.TryParse(fileName, NumberStyles.Integer, CultureInfo.InvariantCulture, out var ordinal))
+            {
                 return ordinal;
+            }
 
             return null;
         }

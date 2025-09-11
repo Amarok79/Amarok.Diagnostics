@@ -12,8 +12,8 @@ namespace Amarok.Diagnostics.Persistence.OpenTelementry.Exporter;
 public sealed class AdtxTraceExporterOptions
 {
     /// <summary>
-    ///     The directory used for storing rolling trace log files (.adtx). The directory gets created if it doesn't
-    ///     exist.
+    ///     The directory used for storing rolling trace log files (.adtx). The directory gets created if
+    ///     it doesn't exist.
     /// </summary>
     public DirectoryInfo Directory { get; }
 
@@ -28,8 +28,8 @@ public sealed class AdtxTraceExporterOptions
     /// </summary>
     /// 
     /// <param name="directoryPath">
-    ///     The path to the directory used for storing rolling trace log files (.adtx). The directory gets created if
-    ///     it doesn't exist.
+    ///     The path to the directory used for storing rolling trace log files (.adtx). The directory gets
+    ///     created if it doesn't exist.
     /// </param>
     public AdtxTraceExporterOptions(String directoryPath)
     {
@@ -41,8 +41,8 @@ public sealed class AdtxTraceExporterOptions
     /// </summary>
     /// 
     /// <param name="directory">
-    ///     The directory used for storing rolling trace log files (.adtx). The directory gets created if it doesn't
-    ///     exist.
+    ///     The directory used for storing rolling trace log files (.adtx). The directory gets created if
+    ///     it doesn't exist.
     /// </param>
     public AdtxTraceExporterOptions(DirectoryInfo directory)
     {

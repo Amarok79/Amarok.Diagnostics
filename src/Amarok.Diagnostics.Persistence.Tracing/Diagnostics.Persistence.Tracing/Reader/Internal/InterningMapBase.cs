@@ -24,12 +24,18 @@ internal abstract class InterningMapBase<T>
     public void Define(Int32 id, T item)
     {
         if (id >= mArray.Length)
+        {
             _ResizeTo(id);
+        }
 
         if (mArray[id] == null)
+        {
             mArray[id] = item;
+        }
         else
+        {
             _ThrowAlreadyDefinedException(id);
+        }
     }
 
     private void _ResizeTo(Int32 id)
@@ -52,7 +58,9 @@ internal abstract class InterningMapBase<T>
             var item = mArray[id];
 
             if (item != null)
+            {
                 return item;
+            }
         }
 
         throw _MakeNotDefinedException(id);

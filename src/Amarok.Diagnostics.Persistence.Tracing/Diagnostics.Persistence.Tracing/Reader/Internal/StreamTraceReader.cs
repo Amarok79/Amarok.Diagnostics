@@ -38,7 +38,13 @@ internal sealed class StreamTraceReader : ITraceReader
 
     public IEnumerable<ActivityInfo> Read()
     {
-        _ReadFileHeader(mStream, out var version, out var isCompressed, out var isFinished, out var session);
+        _ReadFileHeader(
+            mStream,
+            out var version,
+            out var isCompressed,
+            out var isFinished,
+            out var session
+        );
 
         mHooks?.OnReadFileHeader(version, isCompressed, isFinished, session);
 
@@ -54,7 +60,9 @@ internal sealed class StreamTraceReader : ITraceReader
             var frameLen = _ReadContentFrame(reader, ref buffer);
 
             if (frameLen == -1)
+            {
                 break; // expected end of file
+            }
 
             mHooks?.OnBeginReadFrame(buffer, frameLen);
 
@@ -97,17 +105,23 @@ internal sealed class StreamTraceReader : ITraceReader
         // records              =  <protobuf-encoded> ;
 
         if (!_ReadContentFramePreamble(reader))
+        {
             return -1; // expected end of file
+        }
 
         var frameLen = reader.Read7BitEncodedInt();
 
         if (frameLen > buffer.Length)
+        {
             buffer = resizeBuffer(frameLen);
+        }
 
         var bytesRead = readExact(reader, buffer, frameLen);
 
         if (bytesRead != frameLen)
+        {
             throwUnableToRead(frameLen);
+        }
 
         return frameLen;
 
@@ -123,7 +137,9 @@ internal sealed class StreamTraceReader : ITraceReader
                 totalBytesRead += bytesRead;
 
                 if (totalBytesRead == length || bytesRead == 0)
+                {
                     return totalBytesRead;
+                }
             }
         }
 
@@ -147,10 +163,14 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = reader.Read(bytes);
 
         if (bytesRead < size)
+        {
             return false; // expected end of file
+        }
 
         if (bytes[0] != 0xAA)
+        {
             throwUnexpected();
+        }
 
         return true;
 
@@ -174,7 +194,9 @@ internal sealed class StreamTraceReader : ITraceReader
         _ReadFileVersion(stream, out version);
 
         if (version != 0x01)
+        {
             throwUnsupported(version);
+        }
 
         _ReadFileFlags(stream, out isCompressed, out isFinished);
 
@@ -204,7 +226,9 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
+        {
             throwUnableToRead();
+        }
 
         sessionUuid = new Guid(bytes[..16]);
 
@@ -234,13 +258,19 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
+        {
             throwUnableToRead();
+        }
 
         if (bytes[0] != 0x00)
+        {
             throwUnexpected();
+        }
 
         if (bytes[1] is not 0x0A and not 0x0F and not 0xCF)
+        {
             throwUnexpected();
+        }
 
         var flags = bytes[1];
 
@@ -270,10 +300,14 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
+        {
             throwUnableToRead();
+        }
 
         if (bytes[0] != 0x00)
+        {
             throwUnexpected();
+        }
 
         version = bytes[1];
 
@@ -300,10 +334,14 @@ internal sealed class StreamTraceReader : ITraceReader
         var bytesRead = stream.Read(bytes);
 
         if (bytesRead < size)
+        {
             throwUnableToRead();
+        }
 
         if (bytes[0] != 0x61 || bytes[1] != 0x64 || bytes[2] != 0x74 || bytes[3] != 0x78)
+        {
             throwUnexpected();
+        }
 
 
         static void throwUnableToRead()
@@ -441,7 +479,16 @@ internal sealed class StreamTraceReader : ITraceReader
         var duration     = TimeSpan.FromTicks(activity.DurationTicks);
         var tags         = _ProcessActivityTags(activity);
 
-        return new ActivityInfo(session, source, operation, traceId, parentSpanId, spanId, startTime, duration) {
+        return new ActivityInfo(
+            session,
+            source,
+            operation,
+            traceId,
+            parentSpanId,
+            spanId,
+            startTime,
+            duration
+        ) {
             Tags = tags,
         };
     }
@@ -449,7 +496,9 @@ internal sealed class StreamTraceReader : ITraceReader
     private IReadOnlyList<KeyValuePair<String, Object?>> _ProcessActivityTags(TraceActivity activity)
     {
         if (activity.Tags.Count == 0)
-            return Array.Empty<KeyValuePair<String, Object?>>();
+        {
+            return [ ];
+        }
 
         var items = new KeyValuePair<String, Object?>[activity.Tags.Count];
 
