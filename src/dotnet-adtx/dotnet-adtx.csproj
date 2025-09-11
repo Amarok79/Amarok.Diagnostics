@@ -3,12 +3,25 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
-        <Description>.NET CLI tools for Amarok.Diagnostics.Persistence.Tracing</Description>
         <OutputType>Exe</OutputType>
         <PackAsTool>True</PackAsTool>
         <ToolCommandName>dotnet-adtx</ToolCommandName>
         <SignAssembly>False</SignAssembly>
+        <ImplicitUsings>Enable</ImplicitUsings>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <Description>.NET CLI tools for Amarok.Diagnostics.Persistence.Tracing</Description>
+        <PackageIcon>amarok.png</PackageIcon>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/Amarok79/Amarok.Events</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Amarok79/Amarok.Events</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\amarok.snk" Link="amarok.snk" />
+        <None Include="..\amarok.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Spectre.Console" Version="0.51.1" />

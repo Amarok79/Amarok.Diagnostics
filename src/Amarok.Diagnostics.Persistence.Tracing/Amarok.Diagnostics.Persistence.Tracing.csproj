@@ -2,8 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Description>Binary, rolling-file persistence for System.Diagnostics.Activity.</Description>
+        <ImplicitUsings>Enable</ImplicitUsings>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <Description>Binary, rolling-file persistence for System.Diagnostics.Activity.</Description>
+        <PackageIcon>amarok.png</PackageIcon>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/Amarok79/Amarok.Events</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Amarok79/Amarok.Events</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\amarok.snk" Link="amarok.snk" />
+        <None Include="..\amarok.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Grpc.Tools" Version="2.72.0">
@@ -21,10 +34,6 @@
 
     <ItemGroup>
         <Protobuf Include="protos\*.proto" GrpcServices="Client" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <InternalsVisibleTo Include="$(TargetName).Tests" />
     </ItemGroup>
 
 </Project>

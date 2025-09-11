@@ -5,40 +5,36 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <RootNamespace>Amarok</RootNamespace>
+        <LangVersion>Latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <Authors>Olaf Kober</Authors>
         <Copyright>Copyright (c) 2024, Olaf Kober</Copyright>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-        <PackageProjectUrl>https://github.com/Amarok79/Amarok.Diagnostics</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Amarok79/Amarok.Diagnostics</RepositoryUrl>
-        <PackageIcon>amarok.png</PackageIcon>
-        <PublishRepositoryUrl>True</PublishRepositoryUrl>
-        <EmbedUntrackedSources>True</EmbedUntrackedSources>
-        <IncludeSymbols>True</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <PackageOutputPath>..\..\out\</PackageOutputPath>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="..\amarok.png" Pack="True" PackagePath="\" />
-    </ItemGroup>
-
-    <PropertyGroup>
-        <UseArtifactsOutput>True</UseArtifactsOutput>
-        <ArtifactsPath>..\..\bin</ArtifactsPath>
     </PropertyGroup>
 
     <PropertyGroup>
-        <ImplicitUsings>Enable</ImplicitUsings>
+        <RootDir>$([MSBuild]::NormalizeDirectory($(MSBuildThisFileDirectory)))</RootDir>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <OutputPath>$(RootDir)bin\lib\$(MSBuildProjectName)</OutputPath>
+        <PackageOutputPath>$(RootDir)out</PackageOutputPath>
         <Nullable>Enable</Nullable>
-        <RootNamespace>Amarok</RootNamespace>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <IsPackable>True</IsPackable>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-        <Deterministic>True</Deterministic>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\amarok.snk</AssemblyOriginatorKeyFile>
+        <PublishRepositoryUrl>True</PublishRepositoryUrl>
+        <EmbedUntrackedSources>True</EmbedUntrackedSources>
+        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+        <OutputPath>$(RootDir)bin\tests\$(MSBuildProjectName)</OutputPath>
         <Nullable>Enable</Nullable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <IsPackable>False</IsPackable>
@@ -46,6 +42,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Benchmarks'))">
+        <OutputPath>$(RootDir)bin\benchmarks\$(MSBuildProjectName)</OutputPath>
         <Nullable>Disable</Nullable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <IsPackable>False</IsPackable>
@@ -53,6 +50,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.DebugApp'))">
+        <OutputPath>$(RootDir)bin\debugapp\$(MSBuildProjectName)</OutputPath>
         <Nullable>Enable</Nullable>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <IsPackable>False</IsPackable>

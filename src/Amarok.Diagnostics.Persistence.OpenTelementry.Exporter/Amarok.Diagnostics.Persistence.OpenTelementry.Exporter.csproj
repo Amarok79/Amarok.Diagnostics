@@ -2,8 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Description>An OpenTelemetry exporter for persisting Traces into binary, rolling files.</Description>
+        <ImplicitUsings>Enable</ImplicitUsings>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <Description>An OpenTelemetry exporter for persisting Traces into binary, rolling files.</Description>
+        <PackageIcon>amarok.png</PackageIcon>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/Amarok79/Amarok.Events</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Amarok79/Amarok.Events</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\amarok.snk" Link="amarok.snk" />
+        <None Include="..\amarok.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
@@ -12,10 +25,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Amarok.Diagnostics.Persistence.Tracing\Amarok.Diagnostics.Persistence.Tracing.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <InternalsVisibleTo Include="$(TargetName).Tests" />
     </ItemGroup>
 
 </Project>
