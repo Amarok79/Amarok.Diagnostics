@@ -12,8 +12,8 @@ public static class Program
     {
         var command = new RootCommand(".NET CLI tools for Amarok.Diagnostics.Persistence.Tracing");
 
-        command.AddCommand(new ConvertCommand());
+        command.Subcommands.Add(new ConvertCommand());
 
-        return command.Invoke(args);
+        return command.Parse(args).Invoke();
     }
 }

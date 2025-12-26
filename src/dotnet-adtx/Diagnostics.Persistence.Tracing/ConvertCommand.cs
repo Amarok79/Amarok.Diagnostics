@@ -20,48 +20,41 @@ internal sealed class ConvertCommand : Command
     public ConvertCommand()
         : base("convert", "Converts traces log files (.adtx) to another format.")
     {
-        var inArgument = new Argument<FileSystemInfo>(
-            "in",
-            "Path to the input traces log file (.adtx), to a Zip archive containing traces log files, " +
-            "or to a directory containing traces log files."
-        ) {
+        var inArgument = new Argument<FileSystemInfo>("in") {
+            Description = "Path to the input traces log file (.adtx), to a Zip archive containing traces log files, " +
+                          "or to a directory containing traces log files.",
             Arity = ArgumentArity.ExactlyOne,
         };
 
-        var outArgument = new Argument<DirectoryInfo?>(
-            "out",
-            "Path to the output directory receiving the converted traces files. Defaults to the input directory."
-        ) {
+        var outArgument = new Argument<DirectoryInfo?>("out") {
+            Description =
+                "Path to the output directory receiving the converted traces files. Defaults to the input directory.",
             Arity = ArgumentArity.ZeroOrOne,
         };
 
-        var formatOption = new Option<OutputFormat>(
-            "--format",
-            () => OutputFormat.PerfettoProtobuf,
-            "The output format."
-        ) {
-            Arity = ArgumentArity.ZeroOrOne,
+        var formatOption = new Option<OutputFormat>("--format") {
+            DefaultValueFactory = _ => OutputFormat.PerfettoProtobuf,
+            Description         = "The output format. Defaults to 'PerfettoProtobuf'.",
+            Arity               = ArgumentArity.ZeroOrOne,
         };
 
-        var includeIdsOptions = new Option<Boolean>(
-            "--include-ids",
-            () => false,
-            "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format."
-        ) {
-            Arity = ArgumentArity.ZeroOrOne,
+        var includeIdsOptions = new Option<Boolean>("--include-ids") {
+            DefaultValueFactory = _ => false,
+            Description         = "If specified, includes trace and span ids. Valid only for Perfetto Protobuf format.",
+            Arity               = ArgumentArity.ZeroOrOne,
         };
 
-        AddArgument(inArgument);
-        AddArgument(outArgument);
-        AddOption(formatOption);
-        AddOption(includeIdsOptions);
+        Arguments.Add(inArgument);
+        Arguments.Add(outArgument);
+        Options.Add(formatOption);
+        Options.Add(includeIdsOptions);
 
-        this.SetHandler(
-            ctx => _Execute(
-                ctx.ParseResult.GetValueForArgument(inArgument),
-                ctx.ParseResult.GetValueForArgument(outArgument),
-                ctx.ParseResult.GetValueForOption(formatOption),
-                ctx.ParseResult.GetValueForOption(includeIdsOptions)
+        SetAction(
+            x => _Execute(
+                x.GetRequiredValue(inArgument),
+                x.GetValue(outArgument),
+                x.GetRequiredValue(formatOption),
+                x.GetRequiredValue(includeIdsOptions)
             )
         );
     }
