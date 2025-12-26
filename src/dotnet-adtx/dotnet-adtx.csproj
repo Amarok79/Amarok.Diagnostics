@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <OutputType>Exe</OutputType>
         <PackAsTool>True</PackAsTool>
@@ -24,10 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Spectre.Console" Version="0.51.1" />
+        <PackageReference Include="Spectre.Console" Version="0.54.0" />
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-        <PackageReference Include="Google.Protobuf" Version="3.32.0" />
-        <PackageReference Include="Grpc.Tools" Version="2.72.0">
+        <PackageReference Include="Google.Protobuf" Version="3.33.2" />
+        <PackageReference Include="Grpc.Tools" Version="2.76.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

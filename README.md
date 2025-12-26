@@ -1,4 +1,4 @@
-[![CI](https://github.com/Amarok79/Amarok.Diagnostics/actions/workflows/main.yml/badge.svg)](https://github.com/Amarok79/Amarok.Diagnostics/actions/workflows/main.yml)
+﻿[![CI](https://github.com/Amarok79/Amarok.Diagnostics/actions/workflows/main.yml/badge.svg)](https://github.com/Amarok79/Amarok.Diagnostics/actions/workflows/main.yml)
 [![NuGet](https://img.shields.io/nuget/v/Amarok.Diagnostics.Persistence.Tracing.svg?logo=)](https://www.nuget.org/packages/Amarok.Diagnostics.Persistence.Tracing/)
 
 Table of contents:
@@ -73,7 +73,7 @@ for persisting traces into a local directory.
 .adtx) into a Google Perfetto-compatible format so that trace logs can be visualized and analyzed
 via https://ui.perfetto.dev/.
 
-In general, packages provide binaries for *.NET 8.0* only.
+In general, packages provide binaries for *.NET 10.0* only.
 
 **NOTE:** A down-port to *.NET 6*, *.NET 7*, or *.NET Standard 2.0* should be easy, but is currently not scope of this
 project.
