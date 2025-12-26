@@ -1,5 +1,4 @@
-﻿[![CI](https://github.com/Amarok79/Amarok.Diagnostics/actions/workflows/main.yml/badge.svg)](https://github.com/Amarok79/Amarok.Diagnostics/actions/workflows/main.yml)
-[![NuGet](https://img.shields.io/nuget/v/Amarok.Diagnostics.Persistence.Tracing.svg?logo=)](https://www.nuget.org/packages/Amarok.Diagnostics.Persistence.Tracing/)
+﻿[![NuGet](https://img.shields.io/nuget/v/Amarok.Diagnostics.Persistence.Tracing.svg?logo=)](https://www.nuget.org/packages/Amarok.Diagnostics.Persistence.Tracing/)
 
 Table of contents:
 
