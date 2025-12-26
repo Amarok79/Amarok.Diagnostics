@@ -263,7 +263,7 @@ internal sealed class RollingFileWriter : IDisposable
 
                     source.Seek(HeaderLength, SeekOrigin.Begin);
 
-                    using (var compressed = new DeflateStream(target, CompressionLevel.Fastest))
+                    using (var compressed = new DeflateStream(target, CompressionLevel.Optimal))
                     {
                         var bytes = ArrayPool<Byte>.Shared.Rent(8192);
 
